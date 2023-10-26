@@ -16,6 +16,7 @@ import {
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
 import { useUser } from "../contexts/UserContext";
+import logo from "../assets/logo.png";
 
 const products = [
   {
@@ -78,15 +79,14 @@ const NavBar = () => {
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1">
+        <div className="flex lg:flex-1 gap-2">
           <Link to="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt=""
-            />
+            <span className="sr-only">ChronoCraft</span>
+            <img className="h-10 w-auto" src={logo} alt="" />
           </Link>
+          <span className="self-center text-[#4f46e5] text-2xl font-semibold whitespace-nowrap dark:text-white">
+            ChronoCraft
+          </span>
         </div>
         <div className="flex lg:hidden">
           <button
