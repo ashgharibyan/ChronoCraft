@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Hero = () => {
+const About = () => {
   return (
-    <div className="relative isolate px-6 pt-14 lg:px-8">
+    <div className="relative isolate px-6 lg:px-8 bg-gray-900">
       <div
         className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
         aria-hidden="true"
@@ -16,29 +16,18 @@ const Hero = () => {
           }}
         />
       </div>
-      <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+      <div className="mx-auto max-w-2xl py-16 sm:py-20 lg:py-30">
         <div className="text-center">
-          <h1 className="text-6xl font-bold tracking-tight text-indigo-600 sm:text-8xl">
-            ChronoCraft
+          <h1 className="text-4xl font-bold tracking-tight text-indigo-100 sm:text-6xl  ">
+            About Us
           </h1>
-          <h3 className="mt-6 text-2xl leading-8 text-gray-600">
-            Mastering Time's Tapestry.
+          <h3 className="mt-6 text-xl leading-8 text-gray-200">
+            Craft your day with precision using ChronoCraft. Weave tasks,
+            events, and moments into a beautifully orchestrated tapestry of
+            productivity. Whether you're a professional, student, or anyone
+            looking to maximize their time, ChronoCraft offers tools tailored
+            for you.
           </h3>
-          <p></p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Link
-              to="/sign-up/"
-              className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              JOIN NOW
-            </Link>
-            <Link
-              to="/#"
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              Learn More <span aria-hidden="true">→</span>
-            </Link>
-          </div>
         </div>
       </div>
       <div
@@ -57,4 +46,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default About;
