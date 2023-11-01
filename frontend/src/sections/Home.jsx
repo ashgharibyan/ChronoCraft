@@ -4,6 +4,7 @@ import Hero from "../components/Home/Hero";
 import About from "../components/Home/About";
 import Features from "../components/Home/Features";
 import Testimonials from "../components/Home/Testimonials";
+import Pricing from "../components/Home/Pricing";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -30,6 +31,9 @@ const Home = () => {
         </section>
         <section id="testimonials">
           <Testimonials />
+        </section>
+        <section id="pricing">
+          <Pricing />
         </section>
       </main>
     </div>
