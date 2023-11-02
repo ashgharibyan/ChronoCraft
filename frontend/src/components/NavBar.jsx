@@ -74,19 +74,21 @@ const NavBar = () => {
   }, []);
 
   return (
-    <header className="bg-white relative z-20">
+    <header className="bg-white fixed z-20 w-full">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1 gap-2">
+        <div className="flex lg:flex-1 gap-2 items-center">
           <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">ChronoCraft</span>
             <img className="h-10 w-auto" src={logo} alt="" />
           </Link>
-          <span className="self-center text-[#4f46e5] text-2xl font-semibold whitespace-nowrap dark:text-white">
-            ChronoCraft
-          </span>
+          <Link to="/" className="">
+            <span className="self-center text-[#4f46e5] text-2xl font-semibold whitespace-nowrap dark:text-white">
+              ChronoCraft
+            </span>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
