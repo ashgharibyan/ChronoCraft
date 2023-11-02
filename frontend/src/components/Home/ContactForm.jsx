@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Switch } from "@headlessui/react";
+import axios from "axios";
+
+function getCookie(name) {
+	let value = "; " + document.cookie;
+	let parts = value.split("; " + name + "=");
+	if (parts.length === 2) return parts.pop().split(";").shift();
+}
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
@@ -19,6 +26,30 @@ const ContactForm = () => {
 	const [contactInfo, setContactInfo] = useState(initialContactInfo);
 	const [contactErrors, setContactErrors] = useState([]);
 
+	const formAxios = () => {
+		const csrfToken = getCookie("csrftoken");
+		axios
+			.post(
+				"http://localhost:8000/api/v1/core/home/contact-form/",
+				contactInfo,
+				{
+					withCredentials: true,
+					headers: {
+						"X-CSRFToken": csrfToken,
+					},
+				}
+			)
+			.then((res) => {
+				console.log("SUCCESS in formAxios");
+				console.log(res.data);
+				setContactInfo(initialContactInfo);
+			})
+			.catch((err) => {
+				console.log("ERROR in formAxios");
+				console.log(err);
+			});
+	};
+
 	const handleFormChange = (e) => {
 		const { name, value } = e.target;
 		setContactErrors([]);
@@ -26,6 +57,7 @@ const ContactForm = () => {
 	};
 
 	const handleSwitchChange = (isChecked) => {
+		setContactErrors([]);
 		setContactInfo((prevState) => ({ ...prevState, agreed: isChecked }));
 	};
 
@@ -62,7 +94,10 @@ const ContactForm = () => {
 			console.log(errors);
 			return;
 		}
-		console.log("SUCCESSSS");
+
+		formAxios();
+
+		console.log("SUCCESSSS after form axios");
 		console.log(contactInfo);
 	};
 
@@ -77,7 +112,16 @@ const ContactForm = () => {
 					product inquiries, and exclusive offers.
 				</p>
 			</div>
-
+			{contactErrors.length > 0
+				? contactErrors.map((error, index) => (
+						<div
+							key={index}
+							className="mt-6 mx-auto max-w-2xl text-center"
+						>
+							<p className="text-red-600">{error}</p>
+						</div>
+				  ))
+				: null}
 			<form
 				action="/#"
 				method="POST"
