@@ -21,7 +21,62 @@ function classNames(...classes) {
 }
 
 const ContactForm = () => {
-  const [agreed, setAgreed] = useState(false);
+  const initialContactInfo = {
+    first_name: "",
+    last_name: "",
+    company: "",
+    email: "",
+    phone_number: "",
+    message: "",
+    agreed: false,
+  };
+  const [contactInfo, setContactInfo] = useState(initialContactInfo);
+  const [contactErrors, setContactErrors] = useState([]);
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setContactErrors([]);
+    setContactInfo((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSwitchChange = (isChecked) => {
+    setContactInfo((prevState) => ({ ...prevState, agreed: isChecked }));
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setContactErrors([]);
+    let errors = [];
+
+    if (contactInfo.first_name === "") {
+      errors.push("First name is required!");
+    }
+    if (contactInfo.last_name === "") {
+      errors.push("Last name is required!");
+    }
+    if (contactInfo.company === "") {
+      errors.push("Company is required!");
+    }
+    if (contactInfo.email === "") {
+      errors.push("Email is required!");
+    }
+    if (contactInfo.phone_number === "") {
+      errors.push("Phone number is required!");
+    }
+    if (contactInfo.message === "") {
+      errors.push("Message is required!");
+    }
+    if (contactInfo.agreed === false) {
+      errors.push("You must agree to the privacy policy!");
+    }
+    if (errors.length > 0) {
+      setContactInfo(initialContactInfo);
+      setContactErrors(errors);
+      return;
+    }
+    console.log("SUCCESSSS");
+    console.log(contactInfo);
+  };
 
   return (
     <div className="isolate bg-gray-900  px-6 py-24 sm:py-32 lg:px-8">
@@ -35,11 +90,16 @@ const ContactForm = () => {
         </p>
       </div>
 
-      <form action="/" className="mx-auto mt-16 max-w-xl sm:mt-20">
+      <form
+        action="/#"
+        method="POST"
+        onSubmit={handleFormSubmit}
+        className="mx-auto mt-16 max-w-xl sm:mt-20"
+      >
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div>
             <label
-              htmlFor="first-name"
+              htmlFor="first_name"
               className="block text-sm font-semibold leading-6 text-gray-50"
             >
               First name
@@ -47,16 +107,18 @@ const ContactForm = () => {
             <div className="mt-2.5">
               <input
                 type="text"
-                name="first-name"
-                id="first-name"
+                name="first_name"
+                id="first_name"
                 autoComplete="given-name"
+                value={contactInfo.first_name}
+                onChange={handleFormChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
           <div>
             <label
-              htmlFor="last-name"
+              htmlFor="last_-name"
               className="block text-sm font-semibold leading-6 text-gray-50"
             >
               Last name
@@ -64,9 +126,11 @@ const ContactForm = () => {
             <div className="mt-2.5">
               <input
                 type="text"
-                name="last-name"
-                id="last-name"
+                name="last_name"
+                id="last_name"
                 autoComplete="family-name"
+                onChange={handleFormChange}
+                value={contactInfo.last_name}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -84,6 +148,8 @@ const ContactForm = () => {
                 name="company"
                 id="company"
                 autoComplete="organization"
+                onChange={handleFormChange}
+                value={contactInfo.company}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -101,13 +167,15 @@ const ContactForm = () => {
                 name="email"
                 id="email"
                 autoComplete="email"
+                onChange={handleFormChange}
+                value={contactInfo.email}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
           <div className="sm:col-span-2">
             <label
-              htmlFor="phone-number"
+              htmlFor="phone_number"
               className="block text-sm font-semibold leading-6 text-gray-50"
             >
               Phone number
@@ -133,9 +201,11 @@ const ContactForm = () => {
               </div>
               <input
                 type="tel"
-                name="phone-number"
-                id="phone-number"
+                name="phone_number"
+                id="phone_number"
                 autoComplete="tel"
+                onChange={handleFormChange}
+                value={contactInfo.phone_number}
                 className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -153,17 +223,18 @@ const ContactForm = () => {
                 id="message"
                 rows={4}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                defaultValue={""}
+                onChange={handleFormChange}
+                value={contactInfo.message}
               />
             </div>
           </div>
           <Switch.Group as="div" className="flex gap-x-4 sm:col-span-2">
             <div className="flex h-6 items-center">
               <Switch
-                checked={agreed}
-                onChange={setAgreed}
+                checked={contactInfo.agreed}
+                onChange={handleSwitchChange}
                 className={classNames(
-                  agreed ? "bg-indigo-600" : "bg-gray-200",
+                  contactInfo.agreed ? "bg-indigo-600" : "bg-gray-200",
                   "flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 )}
               >
@@ -171,7 +242,7 @@ const ContactForm = () => {
                 <span
                   aria-hidden="true"
                   className={classNames(
-                    agreed ? "translate-x-3.5" : "translate-x-0",
+                    contactInfo.agreed ? "translate-x-3.5" : "translate-x-0",
                     "h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/2 transition duration-200 ease-in-out"
                   )}
                 />
