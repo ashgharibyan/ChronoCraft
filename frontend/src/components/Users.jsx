@@ -6,7 +6,7 @@ const Users = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:8000/api/users/", {
+			.get("http://localhost:8000/api/v1/accounts/users/", {
 				withCredentials: true,
 			})
 			.then((res) => {

@@ -49,7 +49,7 @@ const PasswordResetConfirm = () => {
 
 		axios
 			.post(
-				"http://localhost:8000/api/dj-rest-auth/password/reset/confirm/",
+				"http://localhost:8000/api/v1/accounts/dj-rest-auth/password/reset/confirm/",
 				passwordData,
 				{ withCredentials: true }
 			)

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'corsheaders',
     #local
     'accounts.apps.AccountsConfig',
+    'core.apps.CoreConfig',
 ]
 
 SITE_ID = 1

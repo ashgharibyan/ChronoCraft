@@ -58,6 +58,8 @@ const ContactForm = () => {
 		if (errors.length > 0) {
 			setContactInfo(initialContactInfo);
 			setContactErrors(errors);
+			console.log("ERRORS");
+			console.log(errors);
 			return;
 		}
 		console.log("SUCCESSSS");
