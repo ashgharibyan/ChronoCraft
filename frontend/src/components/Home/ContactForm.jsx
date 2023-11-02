@@ -47,6 +47,7 @@ const ContactForm = () => {
 			.catch((err) => {
 				console.log("ERROR in formAxios");
 				console.log(err);
+				console.log(err.response.data);
 			});
 	};
 

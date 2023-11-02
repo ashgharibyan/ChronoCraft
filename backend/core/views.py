@@ -16,19 +16,31 @@ class ContactFormAPIView(APIView):
             email = serializer.validated_data.get('email')
             phone_number = serializer.validated_data.get('phone_number')
             message = serializer.validated_data.get('message')
-            agreed = serializer.validated_data.get('agree')
+            agreed = serializer.validated_data.get('agreed')
 
             print("EMAIL CONTENT!!!")
             print(request.data)
             print("------------------")
-            # Send email
-            send_mail(
-                subject=f"Message from {first_name} {last_name}",
-                message=message,
-                from_email=email,
-                recipient_list=['your-email@example.com'],
-                fail_silently=False,
-            )
+
+            subject = f"Message from {first_name} {last_name}"
+
+            # Construct the email body
+            email_body = f"""
+            New contact form submission:
+
+            First Name: {first_name}
+            Last Name: {last_name}
+            Company: {company}
+            Email: {email}
+            Phone Number: {phone_number}
+            Message: 
+            {message}
+
+            Agreed to terms: {'Yes' if agreed else 'No'}
+            """
+
+            send_mail(subject, email_body, 'chronocraftusa@gmail.com', ['ashghcode@gmail.com', 'agharibyan999@gmail.com'], fail_silently=False)
+
 
             return Response({"success": "Email sent successfully"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

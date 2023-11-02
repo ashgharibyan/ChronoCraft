@@ -3,7 +3,7 @@ __pycache__/
 *.sqlite3
 *.pyc
 *.pyo
-
+.env
 .vscode/
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
