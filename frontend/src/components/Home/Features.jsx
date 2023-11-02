@@ -3,7 +3,7 @@ import React from "react";
 const Features = () => {
   return (
     <div className="flex-wrap py-10 items-center justify-center gap-8 text-center sm:flex">
-      <div className="w-full px-4 py-4 mt-6 bg-white rounded-lg shadow-lg sm:w-1/2 md:w-1/2 lg:w-1/4 dark:bg-gray-800">
+      <div className="w-full px-4 py-4 mt-6 bg-white rounded-lg shadow-lg sm:w-1/2 md:w-1/2 lg:w-1/4">
         <div className="flex-shrink-0">
           <div className="flex items-center justify-center w-12 h-12 mx-auto text-white bg-indigo-500 rounded-md">
             <svg
@@ -19,15 +19,15 @@ const Features = () => {
           </div>
         </div>
 
-        <h3 className="py-4 text-2xl font-semibold text-gray-700 sm:text-xl dark:text-white">
+        <h3 className="py-4 text-2xl font-semibold text-gray-700 sm:text-xl ">
           Timeline Tapestry
         </h3>
-        <p className="py-4 text-gray-500 text-md dark:text-gray-300">
+        <p className="py-4 text-gray-500 text-md ">
           Visualize your tasks and accomplishments as threads in the day's
           fabric.
         </p>
       </div>
-      <div className="w-full px-4 py-4 mt-6 bg-white rounded-lg shadow-lg sm:w-1/2 md:w-1/2 lg:w-1/4 sm:mt-16 md:mt-20 lg:mt-24 dark:bg-gray-800">
+      <div className="w-full px-4 py-4 mt-6 bg-white rounded-lg shadow-lg sm:w-1/2 md:w-1/2 lg:w-1/4 sm:mt-16 md:mt-20 lg:mt-24 ">
         <div className="flex-shrink-0">
           <div className="flex items-center justify-center w-12 h-12 mx-auto text-white bg-indigo-500 rounded-md">
             <svg
@@ -46,14 +46,14 @@ const Features = () => {
             </svg>
           </div>
         </div>
-        <h3 className="py-4 text-2xl font-semibold text-gray-700 sm:text-xl dark:text-white">
+        <h3 className="py-4 text-2xl font-semibold text-gray-700 sm:text-xl ">
           Past Recall
         </h3>
-        <p className="py-4 text-gray-500 text-md dark:text-gray-300">
+        <p className="py-4 text-gray-500 text-md ">
           Reflect on past tasks, learn and plan forward.
         </p>
       </div>
-      <div className="w-full px-4 py-4 mt-6 bg-white rounded-lg shadow-lg sm:w-1/2 md:w-1/2 lg:w-1/4 dark:bg-gray-800">
+      <div className="w-full px-4 py-4 mt-6 bg-white rounded-lg shadow-lg sm:w-1/2 md:w-1/2 lg:w-1/4 ">
         <div className="flex-shrink-0">
           <div className="flex items-center justify-center w-12 h-12 mx-auto text-white bg-indigo-500 rounded-md">
             <svg
@@ -68,10 +68,10 @@ const Features = () => {
             </svg>
           </div>
         </div>
-        <h3 className="py-4 text-2xl font-semibold text-gray-700 sm:text-xl dark:text-white">
+        <h3 className="py-4 text-2xl font-semibold text-gray-700 sm:text-xl ">
           Future Forge
         </h3>
-        <p className="py-4 text-gray-500 text-md dark:text-gray-300">
+        <p className="py-4 text-gray-500 text-md ">
           Shape tomorrow's tasks today, and stay ahead.
         </p>
       </div>
