@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { passwordChangePage } from "../assets/index";
 
 function getCookie(name) {
   let value = "; " + document.cookie;
@@ -130,8 +131,8 @@ const PasswordChange = () => {
     <div className="bg-gray-100 flex justify-center items-center h-screen">
       <div className="w-1/2 h-screen hidden lg:block">
         <img
-          src="https://placehold.co/800x/667fff/ffffff.png?text=Your+Image&font=Montserrat"
-          alt="Placeholder Image"
+          src={passwordChangePage}
+          alt="Password Change Page"
           className="object-cover w-full h-full"
         />
       </div>
