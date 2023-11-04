@@ -11,29 +11,41 @@ import NavBar from "./components/NavBar";
 import NotFound from "./components/NotFound";
 import Footer from "./components/Footer";
 import Products from "./components/Pages/Products";
+import { HomePageProvider } from "./contexts/HomePageContext";
+import { GeneralProvider } from "./contexts/GeneralContext";
 
 function App() {
 	return (
 		<BrowserRouter>
-			<NavBar />
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/products" element={<Products />} />
-				<Route path="/password/reset" element={<PasswordReset />} />
-				<Route
-					path="/password/reset/confirm/:uid/:token"
-					element={<PasswordResetConfirm />}
-				/>
-				<Route path="/password/change" element={<PasswordChange />} />
-				<Route path="/login" element={<LoginPage />} />
-				<Route path="/sign-up" element={<RegisterPage />} />
-				<Route path="/dashboard" element={<Dashboard />} />
-				<Route path="*" element={<NotFound />}>
-					"Not Found"
-				</Route>
-				<Route path="/users" element={<Users />} />
-			</Routes>
-			<Footer />
+			<GeneralProvider>
+				<HomePageProvider>
+					<NavBar />
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/products" element={<Products />} />
+						<Route
+							path="/password/reset"
+							element={<PasswordReset />}
+						/>
+						<Route
+							path="/password/reset/confirm/:uid/:token"
+							element={<PasswordResetConfirm />}
+						/>
+						<Route
+							path="/password/change"
+							element={<PasswordChange />}
+						/>
+						<Route path="/login" element={<LoginPage />} />
+						<Route path="/sign-up" element={<RegisterPage />} />
+						<Route path="/dashboard" element={<Dashboard />} />
+						<Route path="*" element={<NotFound />}>
+							"Not Found"
+						</Route>
+						<Route path="/users" element={<Users />} />
+					</Routes>
+					<Footer />
+				</HomePageProvider>
+			</GeneralProvider>
 		</BrowserRouter>
 	);
 }

@@ -17,6 +17,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { useUser } from "../contexts/UserContext";
 import logo from "../assets/logo.png";
+import { useHomePage } from "../contexts/HomePageContext";
 
 const products = [
 	{
@@ -68,6 +69,9 @@ const NavBar = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const { isLoggedIn, logIn, logOut } = useUser();
 
+	const { aboutRef, featuresRef, pricingRef, contactRef, testimonialsRef } =
+		useHomePage();
+
 	useEffect(() => {
 		const jwtToken = localStorage.getItem("jwtToken");
 
@@ -78,14 +82,22 @@ const NavBar = () => {
 		}
 	}, []);
 
+	const scrollToRef = (ref) => {
+		ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+	};
+	const scrollToRefMobile = (ref) => {
+		setMobileMenuOpen(false);
+		ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+	};
+
 	return (
-		<header className="bg-white fixed z-20 w-full">
+		<header className="bg-white sticky top-0 z-20 w-full">
 			<nav
 				className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
 				aria-label="Global"
 			>
 				<div className="flex lg:flex-1 gap-2 items-center">
-					<Link to="/" className="-m-1.5 p-1.5">
+					<Link on="/" className="-m-1.5 p-1.5">
 						<span className="sr-only">ChronoCraft</span>
 						<img className="h-10 w-auto" src={logo} alt="" />
 					</Link>
@@ -170,27 +182,27 @@ const NavBar = () => {
 							</Popover.Panel>
 						</Transition>
 					</Popover>
-
 					<a
-						href="#"
+						onClick={() => scrollToRef(aboutRef)}
+						className="text-sm font-semibold leading-6 text-gray-900"
+					>
+						About Us
+					</a>
+					<a
+						onClick={() => scrollToRef(testimonialsRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
 						Testimonials
 					</a>
 					<a
-						href="#"
+						onClick={() => scrollToRef(pricingRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
 						Pricing
 					</a>
+
 					<a
-						href="#"
-						className="text-sm font-semibold leading-6 text-gray-900"
-					>
-						About
-					</a>
-					<a
-						href="#"
+						onClick={() => scrollToRef(contactRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
 						Contact Us
@@ -247,7 +259,7 @@ const NavBar = () => {
 									{({ open }) => (
 										<>
 											<Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-												Dropdown
+												Products
 												<ChevronDownIcon
 													className={classNames(
 														open
@@ -277,22 +289,34 @@ const NavBar = () => {
 									)}
 								</Disclosure>
 								<a
-									href="#"
+									onClick={() => scrollToRefMobile(aboutRef)}
 									className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
 								>
-									Menu 2
+									About Us
 								</a>
 								<a
-									href="#"
+									onClick={() =>
+										scrollToRefMobile(testimonialsRef)
+									}
 									className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
 								>
-									Menu 3
+									Testimonials
 								</a>
 								<a
-									href="#"
+									onClick={() =>
+										scrollToRefMobile(pricingRef)
+									}
 									className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
 								>
-									Menu 4
+									Pricing
+								</a>
+								<a
+									onClick={() =>
+										scrollToRefMobile(contactRef)
+									}
+									className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+								>
+									Contact Us
 								</a>
 							</div>
 							<div className="py-6">
