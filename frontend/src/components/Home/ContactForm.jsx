@@ -151,7 +151,7 @@ const ContactForm = () => {
 					</div>
 					<div>
 						<label
-							htmlFor="last_-name"
+							htmlFor="last_name"
 							className="block text-sm font-semibold leading-6 text-gray-50"
 						>
 							Last name
@@ -221,6 +221,7 @@ const ContactForm = () => {
 								<select
 									id="country"
 									name="country"
+									autoComplete="country"
 									className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
 								>
 									<option>US</option>

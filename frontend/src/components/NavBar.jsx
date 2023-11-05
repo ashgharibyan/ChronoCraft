@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import {
+	KeyIcon,
 	ArrowPathIcon,
 	Bars3Icon,
 	ChartPieIcon,
@@ -18,42 +19,50 @@ import {
 import { useUser } from "../contexts/UserContext";
 import logo from "../assets/logo.png";
 import { useHomePage } from "../contexts/HomePageContext";
+import { useGeneral } from "../contexts/GeneralContext";
 
 const products = [
 	{
 		name: "Project Management",
+		itemId: "pm",
 		description:
 			"Plan, manage, and collaborate on any project from one place",
-		href: "/products",
 		icon: ChartPieIcon,
 	},
 	{
 		name: "Task Management",
+		itemId: "tm",
 		description:
 			"Prioritize, assign, and manage tasks from start to finish",
-		href: "/products",
 		icon: CursorArrowRaysIcon,
 	},
 	{
 		name: "Portfolio Management",
+		itemId: "portm",
 		description:
 			"Get a high-level overview of multiple projects, from progress to reporting",
-		href: "/products",
 		icon: FingerPrintIcon,
 	},
 	{
 		name: "Resource Management",
+		itemId: "resm",
 		description:
 			"Allocate and manage resources to balance workloads more efficiently",
-		href: "/products",
 		icon: SquaresPlusIcon,
 	},
 	{
 		name: "Business Operations",
+		itemId: "bop",
 		description:
 			"Streamline business workflows, from ops planning to supply chain management",
-		href: "/products",
 		icon: ArrowPathIcon,
+	},
+	{
+		name: "Goals & strategy",
+		itemId: "gas",
+		description:
+			"Define and track goals that align with your company’s vision",
+		icon: KeyIcon,
 	},
 ];
 const callsToAction = [
@@ -68,9 +77,11 @@ function classNames(...classes) {
 const NavBar = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const { isLoggedIn, logIn, logOut } = useUser();
+	const [openPopover, setOpenPopover] = useState(false);
 
 	const { aboutRef, featuresRef, pricingRef, contactRef, testimonialsRef } =
 		useHomePage();
+	const { setSelectedProduct } = useGeneral();
 
 	useEffect(() => {
 		const jwtToken = localStorage.getItem("jwtToken");
@@ -119,68 +130,81 @@ const NavBar = () => {
 				</div>
 				<Popover.Group className="hidden lg:flex lg:gap-x-12">
 					<Popover className="relative">
-						<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-							Products
-							<ChevronDownIcon
-								className="h-5 w-5 flex-none text-gray-400"
-								aria-hidden="true"
-							/>
-						</Popover.Button>
+						{({ open, close }) => (
+							<>
+								<Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+									Products
+									<ChevronDownIcon
+										className="h-5 w-5 flex-none text-gray-400"
+										aria-hidden="true"
+									/>
+								</Popover.Button>
 
-						<Transition
-							as={Fragment}
-							enter="transition ease-out duration-200"
-							enterFrom="opacity-0 translate-y-1"
-							enterTo="opacity-100 translate-y-0"
-							leave="transition ease-in duration-150"
-							leaveFrom="opacity-100 translate-y-0"
-							leaveTo="opacity-0 translate-y-1"
-						>
-							<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-								<div className="p-4">
-									{products.map((item) => (
-										<div
-											key={item.name}
-											className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-										>
-											<div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-												<item.icon
-													className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-													aria-hidden="true"
-												/>
-											</div>
-											<div className="flex-auto">
-												<a
-													href={item.href}
-													className="block font-semibold text-gray-900"
+								<Transition
+									as={Fragment}
+									enter="transition ease-out duration-200"
+									enterFrom="opacity-0 translate-y-1"
+									enterTo="opacity-100 translate-y-0"
+									leave="transition ease-in duration-150"
+									leaveFrom="opacity-100 translate-y-0"
+									leaveTo="opacity-0 translate-y-1"
+								>
+									<Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+										<div className="p-4">
+											{products.map((item) => (
+												<div
+													key={item.name}
+													className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
 												>
-													{item.name}
-													<span className="absolute inset-0" />
-												</a>
-												<p className="mt-1 text-gray-600">
-													{item.description}
-												</p>
-											</div>
+													<div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+														<item.icon
+															className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
+															aria-hidden="true"
+														/>
+													</div>
+													<div className="flex-auto">
+														<Link
+															onClick={() => {
+																setSelectedProduct(
+																	item.itemId
+																);
+																close();
+															}}
+															to="/products"
+															className="block font-semibold text-gray-900"
+														>
+															{item.name}
+															<span className="absolute inset-0" />
+														</Link>
+														<p className="mt-1 text-gray-600">
+															{item.description}
+														</p>
+													</div>
+												</div>
+											))}
 										</div>
-									))}
-								</div>
-								<div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-									{callsToAction.map((item) => (
-										<a
-											key={item.name}
-											href={item.href}
-											className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-										>
-											<item.icon
-												className="h-5 w-5 flex-none text-gray-400"
-												aria-hidden="true"
-											/>
-											{item.name}
-										</a>
-									))}
-								</div>
-							</Popover.Panel>
-						</Transition>
+										<div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
+											{callsToAction.map((item) => (
+												<Link
+													onClick={() => {
+														close();
+													}}
+													key={item.name}
+													to="/#"
+													className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
+												>
+													<item.icon
+														className="h-5 w-5 flex-none text-gray-400"
+														aria-hidden="true"
+													/>
+													{item.name}
+												</Link>
+											))}
+										</div>
+									</Popover.Panel>
+								</Transition>
+							</>
+						)}
 					</Popover>
 					<a
 						onClick={() => scrollToRef(aboutRef)}

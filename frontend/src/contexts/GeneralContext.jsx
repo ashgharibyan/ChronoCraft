@@ -5,19 +5,13 @@ export const GeneralContext = createContext();
 
 // Create a provider component.
 export const GeneralProvider = ({ children }) => {
-	const projectManagementRef = useRef();
-	const taskManagementRef = useRef();
-	const portfolioRef = useRef();
-	const resourceRef = useRef();
-	const businessRef = useRef();
+	const [selectedProduct, setSelectedProduct] = useState("");
+
 	return (
 		<GeneralContext.Provider
 			value={{
-				projectManagementRef,
-				taskManagementRef,
-				portfolioRef,
-				resourceRef,
-				businessRef,
+				selectedProduct,
+				setSelectedProduct,
 			}}
 		>
 			{children}
