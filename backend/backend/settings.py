@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     #local
     'accounts.apps.AccountsConfig',
     'core.apps.CoreConfig',
+    'projects.apps.ProjectsConfig',
 ]
 
 SITE_ID = 1
@@ -90,6 +91,8 @@ TEMPLATES = [
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 SENDGRID_API_KEY = env.str("SENDGRID_API_KEY")
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
