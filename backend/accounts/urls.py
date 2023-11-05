@@ -21,6 +21,7 @@ urlpatterns = [
         "dj-rest-auth/registration/", CustomRegisterView.as_view(), name="rest_register"
     ),
     path("dj-rest-auth/registration/", include("dj_rest_auth.registration.urls")),
+    path("dj-rest-auth/registration/verify-email/", include("dj_rest_auth.registration.urls"), name='rest_verify_email'),
     path(
         "dj-rest-auth/password/reset/confirm/<str:uidb64>/<str:token>",
         PasswordResetConfirmView.as_view(),
