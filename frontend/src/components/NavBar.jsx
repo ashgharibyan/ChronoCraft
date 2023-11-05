@@ -209,7 +209,7 @@ const NavBar = () => {
 						onClick={() => scrollToRef(aboutRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
-						About Us
+						About
 					</Link>
 					<Link
 						onClick={() => scrollToRef(testimonialsRef)}
@@ -228,7 +228,7 @@ const NavBar = () => {
 						onClick={() => scrollToRef(contactRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
-						Contact Us
+						Contact
 					</Link>
 				</Popover.Group>
 				<div className="hidden lg:flex lg:flex-1 lg:justify-end">
