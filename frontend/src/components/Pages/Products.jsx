@@ -211,49 +211,53 @@ const Products = () => {
 					<p className="text-indigo-600 text-lg mt-2">
 						Choose a product to learn more about what we offer.
 					</p>
-
-					<div className="grid grid-cols-2 gap-4 mt-10 ">
-						{/* Product boxes */}
-						{products.map((product) => (
-							<div
-								key={product.id}
-								onClick={() => setSelectedProduct(product.id)}
-								className={`flex justify-center items-center p-6 max-w-sm  bg-white rounded-lg border border-gray-200 shadow-md cursor-pointer ${
-									selectedProduct === product.id
-										? "ring-2 ring-indigo-600"
-										: ""
-								}`}
-							>
-								<label className="flex items-center text-center">
-									<input
-										type="checkbox"
-										checked={selectedProduct === product.id}
-										onChange={() =>
-											setSelectedProduct(product.id)
-										}
-										className={`form-checkbox h-6 w-6 ${
-											selectedProduct === product.id
-												? "text-indigo-600 border-indigo-600"
-												: "text-gray-300 border-gray-300"
-										}`}
-									/>
-									<h5 className="ml-2 text-gray-900 text-lg leading-tight font-medium ">
-										{product.title}
-									</h5>
-								</label>
-							</div>
-						))}
-					</div>
-
-					{selectedProduct ? (
-						<div className="mt-6 p-6 max-w-full bg-white rounded-lg border border-gray-200 shadow-md">
-							<div className="text-gray-700 text-base mb-4">
-								{productDetails[selectedProduct]}
-							</div>
+					<div className="lg:flex lg:justify-center lg:items-center mt-10 gap-5 ">
+						<div className="grid grid-cols-1 gap-4 min-w-[40%] place-items-center  ">
+							{/* Product boxes */}
+							{products.map((product) => (
+								<div
+									key={product.id}
+									onClick={() =>
+										setSelectedProduct(product.id)
+									}
+									className={`flex justify-center items-center p-6 max-w-sm min-w-full bg-white rounded-lg border border-gray-200 shadow-md cursor-pointer ${
+										selectedProduct === product.id
+											? "ring-2 ring-indigo-600"
+											: ""
+									}`}
+								>
+									<label className="flex items-center text-center">
+										<input
+											type="checkbox"
+											checked={
+												selectedProduct === product.id
+											}
+											onChange={() =>
+												setSelectedProduct(product.id)
+											}
+											className={`form-checkbox h-6 w-6 ${
+												selectedProduct === product.id
+													? "text-indigo-600 border-indigo-600"
+													: "text-gray-300 border-gray-300"
+											}`}
+										/>
+										<h5 className="ml-2 text-gray-900 text-lg leading-tight font-medium ">
+											{product.title}
+										</h5>
+									</label>
+								</div>
+							))}
 						</div>
-					) : (
-						productDetails.default
-					)}
+						{selectedProduct ? (
+							<div className=" p-6 max-w-full mt-6 lg:mt-0  bg-white rounded-lg border border-gray-200 shadow-md">
+								<div className="text-gray-700 text-base mb-4">
+									{productDetails[selectedProduct]}
+								</div>
+							</div>
+						) : (
+							productDetails.default
+						)}
+					</div>
 
 					{/* Get Started Button */}
 					{selectedProduct && (
