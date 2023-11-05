@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./sections/Home";
-import PasswordReset from "./components/PasswordReset";
-import PasswordResetConfirm from "./components/PasswordResetConfirm";
-import LoginPage from "./components/LoginPage";
-import RegisterPage from "./components/RegisterPage";
+import PasswordReset from "./components/LoginRegistration/PasswordReset";
+import PasswordResetConfirm from "./components/LoginRegistration/PasswordResetConfirm";
+import LoginPage from "./components/LoginRegistration/LoginPage";
+import RegisterPage from "./components/LoginRegistration/RegisterPage";
 import Dashboard from "./components/Dashboard";
 import Users from "./components/Users";
-import PasswordChange from "./components/PasswordChange";
+import PasswordChange from "./components/LoginRegistration/PasswordChange";
 import NavBar from "./components/NavBar";
 import NotFound from "./components/NotFound";
 import Footer from "./components/Footer";

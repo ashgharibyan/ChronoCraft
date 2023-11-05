@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../contexts/UserContext";
-import { loginPage } from "../assets/index";
+import { useUser } from "../../contexts/UserContext";
+import { loginPage } from "../../assets/index";
 
 function getCookie(name) {
 	let value = "; " + document.cookie;

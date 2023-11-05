@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { passwordResetPage } from "../assets/index";
+import { passwordResetPage } from "../../assets/index";
 
 axios.defaults.withCredentials = true;
 

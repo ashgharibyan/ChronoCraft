@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { useUser } from "../contexts/UserContext";
-
 function getCookie(name) {
 	let value = "; " + document.cookie;
 	let parts = value.split("; " + name + "=");
@@ -178,7 +177,9 @@ const Dashboard = () => {
 					</div>
 				</div>
 			) : (
-				"Loding..."
+				<div className="flex justify-center items-center w-screen h-screen">
+					<ClockIcon className=" w-20 h-20 text-indigo-600 animate-spin" />
+				</div>
 			)}
 		</div>
 	);
