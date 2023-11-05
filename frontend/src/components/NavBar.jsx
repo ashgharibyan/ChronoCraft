@@ -205,31 +205,31 @@ const NavBar = () => {
 							</>
 						)}
 					</Popover>
-					<a
+					<Link
 						onClick={() => scrollToRef(aboutRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
 						About Us
-					</a>
-					<a
+					</Link>
+					<Link
 						onClick={() => scrollToRef(testimonialsRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
 						Testimonials
-					</a>
-					<a
+					</Link>
+					<Link
 						onClick={() => scrollToRef(pricingRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
 						Pricing
-					</a>
+					</Link>
 
-					<a
+					<Link
 						onClick={() => scrollToRef(contactRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
 						Contact Us
-					</a>
+					</Link>
 				</Popover.Group>
 				<div className="hidden lg:flex lg:flex-1 lg:justify-end">
 					{isLoggedIn ? (
