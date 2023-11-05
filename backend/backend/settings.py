@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 from environs import Env
+import os
 
 env = Env()
 env.read_env()
@@ -74,7 +75,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -98,6 +99,7 @@ SENDGRID_API_KEY = env.str("SENDGRID_API_KEY")
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+ACCOUNT_EMAIL_SUBJECT_PREFIX = 'ChronoCraft.com - '
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 

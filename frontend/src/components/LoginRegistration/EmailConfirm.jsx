@@ -12,12 +12,35 @@ const EmailConfirm = () => {
 	const { key } = useParams();
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const csrfToken = getCookie("csrftoken");
+	// useEffect(() => {
+	// 	const csrfToken = getCookie("csrftoken");
+	// 	console.log("KEYYYYYYYY");
+	// 	console.log(key);
+	// 	// Call the API endpoint to confirm the email
+	// 	axios
+	// 		.post(
+	// 			`http://localhost:8000/api/v1/accounts/dj-rest-auth/registration/verify-email/`,
+	// 			{ key: key },
+	// 			{
+	// 				withCredentials: true,
+	// 				headers: {
+	// 					"X-CSRFToken": csrfToken,
+	// 				},
+	// 			}
+	// 		)
+	// 		.then((response) => {
+	// 			console.log(response);
+	// 			navigate("/account/confirmed");
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log(error);
+	// 		});
+	// }, [key]);
 
-		// Call the API endpoint to confirm the email
-		axios
-			.post(
+	const confirmEmail = async () => {
+		const csrfToken = getCookie("csrftoken");
+		try {
+			const response = await axios.post(
 				`http://localhost:8000/api/v1/accounts/dj-rest-auth/registration/verify-email/`,
 				{ key: key },
 				{
@@ -26,20 +49,18 @@ const EmailConfirm = () => {
 						"X-CSRFToken": csrfToken,
 					},
 				}
-			)
-			.then((response) => {
-				console.log(response);
-				navigate("/account/confirmed");
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, [key]);
-
+			);
+			console.log(response);
+			navigate("/account/confirmed");
+		} catch (err) {
+			console.log("Error confirming email");
+			console.log(err);
+		}
+	};
 	// Render confirmation status to the user
 	return (
 		<div>
-			Confirming your email...
+			<button onClick={confirmEmail}>Confirm Email</button>
 			{/* display success or error message */}
 		</div>
 	);

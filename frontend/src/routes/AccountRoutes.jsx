@@ -9,8 +9,8 @@ const AccountRoutes = () => {
 	return (
 		<Routes>
 			<Route path="/password/change" element={<PasswordChange />} />
-			<Route path="/confirm-email/:key" component={<EmailConfirm />} />
-			<Route path="/confirmed" component={<ConfirmationSuccess />} />
+			<Route path="/confirm-email/:key" element={<EmailConfirm />} />
+			<Route path="/confirmed" element={<ConfirmationSuccess />} />
 			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);
