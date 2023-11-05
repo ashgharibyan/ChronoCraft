@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon, ClockIcon } from "@heroicons/react/24/outline";
-import { useUser } from "../contexts/UserContext";
+import { useUser } from "../../contexts/UserContext";
 function getCookie(name) {
 	let value = "; " + document.cookie;
 	let parts = value.split("; " + name + "=");
@@ -149,7 +149,7 @@ const Dashboard = () => {
 							</p>
 							<div className="mt-10 flex items-center justify-center gap-x-6">
 								<Link
-									to="/password/change/"
+									to="/account/password/change/"
 									className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 								>
 									Change Password
