@@ -77,7 +77,6 @@ function classNames(...classes) {
 const NavBar = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const { isLoggedIn, logIn, logOut } = useUser();
-	const [openPopover, setOpenPopover] = useState(false);
 
 	const { aboutRef, featuresRef, pricingRef, contactRef, testimonialsRef } =
 		useHomePage();

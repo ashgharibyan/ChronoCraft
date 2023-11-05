@@ -10,6 +10,7 @@ export const HomePageProvider = ({ children }) => {
 	const pricingRef = useRef();
 	const contactRef = useRef();
 	const testimonialsRef = useRef();
+	const topPageRef = useRef();
 	return (
 		<HomePageContext.Provider
 			value={{
@@ -18,6 +19,7 @@ export const HomePageProvider = ({ children }) => {
 				pricingRef,
 				contactRef,
 				testimonialsRef,
+				topPageRef,
 			}}
 		>
 			{children}

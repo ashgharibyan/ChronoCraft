@@ -11,17 +11,28 @@ import { HomePageProvider, useHomePage } from "../contexts/HomePageContext";
 const Home = () => {
 	const navigate = useNavigate();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-	const { aboutRef, featuresRef, pricingRef, contactRef, testimonialsRef } =
-		useHomePage();
+	const {
+		aboutRef,
+		featuresRef,
+		pricingRef,
+		contactRef,
+		testimonialsRef,
+		topPageRef,
+	} = useHomePage();
 	useEffect(() => {
 		const jwtToken = localStorage.getItem("jwtToken");
 
 		if (jwtToken) {
 			navigate("/dashboard");
 		}
+
+		topPageRef.current.scrollIntoView({
+			behavior: "smooth",
+			block: "start",
+		});
 	}, []);
 	return (
-		<main className="relative ">
+		<main ref={topPageRef} className="relative ">
 			<section id="hero">
 				<Hero />
 			</section>
