@@ -1,2 +1,7 @@
+Hello, 
+
 Please confirm your email address by clicking the link below:
 http://localhost:5173/account/confirm-email/{{ key }}
+
+Thank you,
+ChronoCraft Team
