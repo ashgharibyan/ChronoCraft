@@ -6,13 +6,14 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from dj_rest_auth.views import PasswordResetConfirmView
-from .views import CustomRegisterView
+from .views import CustomRegisterView, IsEmailVerified
 
 router = routers.DefaultRouter()
 router.register(r"users", CustomUserViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("is-email-verified/", IsEmailVerified.as_view(), name="is-email-verified"),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),

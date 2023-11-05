@@ -15,13 +15,23 @@ const Dashboard = () => {
 	const navigate = useNavigate();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const { isLoggedIn, logIn, logOut } = useUser();
+	const [isEmailVerified, setIsEmailVerified] = useState(false);
 
 	const fetchUserData = async () => {
+		const csrfToken = getCookie("csrftoken");
+
 		try {
 			const response = await axios.get(
 				"http://localhost:8000/api/v1/accounts/dj-rest-auth/user/",
-				{ withCredentials: true }
+				{
+					withCredentials: true,
+					headers: {
+						"X-CSRFToken": csrfToken,
+					},
+				}
 			);
+			console.log("Successfully fetched user data");
+			console.log(response.data);
 			setUser(response.data);
 		} catch (err) {
 			if (err.response.status === 401) {
@@ -53,6 +63,53 @@ const Dashboard = () => {
 		}
 	};
 
+	const isEmailVerifiedAxios = async () => {
+		const csrfToken = getCookie("csrftoken");
+
+		try {
+			const response = await axios.post(
+				"http://localhost:8000/api/v1/accounts/is-email-verified/",
+				{ user_id: user.pk },
+				{
+					withCredentials: true,
+					headers: {
+						"X-CSRFToken": csrfToken,
+					},
+				}
+			);
+
+			console.log("Successfully got email verification status");
+			setIsEmailVerified(response.data.verified);
+		} catch (err) {
+			if (err.response.status === 401) {
+				try {
+					const csrfToken = getCookie("csrftoken");
+
+					const refreshResponse = await axios.post(
+						"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+						{},
+						{
+							withCredentials: true,
+							headers: {
+								"X-CSRFToken": csrfToken,
+							},
+						}
+					);
+					const newAccessToken = refreshResponse.data.access;
+					localStorage.setItem("jwtToken", newAccessToken);
+					axios.defaults.headers.common["Authorization"] =
+						"Bearer " + newAccessToken;
+					isEmailVerifiedAxios(); // retry fetching user data with the new token
+				} catch (refreshErr) {
+					console.log("Error refreshing token", refreshErr);
+					navigate("/login");
+				}
+			} else {
+				console.log("Error fetching email verification data", err);
+			}
+		}
+	};
+
 	useEffect(() => {
 		const jwtToken = localStorage.getItem("jwtToken");
 
@@ -64,6 +121,12 @@ const Dashboard = () => {
 			navigate("/login");
 		}
 	}, []);
+
+	useEffect(() => {
+		if (user.pk) {
+			isEmailVerifiedAxios();
+		}
+	}, [user]);
 
 	const logoutAxios = async () => {
 		try {
@@ -175,6 +238,17 @@ const Dashboard = () => {
 							}}
 						/>
 					</div>
+					{isEmailVerified ? (
+						""
+					) : (
+						<div>
+							<p className="text-lg text-red-500">
+								Your email is still not verified. Please check
+								your email to verify it.
+							</p>
+						</div>
+					)}
+					<div></div>
 				</div>
 			) : (
 				<div className="flex justify-center items-center w-screen h-screen">

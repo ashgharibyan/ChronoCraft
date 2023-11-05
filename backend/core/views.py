@@ -6,6 +6,7 @@ from rest_framework import status
 from .serializers import ContactFormSerializer
 from django.core.mail import send_mail
 
+
 class ContactFormAPIView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = ContactFormSerializer(data=request.data)
@@ -18,9 +19,9 @@ class ContactFormAPIView(APIView):
             message = serializer.validated_data.get('message')
             agreed = serializer.validated_data.get('agreed')
 
-            print("EMAIL CONTENT!!!")
-            print(request.data)
-            print("------------------")
+            # print("EMAIL CONTENT!!!")
+            # print(request.data)
+            # print("------------------")
 
             subject = f"Message from {first_name} {last_name}"
 
