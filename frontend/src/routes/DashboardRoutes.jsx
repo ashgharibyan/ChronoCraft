@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-import Dashboard from "../components/Dashboard/Dashboard";
 import React from "react";
 import NotFound from "../components/NotFound";
+import Dashboard from "../sections/Dashboard/Dashboard";
 const DashboardRoutes = () => {
 	return (
 		<Routes>

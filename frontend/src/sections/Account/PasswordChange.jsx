@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { passwordChangePage } from "../../../assets/index";
+import { passwordChangePage } from "../../assets/index";
 
 function getCookie(name) {
 	let value = "; " + document.cookie;

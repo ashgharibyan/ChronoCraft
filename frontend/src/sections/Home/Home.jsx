@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Hero from "../components/Home/Hero";
-import About from "../components/Home/About";
-import Features from "../components/Home/Features";
-import Testimonials from "../components/Home/Testimonials";
-import Pricing from "../components/Home/Pricing";
-import ContactForm from "../components/Home/ContactForm";
-import { HomePageProvider, useHomePage } from "../contexts/HomePageContext";
+
+import { HomePageProvider, useHomePage } from "../../contexts/HomePageContext";
+import Hero from "./Hero";
+import Testimonials from "./Testimonials";
+import Pricing from "./Pricing";
+import ContactForm from "./ContactForm";
+import About from "./About";
+import Features from "./Features";
 
 const Home = () => {
 	const navigate = useNavigate();

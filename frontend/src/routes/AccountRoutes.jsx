@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import React from "react";
-import PasswordChange from "../components/Dashboard/Account/PasswordChange";
+import PasswordChange from "../sections/Account/PasswordChange";
+import EmailConfirm from "../sections/LoginRegistration/EmailConfirm";
 import NotFound from "../components/NotFound";
-import EmailConfirm from "../components/LoginRegistration/EmailConfirm";
-import ConfirmationSuccess from "../components/LoginRegistration/ConfirmationSuccess";
+import ConfirmationSuccess from "../sections/LoginRegistration/ConfirmationSuccess";
 
 const AccountRoutes = () => {
 	return (
