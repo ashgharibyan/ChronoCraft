@@ -206,18 +206,21 @@ const NavBar = () => {
 						)}
 					</Popover>
 					<Link
+						to="/"
 						onClick={() => scrollToRef(aboutRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
 						About
 					</Link>
 					<Link
+						to="/"
 						onClick={() => scrollToRef(testimonialsRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
 						Testimonials
 					</Link>
 					<Link
+						to="/"
 						onClick={() => scrollToRef(pricingRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
@@ -225,6 +228,7 @@ const NavBar = () => {
 					</Link>
 
 					<Link
+						to="/"
 						onClick={() => scrollToRef(contactRef)}
 						className="text-sm font-semibold leading-6 text-gray-900"
 					>
