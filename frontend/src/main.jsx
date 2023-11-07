@@ -8,7 +8,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
 		<UserProvider>
 			<div className="flex flex-col min-h-screen">
-				<App className="flex-grow" />
+				<App />
 			</div>
 		</UserProvider>
 	</React.StrictMode>

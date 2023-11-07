@@ -1,14 +1,13 @@
 import React from "react";
 import TopBar from "./TopBar";
-import Sidebar from "./Sidebar";
+import SidebarComponent from "./SidebarComponent";
 import Dashboard from "./Dashboard";
 
 const DashboardPage = () => {
 	return (
-		<div>
-			<TopBar />
-			<div className="flex">
-				<Sidebar />
+		<div className="flex overflow: hidden;">
+			<SidebarComponent />
+			<div className="w-full ">
 				<Dashboard />
 			</div>
 		</div>
