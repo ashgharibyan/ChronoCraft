@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGeneral } from "../../contexts/GeneralContext";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
@@ -14,6 +14,8 @@ const Products = () => {
 		{ id: "bop", title: "Business Operations" },
 		{ id: "gas", title: "Goals & strategy" },
 	];
+
+	const topOfProductPage = useRef(null);
 
 	const productDetails = {
 		pm: (
@@ -200,8 +202,21 @@ const Products = () => {
 		),
 	};
 
+	useEffect(() => {
+		const jwtToken = localStorage.getItem("jwtToken");
+
+		if (jwtToken) {
+			navigate("/dashboard");
+		}
+
+		topOfProductPage.current.scrollIntoView({
+			behavior: "smooth",
+			block: "start",
+		});
+	}, []);
+
 	return (
-		<div className="bg-white text-gray-700">
+		<div ref={topOfProductPage} className="bg-white text-gray-700">
 			<div className="container mx-auto px-4">
 				{/* Title and subtitle */}
 				<div className="text-center py-8">

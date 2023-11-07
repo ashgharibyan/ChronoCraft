@@ -78,8 +78,14 @@ const NavBar = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const { isLoggedIn, logIn, logOut } = useUser();
 
-	const { aboutRef, featuresRef, pricingRef, contactRef, testimonialsRef } =
-		useHomePage();
+	const {
+		aboutRef,
+		featuresRef,
+		topPageRef,
+		pricingRef,
+		contactRef,
+		testimonialsRef,
+	} = useHomePage();
 	const { setSelectedProduct } = useGeneral();
 
 	useEffect(() => {
@@ -107,11 +113,19 @@ const NavBar = () => {
 				aria-label="Global"
 			>
 				<div className="flex lg:flex-1 gap-2 items-center">
-					<Link on="/" className="-m-1.5 p-1.5">
+					<Link
+						on="/"
+						onClick={() => scrollToRef(topPageRef)}
+						className="-m-1.5 p-1.5"
+					>
 						<span className="sr-only">ChronoCraft</span>
 						<img className="h-10 w-auto" src={logo} alt="" />
 					</Link>
-					<Link to="/" className="">
+					<Link
+						to="/"
+						onClick={() => scrollToRef(topPageRef)}
+						className=""
+					>
 						<span className="self-center text-[#4f46e5] text-2xl font-semibold whitespace-nowrap">
 							ChronoCraft
 						</span>
@@ -263,7 +277,7 @@ const NavBar = () => {
 				<Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
 					<div className="flex items-center justify-between">
 						<a href="#" className="-m-1.5 p-1.5">
-							<span className="sr-only">Your Company</span>
+							<span className="sr-only">ChronoCraft</span>
 							<img
 								className="h-8 w-auto"
 								src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -302,49 +316,60 @@ const NavBar = () => {
 													...products,
 													...callsToAction,
 												].map((item) => (
-													<Disclosure.Button
+													<Link
+														onClick={() => {
+															setSelectedProduct(
+																item.itemId
+															);
+															setMobileMenuOpen(
+																false
+															);
+														}}
+														to="/products"
 														key={item.name}
-														as="a"
-														href={item.href}
 														className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
 													>
 														{item.name}
-													</Disclosure.Button>
+													</Link>
 												))}
 											</Disclosure.Panel>
 										</>
 									)}
 								</Disclosure>
-								<a
+								<Link
+									to="/"
 									onClick={() => scrollToRefMobile(aboutRef)}
 									className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
 								>
 									About Us
-								</a>
-								<a
+								</Link>
+								<Link
+									to="/"
 									onClick={() =>
 										scrollToRefMobile(testimonialsRef)
 									}
 									className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
 								>
 									Testimonials
-								</a>
-								<a
+								</Link>
+								<Link
+									to="/"
 									onClick={() =>
 										scrollToRefMobile(pricingRef)
 									}
 									className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
 								>
 									Pricing
-								</a>
-								<a
+								</Link>
+								<Link
+									to="/"
 									onClick={() =>
 										scrollToRefMobile(contactRef)
 									}
 									className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
 								>
 									Contact Us
-								</a>
+								</Link>
 							</div>
 							<div className="py-6">
 								{isLoggedIn ? (

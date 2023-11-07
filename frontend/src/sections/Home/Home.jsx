@@ -11,7 +11,6 @@ import Features from "./Features";
 
 const Home = () => {
 	const navigate = useNavigate();
-	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const {
 		aboutRef,
 		featuresRef,
