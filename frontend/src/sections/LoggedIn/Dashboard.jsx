@@ -185,9 +185,7 @@ const Dashboard = () => {
 	};
 
 	return (
-		<div
-			className={`flex-grow overflow-x-scroll overflow-y-scroll  bg-slate-300`}
-		>
+		<div className={`flex-grow overflow-y-scroll  bg-slate-300`}>
 			{user.username ? (
 				<div className="relative isolate px-6 pt-14 lg:px-8">
 					<div
