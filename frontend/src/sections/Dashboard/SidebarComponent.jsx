@@ -15,6 +15,11 @@ import { BsPlusCircle } from "react-icons/bs";
 import { GoProjectRoadmap } from "react-icons/go";
 import SidebarButton from "../../components/Sidebar/SidebarButton";
 import ProjectButton from "../../components/Sidebar/ProjectButton";
+import { MdSpaceDashboard } from "react-icons/md";
+import { SiCodereview } from "react-icons/si";
+import { BsCalendarRange } from "react-icons/bs";
+import { IoSettingsOutline } from "react-icons/io5";
+import { LuGoal } from "react-icons/lu";
 
 const SidebarComponent = () => {
 	const foldersTest = ["Folder 1", "Folder 2", "Folder 3"];
@@ -36,19 +41,19 @@ const SidebarComponent = () => {
 				</div>
 				{/* Menu Buttons */}
 				<div className="space-y-2 ">
-					<SidebarButton icon={HiViewBoards} label="Dashboard" />
+					<SidebarButton icon={MdSpaceDashboard} label="Dashboard" />
 					<SidebarButton
-						icon={HiViewBoards}
+						icon={SiCodereview}
 						label="Projects Overview"
 					/>
-					<SidebarButton icon={HiViewBoards} label="Calendar" />
-					<SidebarButton icon={HiViewBoards} label="Settings" />
-					<SidebarButton icon={HiViewBoards} label="Goals" />
+					<SidebarButton icon={BsCalendarRange} label="Calendar" />
+					<SidebarButton icon={IoSettingsOutline} label="Settings" />
+					<SidebarButton icon={LuGoal} label="Goals" />
 				</div>
 				<hr />
 				{/* Projects */}
 				<div className="space-y-2 ">
-					<div className="flex justify-between items-center  px-6">
+					<div className="flex justify-between items-center  px-4">
 						<h3 className="text-white uppercase text-lg font-bold ">
 							My Projects
 						</h3>

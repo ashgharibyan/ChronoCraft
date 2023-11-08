@@ -18,6 +18,10 @@
 	}
 } */
 
+.react-icons {
+	color: white;
+}
+
 @layer components {
 	.max-container {
 		max-width: 1440px;
