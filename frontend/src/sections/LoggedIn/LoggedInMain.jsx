@@ -4,7 +4,7 @@ import Dashboard from "./Dashboard";
 
 const LoggedInMain = () => {
 	return (
-		<div className="overflow:hidden h-screen ">
+		<div className="overflow:hidden flex flex-col h-screen ">
 			<TopBar />
 			<Dashboard />
 		</div>

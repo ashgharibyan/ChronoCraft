@@ -4,7 +4,7 @@ import LoggedInMain from "./LoggedInMain";
 
 const LoggedInPage = () => {
 	return (
-		<div className="flex overflow: hidden;">
+		<div className="flex overflow-hidden ">
 			<SidebarComponent />
 			<div className="w-full  ">
 				<LoggedInMain />
