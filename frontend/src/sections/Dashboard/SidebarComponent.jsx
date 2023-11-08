@@ -11,7 +11,8 @@ import {
 	HiUser,
 	HiViewBoards,
 } from "react-icons/hi";
-
+import { BsPlusCircle } from "react-icons/bs";
+import { GoProjectRoadmap } from "react-icons/go";
 import SidebarButton from "../../components/Sidebar/SidebarButton";
 import ProjectButton from "../../components/Sidebar/ProjectButton";
 
@@ -21,8 +22,8 @@ const SidebarComponent = () => {
 	const tasksTest = ["Task 1", "Task 2", "Task 3"];
 
 	return (
-		<div className=" min-w-[250px] bg-gradient-to-tr from-indigo-800 to-indigo-600 flex flex-col justify-between shadow-lg shadow-black">
-			<div className="space-y-8 ">
+		<div className=" min-w-[300px] bg-gradient-to-tr from-indigo-800 to-indigo-600 flex flex-col justify-between shadow-lg shadow-black">
+			<div className="space-y-4 ">
 				{/* Project name and arrow */}
 				<div className="space-y-4">
 					<div className="flex justify-between items-center px-4 pt-4">
@@ -34,7 +35,7 @@ const SidebarComponent = () => {
 					<hr />
 				</div>
 				{/* Menu Buttons */}
-				<div className="space-y-2">
+				<div className="space-y-2 ">
 					<SidebarButton icon={HiViewBoards} label="Dashboard" />
 					<SidebarButton
 						icon={HiViewBoards}
@@ -47,27 +48,31 @@ const SidebarComponent = () => {
 				<hr />
 				{/* Projects */}
 				<div className="space-y-2 ">
-					<h3 className="text-white uppercase text-base font-bold px-4">
-						My Projects
-					</h3>
-					<div className="space-y-1 overflow-y-scroll max-h-[320px]">
+					<div className="flex justify-between items-center  px-6">
+						<h3 className="text-white uppercase text-lg font-bold ">
+							My Projects
+						</h3>
+						<BsPlusCircle className="h-4 w-4 text-white " />
+					</div>
+					{/* <div className="space-y-1 overflow-y-scroll max-h-[425px] "> */}
+					<div className="space-y-1 overflow-y-scroll max-h-[425px] ">
 						<ProjectButton
-							icon={HiViewBoards}
 							label="Project 1"
+							icon={GoProjectRoadmap}
 							folders={foldersTest}
 							lists={listsTest}
 							tasks={tasksTest}
 						/>
 						<ProjectButton
-							icon={HiViewBoards}
 							label="Project 2"
+							icon={GoProjectRoadmap}
 							folders={foldersTest}
 							lists={listsTest}
 							tasks={tasksTest}
 						/>
 						<ProjectButton
-							icon={HiViewBoards}
 							label="Project 3"
+							icon={GoProjectRoadmap}
 							folders={foldersTest}
 							lists={listsTest}
 							tasks={tasksTest}

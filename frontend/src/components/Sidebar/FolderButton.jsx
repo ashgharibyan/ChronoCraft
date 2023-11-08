@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { HiArrowSmDown, HiArrowSmLeft, HiViewBoards } from "react-icons/hi";
 import SidebarButton from "./SidebarButton";
+import { GoDot } from "react-icons/go";
+import { AiOutlinePlus, AiOutlineDown, AiOutlineRight } from "react-icons/ai";
+
 const FolderButton = ({ icon: Icon, label, lists, tasks, customClassName }) => {
 	const [folderArrowClicked, setFolderArrowClicked] = useState(false);
 
@@ -9,18 +11,21 @@ const FolderButton = ({ icon: Icon, label, lists, tasks, customClassName }) => {
 			<div className={`space-y-1  `}>
 				<div
 					onClick={() => setFolderArrowClicked(!folderArrowClicked)}
-					className={`flex justify-between items-center  hover:bg-indigo-900 ${customClassName} `}
+					className={`flex justify-between items-center pl-6  hover:bg-indigo-900 ${customClassName} `}
 				>
-					<SidebarButton icon={Icon} label={label} />
-					<HiArrowSmDown className="h-4 w-4 text-white mr-4 " />
+					<div className="flex items-center gap-1">
+						<AiOutlineDown className="h-4 w-4 text-white " />
+						<SidebarButton icon={Icon} label={label} />
+					</div>
+					<AiOutlinePlus className="h-4 w-4 text-white mr-4 " />
 				</div>
 				{lists
 					? lists.map((list, idx) => {
 							return (
 								<SidebarButton
 									key={idx}
+									icon={GoDot}
 									customClassName="pl-8"
-									icon={HiViewBoards}
 									label={list}
 								/>
 							);
@@ -32,11 +37,13 @@ const FolderButton = ({ icon: Icon, label, lists, tasks, customClassName }) => {
 		return (
 			<div
 				onClick={() => setFolderArrowClicked(!folderArrowClicked)}
-				className={`flex justify-between items-center  hover:bg-indigo-900 ${customClassName}`}
+				className={`flex justify-between items-center pl-6 hover:bg-indigo-900 ${customClassName}`}
 			>
-				<SidebarButton icon={Icon} label={label} />
-
-				<HiArrowSmLeft className="h-4 w-4 text-white mr-4 " />
+				<div className="flex items-center gap-1">
+					<AiOutlineRight className="h-4 w-4 text-white  " />
+					<SidebarButton icon={Icon} label={label} />
+				</div>
+				<AiOutlinePlus className="h-4 w-4 text-white mr-4 " />
 			</div>
 		);
 	}

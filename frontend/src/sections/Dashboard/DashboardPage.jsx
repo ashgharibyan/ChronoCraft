@@ -1,5 +1,4 @@
 import React from "react";
-import TopBar from "./TopBar";
 import SidebarComponent from "./SidebarComponent";
 import Dashboard from "./Dashboard";
 
@@ -7,7 +6,7 @@ const DashboardPage = () => {
 	return (
 		<div className="flex overflow: hidden;">
 			<SidebarComponent />
-			<div className="w-full ">
+			<div className="w-full  ">
 				<Dashboard />
 			</div>
 		</div>

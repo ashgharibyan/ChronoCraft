@@ -184,7 +184,7 @@ const Dashboard = () => {
 	};
 
 	return (
-		<div className="h-screen overflow-y-scroll">
+		<div className="h-screen max-h-fit overflow-y-scroll">
 			{user.username ? (
 				<div className="relative isolate px-6 pt-14 lg:px-8">
 					<div
