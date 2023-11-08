@@ -7,8 +7,8 @@ import NotFound from "./components/NotFound";
 import { HomePageProvider } from "./contexts/HomePageContext";
 import { GeneralProvider } from "./contexts/GeneralContext";
 import PublicLayout from "./layouts/PublicLayout";
-import DashboardLayout from "./layouts/DashboardLayout";
-import DashboardRoutes from "./routes/DashboardRoutes";
+import LoggedInLayout from "./layouts/LoggedInLayout";
+import LoggedInRoutes from "./routes/LoggedInRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import AccountLayout from "./layouts/AccountLayout";
 import AccountRoutes from "./routes/AccountRoutes";
@@ -30,9 +30,9 @@ function App() {
 						<Route
 							path="/dashboard/*"
 							element={
-								<DashboardLayout>
-									<DashboardRoutes />
-								</DashboardLayout>
+								<LoggedInLayout>
+									<LoggedInRoutes />
+								</LoggedInLayout>
 							}
 						/>
 						<Route

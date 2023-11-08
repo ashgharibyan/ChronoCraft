@@ -1,16 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "flowbite-react";
-import {
-	HiArrowSmLeft,
-	HiArrowSmDown,
-	HiArrowSmUp,
-	HiChartPie,
-	HiInbox,
-	HiShoppingBag,
-	HiTable,
-	HiUser,
-	HiViewBoards,
-} from "react-icons/hi";
+import { HiArrowSmLeft } from "react-icons/hi";
 import { BsPlusCircle } from "react-icons/bs";
 import { GoProjectRoadmap } from "react-icons/go";
 import SidebarButton from "../../components/Sidebar/SidebarButton";
@@ -20,6 +9,8 @@ import { SiCodereview } from "react-icons/si";
 import { BsCalendarRange } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuGoal } from "react-icons/lu";
+import { VscAccount } from "react-icons/vsc";
+import { BiLogOutCircle } from "react-icons/bi";
 
 const SidebarComponent = () => {
 	const foldersTest = ["Folder 1", "Folder 2", "Folder 3"];
@@ -27,7 +18,7 @@ const SidebarComponent = () => {
 	const tasksTest = ["Task 1", "Task 2", "Task 3"];
 
 	return (
-		<div className=" min-w-[300px] bg-gradient-to-tr from-indigo-800 to-indigo-600 flex flex-col justify-between shadow-lg shadow-black">
+		<div className="border-r-[1px] border-white min-w-[300px] bg-gradient-to-tr from-indigo-800 to-indigo-600 flex flex-col justify-between shadow-lg shadow-black">
 			<div className="space-y-4 ">
 				{/* Project name and arrow */}
 				<div className="space-y-4">
@@ -37,7 +28,7 @@ const SidebarComponent = () => {
 						</h1>
 						<HiArrowSmLeft className="h-6 w-6 text-white " />
 					</div>
-					<hr />
+					<hr className="border-white" />
 				</div>
 				{/* Menu Buttons */}
 				<div className="space-y-2 ">
@@ -50,7 +41,8 @@ const SidebarComponent = () => {
 					<SidebarButton icon={IoSettingsOutline} label="Settings" />
 					<SidebarButton icon={LuGoal} label="Goals" />
 				</div>
-				<hr />
+				<hr className=" border-white" />
+
 				{/* Projects */}
 				<div className="space-y-2 ">
 					<div className="flex justify-between items-center  px-4">
@@ -60,7 +52,7 @@ const SidebarComponent = () => {
 						<BsPlusCircle className="h-4 w-4 text-white " />
 					</div>
 					{/* <div className="space-y-1 overflow-y-scroll max-h-[425px] "> */}
-					<div className="space-y-1 overflow-y-scroll max-h-[425px] ">
+					<div className="space-y-1 overflow-y-scroll max-h-[485px] ">
 						<ProjectButton
 							label="Project 1"
 							icon={GoProjectRoadmap}
@@ -88,10 +80,10 @@ const SidebarComponent = () => {
 			{/* Bottom Menu Buttons */}
 
 			<div className="space-y-2 py-4">
-				<hr className="pt-2" />
+				<hr className="pt-2 border-white" />
 
-				<SidebarButton icon={HiViewBoards} label="Account" />
-				<SidebarButton icon={HiViewBoards} label="Log Out" />
+				<SidebarButton icon={VscAccount} label="Account" />
+				<SidebarButton icon={BiLogOutCircle} label="Log Out" />
 			</div>
 		</div>
 	);

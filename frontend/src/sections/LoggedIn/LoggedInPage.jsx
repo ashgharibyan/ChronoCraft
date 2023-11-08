@@ -1,16 +1,16 @@
 import React from "react";
 import SidebarComponent from "./SidebarComponent";
-import Dashboard from "./Dashboard";
+import LoggedInMain from "./LoggedInMain";
 
-const DashboardPage = () => {
+const LoggedInPage = () => {
 	return (
 		<div className="flex overflow: hidden;">
 			<SidebarComponent />
 			<div className="w-full  ">
-				<Dashboard />
+				<LoggedInMain />
 			</div>
 		</div>
 	);
 };
 
-export default DashboardPage;
+export default LoggedInPage;
