@@ -11,21 +11,32 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { LuGoal } from "react-icons/lu";
 import { VscAccount } from "react-icons/vsc";
 import { BiLogOutCircle } from "react-icons/bi";
+import { useGeneral } from "../../contexts/GeneralContext";
 
 const SidebarComponent = () => {
 	const foldersTest = ["Folder 1", "Folder 2", "Folder 3"];
 	const listsTest = ["List 1", "List 2", "List 3"];
 	const tasksTest = ["Task 1", "Task 2", "Task 3"];
+	const { toggleSidebar, setToggleSidebar, setWasToggledManually } =
+		useGeneral();
 
+	const handleSidebarToggleButton = () => {
+		setToggleSidebar(!toggleSidebar);
+		setWasToggledManually(true);
+	};
 	return (
-		<div className="border-r-[1px] max-h-screen border-white min-w-[300px] bg-gradient-to-tr from-indigo-800 to-indigo-600 flex flex-col shadow-lg shadow-black">
+		<div
+			className={`border-r-[1px]  max-h-screen border-white min-w-[300px] bg-gradient-to-tr from-indigo-800 to-indigo-600 flex flex-col shadow-lg shadow-black`}
+		>
 			{/* Project name and arrow */}
 			<div className="space-y-4">
 				<div className="flex justify-between items-center px-4 pt-4">
 					<h1 className=" text-white  uppercase text-3xl font-bold ">
 						Mobile App
 					</h1>
-					<HiArrowSmLeft className="h-6 w-6 text-white " />
+					<button type="button" onClick={handleSidebarToggleButton}>
+						<HiArrowSmLeft className="h-6 w-6 text-white " />
+					</button>
 				</div>
 				<hr className="border-white" />
 			</div>
@@ -60,6 +71,7 @@ const SidebarComponent = () => {
 							<h3 className="text-white uppercase text-lg font-bold ">
 								My Projects
 							</h3>
+
 							<BsPlusCircle className="h-4 w-4 text-white " />
 						</div>
 						{/* <div className="space-y-1 overflow-y-scroll max-h-[425px] "> */}

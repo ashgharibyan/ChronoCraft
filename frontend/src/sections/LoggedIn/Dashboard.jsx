@@ -4,6 +4,7 @@ import axios from "axios";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { useUser } from "../../contexts/UserContext";
+import { useGeneral } from "../../contexts/GeneralContext";
 function getCookie(name) {
 	let value = "; " + document.cookie;
 	let parts = value.split("; " + name + "=");
@@ -16,7 +17,7 @@ const Dashboard = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const { isLoggedIn, logIn, logOut } = useUser();
 	const [isEmailVerified, setIsEmailVerified] = useState(false);
-
+	const { toggleSidebar, setToggleSidebar } = useGeneral();
 	const fetchUserData = async () => {
 		const csrfToken = getCookie("csrftoken");
 
@@ -184,7 +185,9 @@ const Dashboard = () => {
 	};
 
 	return (
-		<div className="flex-grow overflow-y-scroll bg-slate-300">
+		<div
+			className={`flex-grow overflow-x-scroll overflow-y-scroll  bg-slate-300`}
+		>
 			{user.username ? (
 				<div className="relative isolate px-6 pt-14 lg:px-8">
 					<div
