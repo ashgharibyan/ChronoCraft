@@ -257,8 +257,8 @@ const Profile = () => {
 				</div>
 			)}
 			{user.username ? (
-				<div className="text-center flex-grow flex justify-center flex-col items-center ">
-					<div className="flex justify-evenly items-center px-4 py-8">
+				<div className="text-center flex-grow flex  flex-col ">
+					<div className="flex justify-evenly items-center  px-4 py-8">
 						<button
 							type="button"
 							className="  px-4 py-2 font-bold  text-indigo-600 hover:text-indigo-900 focus:text-indigo-950 "
@@ -287,28 +287,34 @@ const Profile = () => {
 						>
 							DELETE ACCOUNT
 						</button>
+						<button
+							type="button"
+							className="  px-4 py-2 font-bold text-indigo-600 hover:text-indigo-900 focus:text-indigo-950 "
+						>
+							BILLING
+						</button>
 						<Link
 							to="/account/password/change/"
 							className="px-4 py-2  font-bold text-indigo-600 hover:text-indigo-900 focus:text-indigo-950"
 						>
 							CHANGE PASSWORD
 						</Link>
-						<button
-							onClick={handleLogout}
-							className="px-4 py-2  font-bold text-indigo-600 hover:text-indigo-900 focus:text-indigo-950"
-						>
-							LOG OUT
-						</button>
 					</div>
 
 					{user ? (
 						editToggle ? (
 							// Edit div
-							<div className="flex flex-col justify-center items-center gap-4 py-4 m-6 px-20 border-[1px] border-indigo-600 rounded-lg min-w-fit ">
-								{/* Error Handling */}
-								{editErrors.length > 0 ? (
-									<div className=" mb-4 ">
-										<div className="bg-red-50 border-l-8 border-red-900">
+							<div className="flex flex-1 flex-col justify-center items-center gap-4 py-4 m-6  border-2 border-indigo-600 rounded-lg min-w-fit ">
+								<form
+									onSubmit={handleEditSubmit}
+									className="flex flex-col justify-center items-center gap-8 "
+								>
+									<h1 className="uppercase text-indigo-700 p-2 px-6 rounded-lg font-bold text-3xl">
+										Edit your profile
+									</h1>
+									{/* Error Handling */}
+									{editErrors.length > 0 ? (
+										<div className="bg-red-500 text-white mb-4  ">
 											<div className="flex items-center">
 												<div className="p-2">
 													<div className="px-8">
@@ -316,7 +322,7 @@ const Profile = () => {
 															(err, index) => (
 																<li
 																	key={index}
-																	className="font-bold text-red-500 text-sm "
+																	className="font-bold text-sm "
 																>
 																	{err}
 																</li>
@@ -326,17 +332,9 @@ const Profile = () => {
 												</div>
 											</div>
 										</div>
-									</div>
-								) : (
-									""
-								)}
-								<form
-									onSubmit={handleEditSubmit}
-									className="flex flex-col justify-center items-center gap-8 "
-								>
-									<h1 className="uppercase bg-indigo-600 text-white p-2 px-6 rounded-lg font-bold text-3xl">
-										Edit your profile
-									</h1>
+									) : (
+										""
+									)}
 									<div className="flex flex-col items-center text-center">
 										<img
 											className="w-32 h-32 rounded-full p-2"
@@ -347,38 +345,40 @@ const Profile = () => {
 											Change Profile Picture
 										</p>
 									</div>
-									<div className="flex justify-center items-center gap-4 p-2">
-										<label className="text-lg font-bold bg-white border-[1px] border-indigo-600 rounded-lg text-indigo-600 px-4 py-2">
-											Name:
-										</label>
-										<input
-											value={userEditData.name}
-											name="name"
-											className="text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg"
-											onChange={handleEditDataChange}
-										/>
-									</div>
-									<div className="flex justify-center items-center gap-4 p-2">
-										<label className="text-lg font-bold bg-white border-[1px] border-indigo-600 rounded-lg text-indigo-600 px-4 py-2">
-											Username:
-										</label>
-										<input
-											name="username"
-											value={userEditData.username}
-											className="text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg"
-											onChange={handleEditDataChange}
-										/>
-									</div>
-									<div className="flex justify-center items-center gap-4 p-2">
-										<label className="text-lg font-bold bg-white border-[1px] border-indigo-600 rounded-lg text-indigo-600 px-4 py-2">
-											Email:
-										</label>
-										<input
-											name="email"
-											value={userEditData.email}
-											className="text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg min-w-full"
-											onChange={handleEditDataChange}
-										/>
+									<div className="flex flex-col gap-2">
+										<div className="flex justify-between items-center gap-4 p-2">
+											<label className="w-[200px] text-lg font-bold text-indigo-600 px-4 py-2">
+												Name:
+											</label>
+											<input
+												value={userEditData.name}
+												name="name"
+												className="w-[300px] text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg"
+												onChange={handleEditDataChange}
+											/>
+										</div>
+										<div className="flex justify-center items-center gap-4 p-2">
+											<label className="w-[200px] text-lg font-bold text-indigo-600 px-4 py-2">
+												Username:
+											</label>
+											<input
+												name="username"
+												value={userEditData.username}
+												className="w-[300px] text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg"
+												onChange={handleEditDataChange}
+											/>
+										</div>
+										<div className="flex justify-center items-center gap-4 p-2">
+											<label className="w-[200px] text-lg font-bold text-indigo-600 px-4 py-2">
+												Email:
+											</label>
+											<input
+												name="email"
+												value={userEditData.email}
+												className="w-[300px] text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg "
+												onChange={handleEditDataChange}
+											/>
+										</div>
 									</div>
 									<button
 										type="submit"
@@ -390,7 +390,10 @@ const Profile = () => {
 							</div>
 						) : (
 							// About Div
-							<div className="flex flex-grow flex-col justify-center items-center gap-8 p-4 ">
+							<div className="flex flex-1 flex-col justify-center items-center gap-4 py-4 m-6  border-2 border-indigo-600 rounded-lg min-w-fit ">
+								<h1 className="uppercase text-indigo-700 p-2 px-6 rounded-lg font-bold text-3xl">
+									Your Information
+								</h1>
 								<img
 									className="w-32 h-32 rounded-full p-2"
 									src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
@@ -398,7 +401,7 @@ const Profile = () => {
 								/>
 
 								<div className="flex justify-center items-center gap-4 p-2">
-									<label className="text-lg font-bold bg-white border-[1px] border-indigo-600 rounded-lg text-indigo-600 px-4 py-2">
+									<label className="text-lg font-bold  text-indigo-600 px-4 py-2">
 										Name:
 									</label>
 									<input
@@ -408,7 +411,7 @@ const Profile = () => {
 									/>
 								</div>
 								<div className="flex justify-center items-center gap-4 p-2">
-									<label className="text-lg font-bold bg-white border-[1px] border-indigo-600 rounded-lg text-indigo-600 px-4 py-2">
+									<label className="text-lg font-bold  text-indigo-600 px-4 py-2">
 										Username:
 									</label>
 									<input
@@ -418,7 +421,7 @@ const Profile = () => {
 									/>
 								</div>
 								<div className="flex justify-center items-center gap-4 p-2">
-									<label className="text-lg font-bold bg-white border-[1px] border-indigo-600 rounded-lg text-indigo-600 px-4 py-2">
+									<label className="text-lg font-bold  text-indigo-600 px-4 py-2">
 										Email:
 									</label>
 									<input
