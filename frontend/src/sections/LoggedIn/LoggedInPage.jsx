@@ -35,7 +35,7 @@ const LoggedInPage = () => {
 	return (
 		<div className="flex overflow-hidden ">
 			{toggleSidebar ? <SidebarComponent /> : ""}
-			<div className="w-full ">
+			<div className="w-full overflow-x-scroll">
 				<LoggedInMain />
 			</div>
 		</div>
