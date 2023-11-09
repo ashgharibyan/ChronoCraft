@@ -1,14 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import React from "react";
 import NotFound from "../components/NotFound";
-import LoggedInPage from "../sections/LoggedIn/LoggedInPage";
-const DashboardRoutes = () => {
+import Profile from "../sections/Account/Profile";
+import Dashboard from "../sections/LoggedIn/Dashboard";
+const LoggedInRoutes = () => {
 	return (
 		<Routes>
-			<Route path="/" element={<LoggedInPage />} />
+			<Route path="/" element={<Dashboard />} />
+			<Route path="/profile/" element={<Profile />} />
+
 			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);
 };
 
-export default DashboardRoutes;
+export default LoggedInRoutes;

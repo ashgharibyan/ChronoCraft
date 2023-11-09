@@ -12,13 +12,19 @@ import { LuGoal } from "react-icons/lu";
 import { VscAccount } from "react-icons/vsc";
 import { BiLogOutCircle } from "react-icons/bi";
 import { useGeneral } from "../../contexts/GeneralContext";
+import { Link } from "react-router-dom";
 
 const SidebarComponent = () => {
 	const foldersTest = ["Folder 1", "Folder 2", "Folder 3"];
 	const listsTest = ["List 1", "List 2", "List 3"];
 	const tasksTest = ["Task 1", "Task 2", "Task 3"];
-	const { toggleSidebar, setToggleSidebar, setWasToggledManually } =
-		useGeneral();
+	const {
+		toggleSidebar,
+		setToggleSidebar,
+		setWasToggledManually,
+		toggleProfile,
+		setToggleProfile,
+	} = useGeneral();
 
 	const handleSidebarToggleButton = () => {
 		setToggleSidebar(!toggleSidebar);
@@ -45,10 +51,12 @@ const SidebarComponent = () => {
 				{/* Menu Buttons */}
 				<div>
 					<div className="space-y-2 py-4">
-						<SidebarButton
-							icon={MdSpaceDashboard}
-							label="Dashboard"
-						/>
+						<Link to="/dashboard">
+							<SidebarButton
+								icon={MdSpaceDashboard}
+								label="Dashboard"
+							/>
+						</Link>
 						<SidebarButton
 							icon={SiCodereview}
 							label="Projects Overview"

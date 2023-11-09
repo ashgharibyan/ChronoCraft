@@ -8,6 +8,7 @@ export const GeneralProvider = ({ children }) => {
 	const [selectedProduct, setSelectedProduct] = useState("");
 	const [toggleSidebar, setToggleSidebar] = useState(true);
 	const [wasToggledManually, setWasToggledManually] = useState(false);
+	const [toggleProfile, setToggleProfile] = useState(false);
 
 	return (
 		<GeneralContext.Provider
@@ -18,6 +19,8 @@ export const GeneralProvider = ({ children }) => {
 				setToggleSidebar,
 				wasToggledManually,
 				setWasToggledManually,
+				toggleProfile,
+				setToggleProfile,
 			}}
 		>
 			{children}

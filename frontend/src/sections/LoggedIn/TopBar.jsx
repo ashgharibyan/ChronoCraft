@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { AiOutlineCaretDown, AiOutlineSearch } from "react-icons/ai";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import { useGeneral } from "../../contexts/GeneralContext";
+import { Link } from "react-router-dom";
 
 const TopBar = () => {
 	const {
@@ -9,6 +10,8 @@ const TopBar = () => {
 		setToggleSidebar,
 		wasToggledManually,
 		setWasToggledManually,
+		toggleProfile,
+		setToggleProfile,
 	} = useGeneral();
 
 	const handleSidebarOpenButton = () => {
@@ -45,12 +48,19 @@ const TopBar = () => {
 			</div>
 
 			<div id="userInfo" className="flex items-center space-x-2">
-				<p className="text-white">John Doe</p>
-				<img
-					src="https://picsum.photos/200/300"
-					alt="profile picture"
+				<Link to="/dashboard/profile/" className="hidden md:block">
+					<p className="text-white">John Doe</p>
+				</Link>
+				<Link
+					to="/dashboard/profile/"
 					className="h-10 w-10 rounded-full"
-				/>
+				>
+					<img
+						src="https://picsum.photos/200/300"
+						alt="profile picture"
+						className="h-10 w-10 rounded-full"
+					/>
+				</Link>
 				<AiOutlineCaretDown className="text-white" />
 			</div>
 		</div>
