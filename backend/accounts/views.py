@@ -13,6 +13,22 @@ from rest_framework import status
 def is_email_verified(user):
     return EmailAddress.objects.filter(user=user, verified=True).exists()
 
+class DeleteUserView(APIView):
+    def post(self, request, *args, **kwargs):
+        user_id = request.data.get('pk')
+
+        if not user_id:
+            return Response({"error": "User ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Get the user model using the user_id from request.data
+            user = get_user_model().objects.get(id=user_id)
+            user.delete()
+            return Response({"deleted": True}, status=status.HTTP_200_OK)
+        except get_user_model().DoesNotExist:
+            # Handle the case where the user does not exist
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
 class IsEmailVerified(APIView):
     def post(self, request, *args, **kwargs):
         user_id = request.data.get('user_id')
@@ -55,3 +71,5 @@ class CustomRegisterView(RegisterView):
                 )
 
         return response
+
+

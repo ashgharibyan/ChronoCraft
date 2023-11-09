@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from dj_rest_auth.views import PasswordResetConfirmView
-from .views import CustomRegisterView, IsEmailVerified
+from .views import CustomRegisterView, IsEmailVerified, DeleteUserView
 
 router = routers.DefaultRouter()
 router.register(r"users", CustomUserViewSet)
@@ -28,4 +28,5 @@ urlpatterns = [
         PasswordResetConfirmView.as_view(),
         name="password_reset_confirm",
     ),
+    path("delete-user/", DeleteUserView.as_view(), name="delete-user"),
 ]

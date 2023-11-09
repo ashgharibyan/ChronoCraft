@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { useUser } from "../../contexts/UserContext";
@@ -148,6 +148,21 @@ const Profile = () => {
 		}
 	}, [user]);
 
+	const clearAuthenticationData = () => {
+		// Clear local storage
+		localStorage.removeItem("jwtToken");
+		// Clear all cookies
+		axios.defaults.headers.common["Authorization"] = null;
+		document.cookie.split(";").forEach((c) => {
+			document.cookie = c
+				.replace(/^ +/, "")
+				.replace(
+					/=.*/,
+					"=;expires=" + new Date().toUTCString() + ";path=/"
+				);
+		});
+	};
+
 	const logoutAxios = async () => {
 		try {
 			const csrfToken = getCookie("csrftoken");
@@ -164,8 +179,8 @@ const Profile = () => {
 			);
 
 			console.log("Successfully logged out");
-			localStorage.removeItem("jwtToken");
-			axios.defaults.headers.common["Authorization"] = null;
+			clearAuthenticationData();
+
 			// logOut();
 			navigate("/");
 		} catch (error) {
@@ -193,7 +208,7 @@ const Profile = () => {
 					navigate("/login");
 				}
 			} else {
-				console.log("Error logging out", err);
+				console.log("Error logging out", error);
 			}
 		}
 	};
@@ -245,9 +260,55 @@ const Profile = () => {
 		//TODO AXIOS CALL TO EDIT USER DATA
 	};
 
-	const handleDelete = () => {
+	const handleDelete = async () => {
 		console.log("Item will be deleted");
-		// ... your deletion logic here ...
+
+		const csrfToken = getCookie("csrftoken");
+
+		try {
+			const response = await axios.post(
+				"http://localhost:8000/api/v1/accounts/delete-user/",
+				{ pk: user.pk },
+				{
+					withCredentials: true,
+					headers: {
+						"X-CSRFToken": csrfToken,
+					},
+				}
+			);
+			console.log("Successfully deleted user");
+			console.log(response.data);
+			clearAuthenticationData();
+			setIsModalOpen(false); // Close modal after confirming
+			navigate("/");
+		} catch (err) {
+			if (err.response.status === 401) {
+				try {
+					const csrfToken = getCookie("csrftoken");
+
+					const refreshResponse = await axios.post(
+						"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+						{},
+						{
+							withCredentials: true,
+							headers: {
+								"X-CSRFToken": csrfToken,
+							},
+						}
+					);
+					const newAccessToken = refreshResponse.data.access;
+					localStorage.setItem("jwtToken", newAccessToken);
+					axios.defaults.headers.common["Authorization"] =
+						"Bearer " + newAccessToken;
+					fetchUserData(); // retry fetching user data with the new token
+				} catch (refreshErr) {
+					console.log("Error refreshing token", refreshErr);
+					navigate("/login");
+				}
+			} else {
+				console.log("Error deleteing user", err);
+			}
+		}
 		setIsModalOpen(false); // Close modal after confirming
 	};
 
