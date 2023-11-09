@@ -4,6 +4,7 @@ import axios from "axios";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { useUser } from "../../contexts/UserContext";
 import { useGeneral } from "../../contexts/GeneralContext";
+import ConfirmationModal from "./ConfirmationModal";
 function getCookie(name) {
 	let value = "; " + document.cookie;
 	let parts = value.split("; " + name + "=");
@@ -24,6 +25,7 @@ const Profile = () => {
 	const [userEditData, setUserEditData] = useState(initialUserData);
 	const [editErrors, setEditErrors] = useState([]);
 	const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const fetchUserData = async () => {
 		const csrfToken = getCookie("csrftoken");
@@ -243,6 +245,12 @@ const Profile = () => {
 		//TODO AXIOS CALL TO EDIT USER DATA
 	};
 
+	const handleDelete = () => {
+		console.log("Item will be deleted");
+		// ... your deletion logic here ...
+		setIsModalOpen(false); // Close modal after confirming
+	};
+
 	return (
 		<div className={`flex-grow flex flex-col overflow-scroll bg-stone-200`}>
 			{/* EMAIL VERIFICATION */}
@@ -284,6 +292,7 @@ const Profile = () => {
 						<button
 							type="button"
 							className="  px-4 py-2 font-bold text-indigo-600 hover:text-indigo-900 focus:text-indigo-950 "
+							onClick={() => setIsModalOpen(true)}
 						>
 							DELETE ACCOUNT
 						</button>
@@ -300,6 +309,13 @@ const Profile = () => {
 							CHANGE PASSWORD
 						</Link>
 					</div>
+
+					{/* The confirmation modal */}
+					<ConfirmationModal
+						isOpen={isModalOpen}
+						onClose={() => setIsModalOpen(false)}
+						onConfirm={handleDelete}
+					/>
 
 					{user ? (
 						editToggle ? (
