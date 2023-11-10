@@ -191,8 +191,9 @@ const SidebarComponent = () => {
 
 				<div className="space-y-2 py-4">
 					<hr className="pt-2 border-white" />
-
-					<SidebarButton icon={VscAccount} label="Account" />
+					<Link to="/dashboard/profile/">
+						<SidebarButton icon={VscAccount} label="Account" />
+					</Link>
 					<Link onClick={handleLogout}>
 						<SidebarButton icon={BiLogOutCircle} label="Log Out" />
 					</Link>

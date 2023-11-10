@@ -254,6 +254,7 @@ const Profile = () => {
 				username: response.data.username,
 				email: response.data.email,
 			});
+			setEditToggle(false);
 		} catch (err) {
 			if (err.response.status === 401) {
 				try {
@@ -281,6 +282,8 @@ const Profile = () => {
 				}
 			} else {
 				console.log("Error editing user data", err);
+				setEditErrors(err.response.data?.username);
+				setUserEditData(initialUserData);
 			}
 		}
 	};
@@ -291,7 +294,7 @@ const Profile = () => {
 		setEditErrors([]);
 		let errors = [];
 
-		if (userEditData.name === "") {
+		if (userEditData.has === "") {
 			errors.push("Name is required!");
 		} else if (userEditData.name.length > 150) {
 			errors.push("Name must be less than 150 characters!");
@@ -326,7 +329,6 @@ const Profile = () => {
 		}
 
 		editAxios();
-		setEditToggle(false);
 	};
 
 	const handleDelete = async () => {
@@ -498,7 +500,11 @@ const Profile = () => {
 												Name:
 											</label>
 											<input
-												value={userEditData.name}
+												value={
+													userEditData.name
+														? userEditData.name
+														: ""
+												}
 												name="name"
 												className="w-[300px] text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg"
 												onChange={handleEditDataChange}
@@ -510,7 +516,11 @@ const Profile = () => {
 											</label>
 											<input
 												name="username"
-												value={userEditData.username}
+												value={
+													userEditData.username
+														? userEditData.username
+														: ""
+												}
 												className="w-[300px] text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg"
 												onChange={handleEditDataChange}
 											/>
@@ -521,7 +531,11 @@ const Profile = () => {
 											</label>
 											<input
 												name="email"
-												value={userEditData.email}
+												value={
+													userEditData.email
+														? userEditData.email
+														: ""
+												}
 												className="w-[300px] text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg "
 												onChange={handleEditDataChange}
 											/>
