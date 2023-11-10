@@ -9,6 +9,10 @@ from rest_framework.views import APIView
 from allauth.account.models import EmailAddress
 from django.contrib.auth import get_user_model
 from rest_framework import status
+from allauth.account.utils import send_email_confirmation
+from rest_framework import serializers
+from .permissions import IsOwnerOrReadOnly
+from django.contrib.auth import get_user_model
 
 def is_email_verified(user):
     return EmailAddress.objects.filter(user=user, verified=True).exists()
@@ -54,7 +58,55 @@ class CustomUserViewSet(viewsets.ModelViewSet):
 
     queryset = CustomUser.objects.all().order_by("-date_joined")
     serializer_class = CustomUserSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsOwnerOrReadOnly]
+
+    print("--------------------------IN VIEWSET")
+
+    
+
+    def partial_update(self, request, *args, **kwargs):
+        print("--------------------------IN UPDATE")
+        print("--------------------------IN UPDATE")
+        print("--------------------------IN UPDATE")
+        print(request.data)
+
+        user = self.get_object()
+        original_email = user.email  
+        serializer = self.get_serializer(user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        # Perform update
+        user = serializer.save()
+
+        # If the email was updated, send a confirmation email
+        if 'email' in serializer.validated_data and original_email != serializer.validated_data['email']:
+
+            print("inside email update")
+            print(serializer.validated_data['email'])
+
+            new_email = serializer.validated_data['email']
+            email_address, created = EmailAddress.objects.get_or_create(
+                user=user, defaults={'email': new_email, 'primary': True, 'verified': False}
+            )
+
+            if not created:
+                email_address.email = new_email
+                email_address.primary = True
+                email_address.verified = False
+                email_address.save()
+
+
+            print("sending email")
+            print(user.email)
+  
+            send_email_confirmation(request, user, signup=False, email=user.email)
+
+        return Response(serializer.data)
+    
+
+
+
+
+
 
 
 class CustomRegisterView(RegisterView):

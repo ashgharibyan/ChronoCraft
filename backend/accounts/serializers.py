@@ -9,6 +9,19 @@ class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'name')
+        extra_kwargs = {
+            'email' : {'read_only': False},
+        }
+    
+    def validate_username(self, value):
+        print("inside validate_username")
+        # If the instance (user being updated) has the same username, it's fine
+        if self.instance and self.instance.username == value:
+            return value
+        # Check if a different user has the same username
+        if CustomUser.objects.exclude(pk=self.instance.pk).filter(username=value).exists():
+            raise serializers.ValidationError("A user with that username already exists.")
+        return value
 
 
 class CustomUserDetailsSerializer(UserDetailsSerializer):

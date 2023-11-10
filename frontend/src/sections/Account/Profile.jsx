@@ -41,7 +41,7 @@ const Profile = () => {
 				}
 			);
 			console.log("Successfully fetched user data");
-			console.log(response.data);
+			// console.log(response.data);
 			setUser(response.data);
 			setUserEditData({
 				name: response.data.name,
@@ -57,6 +57,7 @@ const Profile = () => {
 			if (err.response.status === 401) {
 				try {
 					const csrfToken = getCookie("csrftoken");
+					console.log("getting a new token in the user fetching...");
 
 					const refreshResponse = await axios.post(
 						"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
@@ -229,10 +230,9 @@ const Profile = () => {
 
 	const editAxios = async () => {
 		const csrfToken = getCookie("csrftoken");
-
 		try {
 			const response = await axios.patch(
-				"http://localhost:8000/api/v1/accounts/dj-rest-auth/user/",
+				`http://localhost:8000/api/v1/accounts/users/${user.pk}/`,
 				userEditData,
 				{
 					withCredentials: true,
@@ -242,8 +242,8 @@ const Profile = () => {
 				}
 			);
 			console.log("Successfully updated user data");
-			console.log(response.data);
-			setUser(response.data);
+			// console.log(response.data);
+			setUser({ ...response.data, pk: response.data.id });
 			setUserEditData({
 				name: response.data.name,
 				username: response.data.username,
@@ -257,6 +257,7 @@ const Profile = () => {
 		} catch (err) {
 			if (err.response.status === 401) {
 				try {
+					console.log("getting a new token...");
 					const csrfToken = getCookie("csrftoken");
 
 					const refreshResponse = await axios.post(
@@ -345,13 +346,14 @@ const Profile = () => {
 				}
 			);
 			console.log("Successfully deleted user");
-			console.log(response.data);
+			// console.log(response.data);
 			clearAuthenticationData();
 			setIsModalOpen(false); // Close modal after confirming
 			navigate("/");
 		} catch (err) {
 			if (err.response.status === 401) {
 				try {
+					console.log("getting a new token...");
 					const csrfToken = getCookie("csrftoken");
 
 					const refreshResponse = await axios.post(
