@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { useUser } from "../../contexts/UserContext";
+import { useGeneral } from "../../contexts/GeneralContext";
 function getCookie(name) {
 	let value = "; " + document.cookie;
 	let parts = value.split("; " + name + "=");
@@ -10,10 +11,11 @@ function getCookie(name) {
 }
 
 const Dashboard = () => {
-	const [user, setUser] = useState({});
 	const navigate = useNavigate();
 	const { logOut } = useUser();
 	const [isEmailVerified, setIsEmailVerified] = useState(false);
+	const { user, setUser } = useGeneral();
+
 	const fetchUserData = async () => {
 		const csrfToken = getCookie("csrftoken");
 
@@ -182,7 +184,7 @@ const Dashboard = () => {
 
 	return (
 		<div
-			className={`overflow-y-scroll min-h-screen overflow-x-scroll bg-slate-300 `}
+			className={`overflow-y-scroll min-h-full overflow-x-scroll bg-slate-300 m-4 `}
 		>
 			{user.username ? (
 				<div className="relative isolate px-6 pt-14 lg:px-8">
@@ -205,23 +207,9 @@ const Dashboard = () => {
 							</h1>
 						</div>
 					</div>
-					<div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-						<div className="text-center">
-							<h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-								WELCOME TO YOUR DASHBOARD, {user.username}
-							</h1>
-						</div>
-					</div>
-					<div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-						<div className="text-center">
-							<h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-								WELCOME TO YOUR DASHBOARD, {user.username}
-							</h1>
-						</div>
-					</div>
 				</div>
 			) : (
-				<div className="flex justify-center items-center w-screen h-screen">
+				<div className="flex justify-center items-center w-screen h-full">
 					<ClockIcon className=" w-20 h-20 text-indigo-600 animate-spin" />
 				</div>
 			)}

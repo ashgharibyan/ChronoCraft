@@ -35,11 +35,12 @@ const LoggedInLayout = ({ children }) => {
 	}, [toggleSidebar, wasToggledManually]);
 	return (
 		<>
-			<div className="flex overflow-hidden ">
+			{/* <div className="flex overflow-hidden "> */}
+			<div className="flex h-screen overflow-hidden">
 				{toggleSidebar ? <SidebarComponent /> : ""}
-				<div className="w-full overflow-x-scroll">
-					<div className="overflow-hidden flex flex-col h-screen overflow-x-scroll">
-						<TopBar />
+				<div className="flex flex-col w-full flex-grow">
+					<TopBar />
+					<div className="flex-1 overflow-auto bg-pink-500">
 						{children}
 					</div>
 				</div>

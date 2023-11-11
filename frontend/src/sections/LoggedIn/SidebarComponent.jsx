@@ -110,7 +110,8 @@ const SidebarComponent = () => {
 
 	return (
 		<div
-			className={`border-r-[1px]  max-h-screen border-white min-w-[300px] bg-gradient-to-tr from-indigo-800 to-indigo-600 flex flex-col shadow-lg shadow-black`}
+			// className={`border-r-[1px]  max-h-screen border-white min-w-[300px] bg-gradient-to-tr from-indigo-800 to-indigo-600 flex flex-col shadow-lg shadow-black`}
+			className={` overflow-y-auto border-r-[1px]  max-h-screen border-white min-w-[300px] bg-gradient-to-tr from-indigo-800 to-indigo-600 flex flex-col shadow-lg shadow-black`}
 		>
 			{/* Project name and arrow */}
 			<div className="space-y-4">
@@ -129,25 +130,43 @@ const SidebarComponent = () => {
 				{/* Menu Buttons */}
 				<div>
 					<div className="space-y-2 py-4">
-						<Link to="/dashboard">
-							<SidebarButton
-								icon={MdSpaceDashboard}
-								label="Dashboard"
-							/>
-						</Link>
-						<SidebarButton
-							icon={SiCodereview}
-							label="Projects Overview"
-						/>
-						<SidebarButton
-							icon={BsCalendarRange}
-							label="Calendar"
-						/>
-						<SidebarButton
-							icon={IoSettingsOutline}
-							label="Settings"
-						/>
-						<SidebarButton icon={LuGoal} label="Goals" />
+						<div>
+							<Link to="/dashboard">
+								<SidebarButton
+									icon={MdSpaceDashboard}
+									label="Dashboard"
+								/>
+							</Link>
+						</div>
+						<div>
+							<Link to="/dashboard/projects-overview/">
+								<SidebarButton
+									icon={SiCodereview}
+									label="Projects Overview"
+								/>
+							</Link>
+						</div>
+						<div>
+							<Link to="/dashboard/projects-overview/">
+								<SidebarButton
+									icon={BsCalendarRange}
+									label="Calendar"
+								/>
+							</Link>
+						</div>
+						<div>
+							<Link to="/dashboard/projects-overview/">
+								<SidebarButton
+									icon={IoSettingsOutline}
+									label="Settings"
+								/>
+							</Link>
+						</div>
+						<div>
+							<Link to="/dashboard/projects-overview/">
+								<SidebarButton icon={LuGoal} label="Goals" />
+							</Link>
+						</div>
 					</div>
 					<hr className=" border-white" />
 

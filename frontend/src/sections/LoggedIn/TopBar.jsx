@@ -20,7 +20,8 @@ const TopBar = () => {
 	};
 
 	return (
-		<div className="flex w-full min-h-[83px] gap-4 justify-between items-center p-4 bg-gradient-to-tr from-indigo-600 to-indigo-800  border-b-[1px] border-white">
+		// <div className="flex÷ w-full min-h-[83px] gap-4 justify-between items-center p-4 bg-gradient-to-tr from-indigo-600 to-indigo-800  border-b-[1px] border-white">
+		<div className="w-full text-white flex min-h-[83px] gap-4 justify-between items-center p-4 bg-gradient-to-tr from-indigo-600 to-indigo-800  border-b-[1px] border-white">
 			{toggleSidebar ? (
 				""
 			) : (
