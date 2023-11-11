@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'projects.apps.ProjectsConfig',
     'folders.apps.FoldersConfig',
+    'lists.apps.ListsConfig',
 ]
 
 SITE_ID = 1

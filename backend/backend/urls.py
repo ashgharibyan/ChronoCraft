@@ -23,4 +23,5 @@ urlpatterns = [
     path('api/v1/core/', include("core.urls"), name="core"),
     path('api/v1/projects/', include("projects.urls"), name="projects"),
     path('api/v1/folders/', include("folders.urls"), name="folders"),
+    path('api/v1/lists/', include("lists.urls"), name="lists"),
 ]
