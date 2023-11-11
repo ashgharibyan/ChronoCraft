@@ -10,7 +10,11 @@ class FolderViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return Folder.objects.filter(parent_project__owner=self.request.user)
+        queryset = Folder.objects.filter(parent_project__owner=self.request.user)
+        project_id = self.request.query_params.get('project_id')
+        if project_id is not None:
+            queryset = queryset.filter(parent_project_id=project_id)
+        return queryset
 
     def perform_create(self, serializer):
         parent_project = get_object_or_404(Project, pk=self.request.data.get('parent_project'))
