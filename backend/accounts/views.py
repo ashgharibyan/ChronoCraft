@@ -60,15 +60,10 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     serializer_class = CustomUserSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
-    print("--------------------------IN VIEWSET")
 
     
 
     def partial_update(self, request, *args, **kwargs):
-        print("--------------------------IN UPDATE")
-        print("--------------------------IN UPDATE")
-        print("--------------------------IN UPDATE")
-        print(request.data)
 
         user = self.get_object()
         original_email = user.email  
@@ -79,10 +74,6 @@ class CustomUserViewSet(viewsets.ModelViewSet):
 
         # If the email was updated, send a confirmation email
         if 'email' in serializer.validated_data and original_email != serializer.validated_data['email']:
-
-            print("inside email update")
-            print(serializer.validated_data['email'])
-
             new_email = serializer.validated_data['email']
             email_address, created = EmailAddress.objects.get_or_create(
                 user=user, defaults={'email': new_email, 'primary': True, 'verified': False}
@@ -93,20 +84,11 @@ class CustomUserViewSet(viewsets.ModelViewSet):
                 email_address.primary = True
                 email_address.verified = False
                 email_address.save()
-
-
-            print("sending email")
-            print(user.email)
   
             send_email_confirmation(request, user, signup=False, email=user.email)
 
         return Response(serializer.data)
     
-
-
-
-
-
 
 
 class CustomRegisterView(RegisterView):
