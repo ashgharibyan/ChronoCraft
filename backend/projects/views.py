@@ -2,8 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from .models import Project
 from .serializers import ProjectSerializer
-from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import viewsets, permissions
 
 # class ProjectList(generics.ListAPIView):
 #     queryset= Project.objects.all()
