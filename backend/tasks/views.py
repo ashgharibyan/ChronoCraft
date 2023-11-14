@@ -22,4 +22,4 @@ class TaskViewSet(viewsets.ModelViewSet):
         parent_project = parent_list.parent_folder.parent_project
         if parent_project.owner != self.request.user:
             raise PermissionDenied({'message': "You don't have permission to add to this list"})
-        serializer.save(parent_list=[parent_list])
+        serializer.save(parent_list=parent_list)
