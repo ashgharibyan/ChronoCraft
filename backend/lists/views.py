@@ -2,7 +2,9 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, permissions
 from .models import List
 from folders.models import Folder
+from projects.models import Project
 from .serializers import ListSerializer
+from rest_framework.exceptions import PermissionDenied
 
 
 class ListViewset(viewsets.ModelViewSet):
@@ -19,4 +21,8 @@ class ListViewset(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         parent_folder = get_object_or_404(Folder, pk=self.request.data.get('parent_folder'))
+        parent_project = parent_folder.parent_project
+        if parent_project.owner != self.request.user:
+            raise PermissionDenied({'message': "You don't have permission to add to this folder"})
         serializer.save(parent_folder=parent_folder)
+
