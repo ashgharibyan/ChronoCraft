@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'projects.apps.ProjectsConfig',
     'folders.apps.FoldersConfig',
     'lists.apps.ListsConfig',
+    'tasks.apps.TasksConfig',
 ]
 
 SITE_ID = 1
@@ -214,6 +215,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
 ]
 
+
+# REMOVE THE COMMENT --------------------
 # CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
 
 
