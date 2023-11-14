@@ -12,43 +12,46 @@ import LoggedInRoutes from "./routes/LoggedInRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import AccountLayout from "./layouts/AccountLayout";
 import AccountRoutes from "./routes/AccountRoutes";
+import { ModelProvider } from "./contexts/ModelContext";
 
 function App() {
 	return (
 		<BrowserRouter>
 			<GeneralProvider>
-				<HomePageProvider>
-					<Routes>
-						<Route
-							path="/*"
-							element={
-								<PublicLayout>
-									<PublicRoutes />
-								</PublicLayout>
-							}
-						/>
-						<Route
-							path="/dashboard/*"
-							element={
-								<LoggedInLayout>
-									<LoggedInRoutes />
-								</LoggedInLayout>
-							}
-						/>
-						<Route
-							path="/account/*"
-							element={
-								<AccountLayout>
-									<AccountRoutes />
-								</AccountLayout>
-							}
-						/>
-						<Route path="*" element={<NotFound />}>
-							"Not Found"
-						</Route>
-						<Route path="/users" element={<Users />} />
-					</Routes>
-				</HomePageProvider>
+				<ModelProvider>
+					<HomePageProvider>
+						<Routes>
+							<Route
+								path="/*"
+								element={
+									<PublicLayout>
+										<PublicRoutes />
+									</PublicLayout>
+								}
+							/>
+							<Route
+								path="/dashboard/*"
+								element={
+									<LoggedInLayout>
+										<LoggedInRoutes />
+									</LoggedInLayout>
+								}
+							/>
+							<Route
+								path="/account/*"
+								element={
+									<AccountLayout>
+										<AccountRoutes />
+									</AccountLayout>
+								}
+							/>
+							<Route path="*" element={<NotFound />}>
+								"Not Found"
+							</Route>
+							<Route path="/users" element={<Users />} />
+						</Routes>
+					</HomePageProvider>
+				</ModelProvider>
 			</GeneralProvider>
 		</BrowserRouter>
 	);

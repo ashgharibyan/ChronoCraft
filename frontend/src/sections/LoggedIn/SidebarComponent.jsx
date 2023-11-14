@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HiArrowSmLeft } from "react-icons/hi";
 import { BsPlusCircle } from "react-icons/bs";
 import { GoProjectRoadmap } from "react-icons/go";
@@ -15,6 +15,9 @@ import { useGeneral } from "../../contexts/GeneralContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
 import axios from "axios";
+import { useModel } from "../../contexts/ModelContext";
+import { listProjectsAxios } from "../../axios/ModelAxios";
+
 const SidebarComponent = () => {
 	const foldersTest = ["Folder 1", "Folder 2", "Folder 3"];
 	const listsTest = ["List 1", "List 2", "List 3"];
@@ -28,6 +31,12 @@ const SidebarComponent = () => {
 	} = useGeneral();
 	const navigate = useNavigate();
 	const { logOut } = useUser();
+	const { projects, setProjects } = useModel();
+
+	useEffect(() => {
+		listProjectsAxios(setProjects, navigate);
+	}, []);
+
 	const handleSidebarToggleButton = () => {
 		setToggleSidebar(!toggleSidebar);
 		setWasToggledManually(true);
@@ -181,27 +190,16 @@ const SidebarComponent = () => {
 						</div>
 						{/* <div className="space-y-1 overflow-y-scroll max-h-[425px] "> */}
 						<div className="space-y-1 overflow-y-scroll min-h-[200px] max-h-[calc(100vh-450px)] ">
-							<ProjectButton
-								label="Project 1"
-								icon={GoProjectRoadmap}
-								folders={foldersTest}
-								lists={listsTest}
-								tasks={tasksTest}
-							/>
-							<ProjectButton
-								label="Project 2"
-								icon={GoProjectRoadmap}
-								folders={foldersTest}
-								lists={listsTest}
-								tasks={tasksTest}
-							/>
-							<ProjectButton
-								label="Project 3"
-								icon={GoProjectRoadmap}
-								folders={foldersTest}
-								lists={listsTest}
-								tasks={tasksTest}
-							/>
+							{projects.map((project, idx) => (
+								<ProjectButton
+									key={idx}
+									label={project.title}
+									icon={GoProjectRoadmap}
+									folders={foldersTest}
+									lists={listsTest}
+									tasks={tasksTest}
+								/>
+							))}
 						</div>
 					</div>
 				</div>
