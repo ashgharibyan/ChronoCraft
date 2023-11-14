@@ -16,7 +16,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
 import axios from "axios";
 import { useModel } from "../../contexts/ModelContext";
-import { listProjectsAxios } from "../../axios/ModelAxios";
+import {
+	listProjectsAxios,
+	listFolderByProjectAxios,
+} from "../../axios/ModelAxios";
 
 const SidebarComponent = () => {
 	const foldersTest = ["Folder 1", "Folder 2", "Folder 3"];
@@ -31,11 +34,24 @@ const SidebarComponent = () => {
 	} = useGeneral();
 	const navigate = useNavigate();
 	const { logOut } = useUser();
-	const { projects, setProjects } = useModel();
+	const { projects, setProjects, folders, setFolders } = useModel();
+	const { projectArrowClicked, setProjectArrowClicked } = useGeneral();
+	const [openProjectId, setOpenProjectId] = useState(null);
 
 	useEffect(() => {
 		listProjectsAxios(setProjects, navigate);
 	}, []);
+
+	const handleProjectOpen = (projectId) => {
+		if (openProjectId === projectId) {
+			setOpenProjectId(null); // Close the project if it's already open
+		} else {
+			const project_id = projectId;
+			setOpenProjectId(projectId); // Open the new project
+			listFolderByProjectAxios(setFolders, project_id, navigate);
+		}
+		setProjectArrowClicked(!projectArrowClicked);
+	};
 
 	const handleSidebarToggleButton = () => {
 		setToggleSidebar(!toggleSidebar);
@@ -190,16 +206,27 @@ const SidebarComponent = () => {
 						</div>
 						{/* <div className="space-y-1 overflow-y-scroll max-h-[425px] "> */}
 						<div className="space-y-1 overflow-y-scroll min-h-[200px] max-h-[calc(100vh-450px)] ">
-							{projects.map((project, idx) => (
-								<ProjectButton
-									key={idx}
-									label={project.title}
-									icon={GoProjectRoadmap}
-									folders={foldersTest}
-									lists={listsTest}
-									tasks={tasksTest}
-								/>
-							))}
+							{projects &&
+								projects.map((project, idx) => (
+									<ProjectButton
+										key={idx}
+										label={project.title}
+										project_id={project.id}
+										icon={GoProjectRoadmap}
+										folders={folders}
+										lists={listsTest}
+										tasks={tasksTest}
+										isOpen={openProjectId === project.id}
+										// projectArrowClicked={
+										// 	openProjectId === project.id
+										// 		? (projectArrowClicked = true)
+										// 		: (projectArrowClicked = false)
+										// }
+										onProjectClick={() =>
+											handleProjectOpen(project.id)
+										}
+									/>
+								))}
 						</div>
 					</div>
 				</div>

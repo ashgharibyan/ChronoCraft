@@ -8,60 +8,82 @@ import {
 	AiOutlinePlus,
 } from "react-icons/ai";
 
+import { listFolderByProjectAxios } from "../../axios/ModelAxios";
+import { useModel } from "../../contexts/ModelContext";
+import { useNavigate } from "react-router-dom";
+import { useGeneral } from "../../contexts/GeneralContext";
+
 const ProjectButton = ({
 	icon: Icon,
 	label,
-	folders,
 	lists,
 	tasks,
+	folders,
 	customClassName,
+	project_id,
+	isOpen,
+	onProjectClick,
+	projectArrowClicked,
 }) => {
-	const [projectArrowClicked, setProjectArrowClicked] = useState(false);
+	// const [projectArrowClicked, setProjectArrowClicked] = useState(false);
+	// const { projectArrowClicked, setProjectArrowClicked } = useGeneral();
 
-	if (projectArrowClicked) {
-		return (
-			<div className={`space-y-1  ${customClassName}`}>
-				<div
-					onClick={() => setProjectArrowClicked(!projectArrowClicked)}
-					className={`flex justify-between items-center pl-4 hover:bg-indigo-900 `}
-				>
-					<div className="flex items-center ">
-						<AiOutlineDown className="h-4 w-4 text-white  " />
-						<SidebarButton icon={Icon} label={label} />
-					</div>
-					<AiOutlinePlus className="h-4 w-4 text-white mr-4 " />
-				</div>
+	const navigate = useNavigate();
 
-				{folders
-					? folders.map((folder, idx) => {
-							return (
-								<FolderButton
-									icon={AiOutlineFolderOpen}
-									key={idx}
-									customClassName="pl-2"
-									lists={lists}
-									tasks={tasks}
-									label={folder}
-								/>
-							);
-					  })
-					: null}
-			</div>
-		);
-	} else {
-		return (
+	const handleProjectButtonClicked = () => {
+		if (projectArrowClicked == false) {
+			listFolderByProjectAxios(setFolders, project_id, navigate);
+		}
+
+		setProjectArrowClicked(!projectArrowClicked);
+	};
+
+	// if (projectArrowClicked) {
+	return (
+		<div className={`space-y-1  ${customClassName}`}>
 			<div
-				onClick={() => setProjectArrowClicked(!projectArrowClicked)}
-				className={`flex justify-between items-center  hover:bg-indigo-900 pl-4  ${customClassName}`}
+				onClick={onProjectClick} // Use `onProjectClick` for handling click
+				className={`flex justify-between items-center pl-4 hover:bg-indigo-900 `}
 			>
 				<div className="flex items-center ">
-					<AiOutlineRight className="h-4 w-4 text-white  " />
+					{isOpen ? (
+						<AiOutlineDown className="h-4 w-4 text-white  " />
+					) : (
+						<AiOutlineRight className="h-4 w-4 text-white  " />
+					)}
 					<SidebarButton icon={Icon} label={label} />
 				</div>
 				<AiOutlinePlus className="h-4 w-4 text-white mr-4 " />
 			</div>
-		);
-	}
+
+			{isOpen &&
+				folders &&
+				folders.map((folder, idx) => (
+					<FolderButton
+						icon={AiOutlineFolderOpen}
+						key={idx}
+						customClassName="pl-2"
+						lists={lists}
+						tasks={tasks}
+						label={folder.name}
+					/>
+				))}
+		</div>
+	);
+	// } else {
+	// 	return (
+	// 		<div
+	// 			onClick={onProjectClick}
+	// 			className={`flex justify-between items-center  hover:bg-indigo-900 pl-4  ${customClassName}`}
+	// 		>
+	// 			<div className="flex items-center ">
+	// 				<AiOutlineRight className="h-4 w-4 text-white  " />
+	// 				<SidebarButton icon={Icon} label={label} />
+	// 			</div>
+	// 			<AiOutlinePlus className="h-4 w-4 text-white mr-4 " />
+	// 		</div>
+	// 	);
+	// }
 };
 
 export default ProjectButton;
