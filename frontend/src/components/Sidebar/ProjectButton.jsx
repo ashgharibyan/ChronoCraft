@@ -8,7 +8,10 @@ import {
 	AiOutlinePlus,
 } from "react-icons/ai";
 
-import { listFolderByProjectAxios } from "../../axios/ModelAxios";
+import {
+	listFolderByProjectAxios,
+	listListByFolderAxios,
+} from "../../axios/ModelAxios";
 import { useModel } from "../../contexts/ModelContext";
 import { useNavigate } from "react-router-dom";
 import { useGeneral } from "../../contexts/GeneralContext";
@@ -16,7 +19,6 @@ import { useGeneral } from "../../contexts/GeneralContext";
 const ProjectButton = ({
 	icon: Icon,
 	label,
-	lists,
 	tasks,
 	folders,
 	customClassName,
@@ -29,16 +31,21 @@ const ProjectButton = ({
 	// const { projectArrowClicked, setProjectArrowClicked } = useGeneral();
 
 	const navigate = useNavigate();
+	const { lists, setLists } = useModel();
+	const [openFolderId, setOpenFolderId] = useState(null);
+	const { folderArrowClicked, setFolderArrowClicked } = useGeneral();
 
-	const handleProjectButtonClicked = () => {
-		if (projectArrowClicked == false) {
-			listFolderByProjectAxios(setFolders, project_id, navigate);
+	const handleFolderOpen = (folderId) => {
+		if (openFolderId === folderId) {
+			setOpenFolderId(null); // Close the folder if it's already open
+		} else {
+			const folder_id = folderId;
+			setOpenFolderId(folderId); // Open the new folder
+			listListByFolderAxios(setLists, folder_id, navigate);
 		}
-
-		setProjectArrowClicked(!projectArrowClicked);
+		setFolderArrowClicked(!folderArrowClicked);
 	};
 
-	// if (projectArrowClicked) {
 	return (
 		<div className={`space-y-1  ${customClassName}`}>
 			<div
@@ -66,24 +73,12 @@ const ProjectButton = ({
 						lists={lists}
 						tasks={tasks}
 						label={folder.name}
+						isOpen={openFolderId === folder.id}
+						onFolderClick={() => handleFolderOpen(folder.id)}
 					/>
 				))}
 		</div>
 	);
-	// } else {
-	// 	return (
-	// 		<div
-	// 			onClick={onProjectClick}
-	// 			className={`flex justify-between items-center  hover:bg-indigo-900 pl-4  ${customClassName}`}
-	// 		>
-	// 			<div className="flex items-center ">
-	// 				<AiOutlineRight className="h-4 w-4 text-white  " />
-	// 				<SidebarButton icon={Icon} label={label} />
-	// 			</div>
-	// 			<AiOutlinePlus className="h-4 w-4 text-white mr-4 " />
-	// 		</div>
-	// 	);
-	// }
 };
 
 export default ProjectButton;

@@ -214,14 +214,8 @@ const SidebarComponent = () => {
 										project_id={project.id}
 										icon={GoProjectRoadmap}
 										folders={folders}
-										lists={listsTest}
 										tasks={tasksTest}
 										isOpen={openProjectId === project.id}
-										// projectArrowClicked={
-										// 	openProjectId === project.id
-										// 		? (projectArrowClicked = true)
-										// 		: (projectArrowClicked = false)
-										// }
 										onProjectClick={() =>
 											handleProjectOpen(project.id)
 										}

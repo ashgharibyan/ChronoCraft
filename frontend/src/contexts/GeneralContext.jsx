@@ -12,6 +12,7 @@ export const GeneralProvider = ({ children }) => {
 	const [user, setUser] = useState({});
 	const [projects, setProjects] = useState([]);
 	const [projectArrowClicked, setProjectArrowClicked] = useState(false);
+	const [folderArrowClicked, setFolderArrowClicked] = useState(false);
 	return (
 		<GeneralContext.Provider
 			value={{
@@ -29,6 +30,8 @@ export const GeneralProvider = ({ children }) => {
 				setProjects,
 				projectArrowClicked,
 				setProjectArrowClicked,
+				folderArrowClicked,
+				setFolderArrowClicked,
 			}}
 		>
 			{children}
