@@ -4,6 +4,7 @@ import axios from "axios";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { useUser } from "../../contexts/UserContext";
 import { useGeneral } from "../../contexts/GeneralContext";
+
 function getCookie(name) {
 	let value = "; " + document.cookie;
 	let parts = value.split("; " + name + "=");
