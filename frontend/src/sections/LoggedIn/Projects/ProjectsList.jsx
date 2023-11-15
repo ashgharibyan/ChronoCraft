@@ -109,20 +109,21 @@ const ProjectsList = () => {
 			<h1 className="text-3xl uppercase font-bold text-white p-4">
 				Your Projects
 			</h1>
-			{projects.map((project, idx) => (
-				<div
-					key={idx}
-					className="bg-green-500 text-white text-center min-w-[500px] p-4 mx-4 mb-4 flex flex-col justify-center items-center gap-3"
-				>
-					<h1 className="text-2xl font-bold">{project.title}</h1>
-					<p>{project.id}</p>
-					<p>{project.description}</p>
-					<p>{project.created_at}</p>
-					<button className="bg-slate-500 text-white p-2 rounded-lg">
-						Open Project
-					</button>
-				</div>
-			))}
+			{projects &&
+				projects.map((project, idx) => (
+					<div
+						key={idx}
+						className="bg-green-500 text-white text-center min-w-[500px] p-4 mx-4 mb-4 flex flex-col justify-center items-center gap-3"
+					>
+						<h1 className="text-2xl font-bold">{project.title}</h1>
+						<p>{project.id}</p>
+						<p>{project.description}</p>
+						<p>{project.created_at}</p>
+						<button className="bg-slate-500 text-white p-2 rounded-lg">
+							Open Project
+						</button>
+					</div>
+				))}
 		</div>
 	);
 };

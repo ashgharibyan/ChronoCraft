@@ -69,7 +69,7 @@ export const projectsAxios = async (setProjects, navigate) => {
 		// console.log(response.data.results);
 		setProjects(response.data.results);
 	} catch (err) {
-		if (err.response.status === 401) {
+		if (err?.response?.status === 401) {
 			try {
 				const csrfToken = getCookie("csrftoken");
 
@@ -87,7 +87,7 @@ export const projectsAxios = async (setProjects, navigate) => {
 				localStorage.setItem("jwtToken", newAccessToken);
 				axios.defaults.headers.common["Authorization"] =
 					"Bearer " + newAccessToken;
-				projectsAxios(); // retry fetching user data with the new token
+				projectsAxios(setProjects, navigate); // retry fetching user data with the new token
 			} catch (refreshErr) {
 				console.log("Error refreshing token", refreshErr);
 				navigate("/login");
