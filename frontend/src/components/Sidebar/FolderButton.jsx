@@ -3,6 +3,9 @@ import SidebarButton from "./SidebarButton";
 import { GoDot } from "react-icons/go";
 import { AiOutlinePlus, AiOutlineDown, AiOutlineRight } from "react-icons/ai";
 import { useGeneral } from "../../contexts/GeneralContext";
+import { listTasksByListAxios } from "../../axios/ModelAxios";
+import { useModel } from "../../contexts/ModelContext";
+import { useNavigate } from "react-router-dom";
 
 const FolderButton = ({
 	icon: Icon,
@@ -13,8 +16,19 @@ const FolderButton = ({
 	onFolderClick,
 	isOpen,
 }) => {
+	const { setTasks, selectedProject, selectedFolder, setSelectedList } =
+		useModel();
+	const navigate = useNavigate();
+
+	const onListClick = (list_id) => {
+		setSelectedList(list_id);
+		navigate(`${selectedProject}/${selectedFolder}/${list_id}`);
+
+		console.log("List clicked");
+	};
+
 	return (
-		<div className={`space-y-1  `}>
+		<div className={`space-y-1`}>
 			<div
 				onClick={onFolderClick}
 				className={`flex justify-between items-center pl-6  hover:bg-indigo-900 ${customClassName} `}
@@ -38,6 +52,7 @@ const FolderButton = ({
 							icon={GoDot}
 							customClassName="pl-8"
 							label={list.name}
+							onClick={() => onListClick(list.id)}
 						/>
 					);
 				})}

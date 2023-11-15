@@ -34,20 +34,27 @@ const SidebarComponent = () => {
 	} = useGeneral();
 	const navigate = useNavigate();
 	const { logOut } = useUser();
-	const { projects, setProjects, folders, setFolders } = useModel();
+	const {
+		projects,
+		setProjects,
+		folders,
+		setFolders,
+		setSelectedProject,
+		selectedProject,
+	} = useModel();
 	const { projectArrowClicked, setProjectArrowClicked } = useGeneral();
-	const [openProjectId, setOpenProjectId] = useState(null);
+	// const [openProjectId, setOpenProjectId] = useState(null);
 
 	useEffect(() => {
 		listProjectsAxios(setProjects, navigate);
 	}, []);
 
 	const handleProjectOpen = (projectId) => {
-		if (openProjectId === projectId) {
-			setOpenProjectId(null); // Close the project if it's already open
+		if (selectedProject === projectId) {
+			setSelectedProject(null); // Close the project if it's already open
 		} else {
 			const project_id = projectId;
-			setOpenProjectId(projectId); // Open the new project
+			setSelectedProject(projectId); // Open the new project
 			listFolderByProjectAxios(setFolders, project_id, navigate);
 		}
 		setProjectArrowClicked(!projectArrowClicked);
@@ -215,7 +222,7 @@ const SidebarComponent = () => {
 										icon={GoProjectRoadmap}
 										folders={folders}
 										tasks={tasksTest}
-										isOpen={openProjectId === project.id}
+										isOpen={selectedProject === project.id}
 										onProjectClick={() =>
 											handleProjectOpen(project.id)
 										}

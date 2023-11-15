@@ -22,25 +22,20 @@ const ProjectButton = ({
 	tasks,
 	folders,
 	customClassName,
-	project_id,
 	isOpen,
 	onProjectClick,
-	projectArrowClicked,
 }) => {
-	// const [projectArrowClicked, setProjectArrowClicked] = useState(false);
-	// const { projectArrowClicked, setProjectArrowClicked } = useGeneral();
-
 	const navigate = useNavigate();
-	const { lists, setLists } = useModel();
+	const { lists, setLists, selectedFolder, setSelectedFolder } = useModel();
 	const [openFolderId, setOpenFolderId] = useState(null);
 	const { folderArrowClicked, setFolderArrowClicked } = useGeneral();
 
 	const handleFolderOpen = (folderId) => {
-		if (openFolderId === folderId) {
-			setOpenFolderId(null); // Close the folder if it's already open
+		if (selectedFolder === folderId) {
+			setSelectedFolder(null);
 		} else {
 			const folder_id = folderId;
-			setOpenFolderId(folderId); // Open the new folder
+			setSelectedFolder(folderId); // Open the new folder
 			listListByFolderAxios(setLists, folder_id, navigate);
 		}
 		setFolderArrowClicked(!folderArrowClicked);
@@ -73,7 +68,7 @@ const ProjectButton = ({
 						lists={lists}
 						tasks={tasks}
 						label={folder.name}
-						isOpen={openFolderId === folder.id}
+						isOpen={selectedFolder === folder.id}
 						onFolderClick={() => handleFolderOpen(folder.id)}
 					/>
 				))}
