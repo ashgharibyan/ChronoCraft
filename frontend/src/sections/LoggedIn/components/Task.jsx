@@ -1,57 +1,95 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { formatDate } from "../../../axios/GeneralAxios";
 import { IoFlagOutline, IoFlag } from "react-icons/io5";
 
 const Task = (task) => {
-	const {
-		id,
-		name,
-		description,
-		completed,
-		due_date,
-		high_priority,
-		created_at,
-		updated_at,
-	} = task.task;
-
-	const formattedDueDate = formatDate(due_date);
-	const formattedCreatedAt = formatDate(created_at);
-	const formattedUpdatedAt = formatDate(updated_at);
-
-	const [isCompleted, setIsCompleted] = useState(completed);
+	// const [isCompleted, setIsCompleted] = useState(completed);
 	const [updatedTask, setUpdatedTask] = useState(task.task);
 	const [isEditing, setIsEditing] = useState(false);
 
-	const handleIsCompletedChange = () => {
-		setIsCompleted(!isCompleted);
-		// Add Axios to update database
-	};
+	const formattedDueDate = formatDate(task.task.due_date);
+	const formattedCreatedAt = formatDate(task.task.created_at);
+	const formattedUpdatedAt = formatDate(task.task.updated_at);
 
-	const handleIsHighPriorityChange = () => {
+	useEffect(() => {
 		setUpdatedTask({
 			...updatedTask,
-			high_priority: !updatedTask.high_priority,
+			due_date: formattedDueDate,
+			created_at: formattedCreatedAt,
+			updated_at: formattedUpdatedAt,
 		});
-		// Add Axios to update database
+	}, []);
+
+	// const handleIsCompletedChange = () => {
+	// 	setIsCompleted(!isCompleted);
+	// 	// Add Axios to update database
+	// };
+
+	// const handleIsHighPriorityChange = () => {
+	// 	setUpdatedTask({
+	// 		...updatedTask,
+	// 		high_priority: !updatedTask.high_priority,
+	// 	});
+	// 	// Add Axios to update database
+	// };
+
+	const handleDataChange = (e) => {
+		if (e.target.name == "high_priority") {
+			setUpdatedTask({
+				...updatedTask,
+				high_priority: !updatedTask.high_priority,
+			});
+		} else if (e.target.name == "completed") {
+			setUpdatedTask({
+				...updatedTask,
+				completed: !updatedTask.completed,
+			});
+		} else {
+			setUpdatedTask({
+				...updatedTask,
+				[e.target.name]: e.target.value,
+			});
+		}
 	};
 
 	return (
 		<div className="m-4 p-4 bg-white text-black w-[75%] text-base flex flex-col gap-2">
 			<div className="bg-gray-200 text-lg p-4 font-bold uppercase flex justify-between items-center">
 				{isEditing ? (
-					<input type="text" value={updatedTask.name} />
+					<input
+						name="name"
+						type="text"
+						value={updatedTask?.name}
+						onChange={handleDataChange}
+					/>
 				) : (
-					<h1>{updatedTask.name}</h1>
+					<h1 onDoubleClick={() => setIsEditing(!isEditing)}>
+						{updatedTask?.name}
+					</h1>
 				)}
 				<div className="flex justify-between items-center gap-4">
-					<h1>Due: {formattedDueDate}</h1>
+					<label htmlFor="due_date">Due:</label>
+					<input
+						id="due_date"
+						name="due_date"
+						type="datetime-local"
+						value={updatedTask?.due_date}
+						onChange={handleDataChange}
+						readOnly={!isEditing}
+					/>
 					<input
 						type="checkbox"
-						checked={isCompleted}
-						onChange={handleIsCompletedChange}
+						name="completed"
+						value={updatedTask?.completed}
+						checked={updatedTask?.completed}
+						onChange={handleDataChange}
 					/>
-					<button type="button" onClick={handleIsHighPriorityChange}>
-						{updatedTask.high_priority ? (
+					<button
+						type="button"
+						name="high_priority"
+						onClick={handleDataChange}
+					>
+						{updatedTask?.high_priority ? (
 							<IoFlag className="text-red-500" />
 						) : (
 							<IoFlagOutline />
@@ -59,12 +97,21 @@ const Task = (task) => {
 					</button>
 				</div>
 			</div>
-
-			<h1>Description: {description}</h1>
-
+			{isEditing ? (
+				<input
+					type="text"
+					name="description"
+					value={updatedTask?.description}
+					onChange={handleDataChange}
+				/>
+			) : (
+				<h1 onDoubleClick={() => setIsEditing(!isEditing)}>
+					Description: {updatedTask?.description}
+				</h1>
+			)}
 			<div className="flex justify-between items-center">
-				<h1>Created At: {formattedCreatedAt}</h1>
-				<h1>Updated At: {formattedUpdatedAt}</h1>
+				<h1>Created At: {updatedTask?.created_at}</h1>
+				<h1>Updated At: {updatedTask?.updated_at}</h1>
 			</div>
 			<button
 				onClick={() => setIsEditing(!isEditing)}
