@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useModel } from "../../contexts/ModelContext";
 import { listTasksByListAxios } from "../../axios/ModelAxios";
 import { useNavigate, useParams } from "react-router-dom";
+import Task from "./components/Task";
 
 const ListDisplay = () => {
 	const navigate = useNavigate();
@@ -20,7 +21,7 @@ const ListDisplay = () => {
 		>
 			{tasks &&
 				tasks.map((task, idx) => {
-					return <div key={idx}>{task.name}</div>;
+					return <Task key={idx} task={task} />;
 				})}
 		</div>
 	);

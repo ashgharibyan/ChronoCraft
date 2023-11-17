@@ -1,18 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { AiOutlineCaretDown, AiOutlineSearch } from "react-icons/ai";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import { useGeneral } from "../../contexts/GeneralContext";
 import { Link } from "react-router-dom";
 
 const TopBar = () => {
-	const {
-		toggleSidebar,
-		setToggleSidebar,
-		wasToggledManually,
-		setWasToggledManually,
-		toggleProfile,
-		setToggleProfile,
-	} = useGeneral();
+	const { toggleSidebar, setToggleSidebar, setWasToggledManually, user } =
+		useGeneral();
 
 	const handleSidebarOpenButton = () => {
 		setToggleSidebar(!toggleSidebar);
@@ -20,7 +14,6 @@ const TopBar = () => {
 	};
 
 	return (
-		// <div className="flex÷ w-full min-h-[83px] gap-4 justify-between items-center p-4 bg-gradient-to-tr from-indigo-600 to-indigo-800  border-b-[1px] border-white">
 		<div className="w-full text-white flex min-h-[83px] gap-4 justify-between items-center p-4 bg-gradient-to-tr from-indigo-600 to-indigo-800  border-b-[1px] border-white">
 			{toggleSidebar ? (
 				""
@@ -50,7 +43,7 @@ const TopBar = () => {
 
 			<div id="userInfo" className="flex items-center space-x-2">
 				<Link to="/dashboard/profile/" className="hidden md:block">
-					<p className="text-white">John Doe</p>
+					<p className="text-white">{user.name}</p>
 				</Link>
 				<Link
 					to="/dashboard/profile/"
