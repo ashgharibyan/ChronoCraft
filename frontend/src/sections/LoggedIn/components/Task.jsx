@@ -3,7 +3,6 @@ import { formatDate } from "../../../axios/GeneralAxios";
 import { IoFlagOutline, IoFlag } from "react-icons/io5";
 
 const Task = (task) => {
-	// const [isCompleted, setIsCompleted] = useState(completed);
 	const [updatedTask, setUpdatedTask] = useState(task.task);
 	const [isEditing, setIsEditing] = useState(false);
 
@@ -12,12 +11,21 @@ const Task = (task) => {
 	const formattedUpdatedAt = formatDate(task.task.updated_at);
 
 	useEffect(() => {
-		setUpdatedTask({
-			...updatedTask,
-			due_date: formattedDueDate,
-			created_at: formattedCreatedAt,
-			updated_at: formattedUpdatedAt,
-		});
+		if (task.task.due_date == null) {
+			setUpdatedTask({
+				...updatedTask,
+				due_date: "",
+				created_at: formattedCreatedAt,
+				updated_at: formattedUpdatedAt,
+			});
+		} else {
+			setUpdatedTask({
+				...updatedTask,
+				due_date: formattedDueDate,
+				created_at: formattedCreatedAt,
+				updated_at: formattedUpdatedAt,
+			});
+		}
 	}, []);
 
 	// const handleIsCompletedChange = () => {
@@ -25,21 +33,16 @@ const Task = (task) => {
 	// 	// Add Axios to update database
 	// };
 
-	// const handleIsHighPriorityChange = () => {
-	// 	setUpdatedTask({
-	// 		...updatedTask,
-	// 		high_priority: !updatedTask.high_priority,
-	// 	});
-	// 	// Add Axios to update database
-	// };
+	const handleIsHighPriorityChange = () => {
+		setUpdatedTask({
+			...updatedTask,
+			high_priority: !updatedTask.high_priority,
+		});
+		// Add Axios to update database
+	};
 
 	const handleDataChange = (e) => {
-		if (e.target.name == "high_priority") {
-			setUpdatedTask({
-				...updatedTask,
-				high_priority: !updatedTask.high_priority,
-			});
-		} else if (e.target.name == "completed") {
+		if (e.target.name == "completed") {
 			setUpdatedTask({
 				...updatedTask,
 				completed: !updatedTask.completed,
@@ -73,7 +76,7 @@ const Task = (task) => {
 						id="due_date"
 						name="due_date"
 						type="datetime-local"
-						value={updatedTask?.due_date}
+						value={updatedTask.due_date ? updatedTask.due_date : ""}
 						onChange={handleDataChange}
 						readOnly={!isEditing}
 					/>
@@ -84,11 +87,7 @@ const Task = (task) => {
 						checked={updatedTask?.completed}
 						onChange={handleDataChange}
 					/>
-					<button
-						type="button"
-						name="high_priority"
-						onClick={handleDataChange}
-					>
+					<button type="button" onClick={handleIsHighPriorityChange}>
 						{updatedTask?.high_priority ? (
 							<IoFlag className="text-red-500" />
 						) : (
