@@ -1,24 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { formatDate } from "../../../axios/GeneralAxios";
+import {
+	convertLocalToISO,
+	formatDate,
+	formatDateToCustom,
+} from "../../../axios/GeneralAxios";
 import { IoFlagOutline, IoFlag } from "react-icons/io5";
+import {
+	getTaskByIdAxios,
+	updateTaskByIdAxios,
+} from "../../../axios/ModelAxios";
+import { useNavigate } from "react-router-dom";
 
 const Task = (task) => {
 	const [updatedTask, setUpdatedTask] = useState(task.task);
 	const [isEditing, setIsEditing] = useState(false);
+	const [triggerUpdate, setTriggerUpdate] = useState(false);
+	const [getTrigger, setGetTrigger] = useState(false);
+	const [timeFormatTrigger, setTimeFormatTrigger] = useState(false);
 
-	const formattedDueDate = formatDate(task.task.due_date);
-	const formattedCreatedAt = formatDate(task.task.created_at);
-	const formattedUpdatedAt = formatDate(task.task.updated_at);
+	const navigate = useNavigate();
 
 	useEffect(() => {
+		const formattedCreatedAt = formatDateToCustom(task.task.created_at);
+		const formattedUpdatedAt = formatDateToCustom(task.task.updated_at);
 		if (task.task.due_date == null) {
 			setUpdatedTask({
 				...updatedTask,
-				due_date: "",
+				due_date: null,
 				created_at: formattedCreatedAt,
 				updated_at: formattedUpdatedAt,
 			});
 		} else {
+			const formattedDueDate = formatDate(task.task.due_date);
+
 			setUpdatedTask({
 				...updatedTask,
 				due_date: formattedDueDate,
@@ -28,30 +42,104 @@ const Task = (task) => {
 		}
 	}, []);
 
-	// const handleIsCompletedChange = () => {
-	// 	setIsCompleted(!isCompleted);
-	// 	// Add Axios to update database
-	// };
+	useEffect(() => {
+		if (triggerUpdate) {
+			updateTaskByIdAxios(updatedTask.id, updatedTask, navigate);
+			setTriggerUpdate(false);
+			setGetTrigger(true);
+		}
+	}, [updatedTask, triggerUpdate]);
+
+	useEffect(() => {
+		if (getTrigger) {
+			getTaskByIdAxios(updatedTask.id, setUpdatedTask, navigate);
+			setGetTrigger(false);
+			setTimeFormatTrigger(true);
+		}
+	}, [getTrigger]);
+
+	useEffect(() => {
+		if (timeFormatTrigger) {
+			console.log("-----------------------------");
+
+			console.log("in formatted time");
+			console.log("updatedTask: ", updatedTask);
+
+			const formattedCreatedAt = formatDateToCustom(
+				updatedTask.created_at
+			);
+
+			const formattedUpdatedAt = formatDateToCustom(
+				updatedTask.updated_at
+			);
+
+			if (updatedTask.due_date == null) {
+				setUpdatedTask({
+					...updatedTask,
+					due_date: null,
+					created_at: formattedCreatedAt,
+					updated_at: formattedUpdatedAt,
+				});
+			} else {
+				const formattedDueDate = formatDate(updatedTask.due_date);
+
+				setUpdatedTask({
+					...updatedTask,
+					due_date: formattedDueDate,
+					created_at: formattedCreatedAt,
+					updated_at: formattedUpdatedAt,
+				});
+			}
+			console.log("updatedTask AFTER: ", updatedTask);
+			console.log("-----------------------------");
+			setTimeFormatTrigger(false);
+		}
+	}, [timeFormatTrigger]);
+
+	const handleIsCompletedChange = () => {
+		setUpdatedTask({
+			...updatedTask,
+			completed: !updatedTask.completed,
+		});
+		setTriggerUpdate(true);
+	};
 
 	const handleIsHighPriorityChange = () => {
 		setUpdatedTask({
 			...updatedTask,
 			high_priority: !updatedTask.high_priority,
 		});
-		// Add Axios to update database
+		setTriggerUpdate(true);
 	};
 
 	const handleDataChange = (e) => {
-		if (e.target.name == "completed") {
+		if (e.target.name == "due_date" && e.target.value == "") {
 			setUpdatedTask({
 				...updatedTask,
-				completed: !updatedTask.completed,
+				due_date: null,
 			});
 		} else {
 			setUpdatedTask({
 				...updatedTask,
 				[e.target.name]: e.target.value,
 			});
+		}
+	};
+
+	const handleEditSubmit = (e) => {
+		e.preventDefault();
+		if (e.target.textContent == "EDIT") {
+			setIsEditing(!isEditing);
+		} else {
+			setIsEditing(!isEditing);
+			if (updatedTask.due_date != null) {
+				const isoDueDate = convertLocalToISO(updatedTask.due_date);
+				setUpdatedTask({
+					...updatedTask,
+					due_date: isoDueDate,
+				});
+			}
+			setTriggerUpdate(true);
 		}
 	};
 
@@ -76,16 +164,19 @@ const Task = (task) => {
 						id="due_date"
 						name="due_date"
 						type="datetime-local"
-						value={updatedTask.due_date ? updatedTask.due_date : ""}
+						value={
+							updatedTask?.due_date ? updatedTask?.due_date : ""
+						}
 						onChange={handleDataChange}
 						readOnly={!isEditing}
+						onDoubleClick={() => setIsEditing(!isEditing)}
 					/>
 					<input
 						type="checkbox"
 						name="completed"
 						value={updatedTask?.completed}
 						checked={updatedTask?.completed}
-						onChange={handleDataChange}
+						onChange={handleIsCompletedChange}
 					/>
 					<button type="button" onClick={handleIsHighPriorityChange}>
 						{updatedTask?.high_priority ? (
@@ -110,10 +201,10 @@ const Task = (task) => {
 			)}
 			<div className="flex justify-between items-center">
 				<h1>Created At: {updatedTask?.created_at}</h1>
-				<h1>Updated At: {updatedTask?.updated_at}</h1>
+				<h1>Last Updated: {updatedTask?.updated_at}</h1>
 			</div>
 			<button
-				onClick={() => setIsEditing(!isEditing)}
+				onClick={handleEditSubmit}
 				type="button"
 				className="p-4 bg-yellow-500 text-white"
 			>

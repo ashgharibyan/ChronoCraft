@@ -10,13 +10,41 @@ export function getCookie(name) {
 
 export function formatDate(dateTimeString) {
 	const date = new Date(dateTimeString);
-	const year = date.getFullYear();
-	const month = String(date.getMonth() + 1).padStart(2, "0");
-	const day = String(date.getDate()).padStart(2, "0");
-	const hours = String(date.getHours()).padStart(2, "0");
-	const minutes = String(date.getMinutes()).padStart(2, "0");
+	const year = date.getUTCFullYear();
+	const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+	const day = String(date.getUTCDate()).padStart(2, "0");
+	const hours = String(date.getUTCHours()).padStart(2, "0");
+	const minutes = String(date.getUTCMinutes()).padStart(2, "0");
 
 	return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
+export function convertLocalToISO(dateTimeLocal) {
+	const localDate = new Date(dateTimeLocal);
+	const year = localDate.getFullYear();
+	const month = String(localDate.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+	const day = String(localDate.getDate()).padStart(2, "0");
+	const hours = String(localDate.getHours()).padStart(2, "0");
+	const minutes = String(localDate.getMinutes()).padStart(2, "0");
+
+	return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
+export function formatDateToCustom(dateTimeString) {
+	const date = new Date(dateTimeString);
+
+	// Formatting hours for AM/PM
+	let hours = date.getHours();
+	const ampm = hours >= 12 ? "PM" : "AM";
+	hours = hours % 12;
+	hours = hours ? hours : 12; // the hour '0' should be '12'
+
+	const minutes = String(date.getMinutes()).padStart(2, "0");
+	const day = String(date.getDate()).padStart(2, "0");
+	const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
+	const year = date.getFullYear();
+
+	return `${hours}:${minutes} ${ampm} ${month}/${day}/${year}`;
 }
 
 // Function to fetch user data
