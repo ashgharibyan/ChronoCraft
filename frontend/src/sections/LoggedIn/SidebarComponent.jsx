@@ -60,9 +60,26 @@ const SidebarComponent = () => {
 		} else {
 			const project_id = projectId;
 			setSelectedProject(projectId); // Open the new project
-			listFolderByProjectAxios(setFolders, project_id, navigate);
+			const fetchFoldersData = async () => {
+				try {
+					const foldersData = await listFolderByProjectAxios(
+						project_id,
+						navigate
+					);
+					// Handle the project data
+					setFolders(foldersData);
+				} catch (error) {
+					// Handle any errors
+					console.error("Error fetching project data:", error);
+				}
+			};
+
+			// Call the function
+			fetchFoldersData();
 		}
+
 		setProjectArrowClicked(!projectArrowClicked);
+		navigate(`/dashboard/project/${projectId}`);
 	};
 
 	const handleSidebarToggleButton = () => {

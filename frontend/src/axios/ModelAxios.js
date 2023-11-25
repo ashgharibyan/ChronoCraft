@@ -46,6 +46,49 @@ export const listProjectsAxios = async (setProjects, navigate) => {
 	}
 };
 
+export const getProjectByIdAxios = async (projectId, navigate) => {
+	const csrfToken = getCookie("csrftoken");
+
+	try {
+		const response = await axios.get(
+			`http://localhost:8000/api/v1/projects/${projectId}`,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log("Successfully fetched projects data");
+		return response.data;
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return getProjectByIdAxios(projectId, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error("Error fetching projects list data", err);
+		}
+	}
+};
+
 export const createProjectAxios = async (newProject, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 
@@ -89,11 +132,7 @@ export const createProjectAxios = async (newProject, navigate) => {
 	}
 };
 
-export const listFolderByProjectAxios = async (
-	setFolders,
-	project_id,
-	navigate
-) => {
+export const listFolderByProjectAxios = async (project_id, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 
 	try {
@@ -108,7 +147,7 @@ export const listFolderByProjectAxios = async (
 		);
 		console.log("Successfully fetched folders data");
 		// console.log(response.data.results);
-		setFolders(response.data.results);
+		return response.data.results;
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
 			try {
@@ -126,7 +165,7 @@ export const listFolderByProjectAxios = async (
 				localStorage.setItem("jwtToken", newAccessToken);
 				axios.defaults.headers.common["Authorization"] =
 					"Bearer " + newAccessToken;
-				listFolderByProjectAxios(setFolders, project_id, navigate); // retry fetching user data with the new token
+				return listFolderByProjectAxios(project_id, navigate); // retry fetching user data with the new token
 			} catch (refreshErr) {
 				console.error("Error refreshing token", refreshErr);
 				navigate("/login");

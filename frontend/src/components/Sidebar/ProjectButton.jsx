@@ -7,13 +7,14 @@ import {
 	AiOutlineRight,
 	AiOutlinePlus,
 } from "react-icons/ai";
+import { MdEdit } from "react-icons/md";
 
 import {
 	listFolderByProjectAxios,
 	listListByFolderAxios,
 } from "../../axios/ModelAxios";
 import { useModel } from "../../contexts/ModelContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGeneral } from "../../contexts/GeneralContext";
 
 const ProjectButton = ({
@@ -24,6 +25,7 @@ const ProjectButton = ({
 	customClassName,
 	isOpen,
 	onProjectClick,
+	project_id,
 }) => {
 	const navigate = useNavigate();
 	const { lists, setLists, selectedFolder, setSelectedFolder } = useModel();
@@ -55,7 +57,12 @@ const ProjectButton = ({
 					)}
 					<SidebarButton icon={Icon} label={label} />
 				</div>
-				<AiOutlinePlus className="h-4 w-4 text-white mr-4 " />
+				<div className="flex items-center gap-2">
+					<AiOutlinePlus className="h-4 w-4 text-white  " />
+					<Link to={`/dashboard/edit-project/${project_id}`}>
+						<MdEdit className="h-4 w-4 text-white mr-4 " />
+					</Link>
+				</div>
 			</div>
 
 			{isOpen &&

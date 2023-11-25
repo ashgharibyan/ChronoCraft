@@ -6,6 +6,9 @@ import Dashboard from "../sections/LoggedIn/Dashboard";
 import ProjectsList from "../sections/LoggedIn/Projects/ProjectsList";
 import ListDisplay from "../sections/LoggedIn/ListDisplay";
 import CreateProject from "../sections/LoggedIn/CreateProject";
+import EditProject from "../sections/LoggedIn/EditProject";
+import DisplayProject from "../sections/LoggedIn/DisplayProject";
+
 const LoggedInRoutes = () => {
 	return (
 		<Routes>
@@ -17,6 +20,8 @@ const LoggedInRoutes = () => {
 				element={<ListDisplay />}
 			/>
 			<Route path="/create-project" element={<CreateProject />} />
+			<Route path="/edit-project/:project_id" element={<EditProject />} />
+			<Route path="/project/:project_id" element={<DisplayProject />} />
 			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);
