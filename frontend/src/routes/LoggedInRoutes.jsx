@@ -9,6 +9,7 @@ import CreateProject from "../sections/LoggedIn/CreateProject";
 import EditProject from "../sections/LoggedIn/EditProject";
 import DisplayProject from "../sections/LoggedIn/DisplayProject";
 import DisplayFolder from "../sections/LoggedIn/DisplayFolder";
+import CreateFolder from "../sections/LoggedIn/CreateFolder";
 
 const LoggedInRoutes = () => {
 	return (
@@ -21,6 +22,10 @@ const LoggedInRoutes = () => {
 				element={<ListDisplay />}
 			/>
 			<Route path="/create-project" element={<CreateProject />} />
+			<Route
+				path="/:project_id/create-folder"
+				element={<CreateFolder />}
+			/>
 			<Route path="/edit-project/:project_id" element={<EditProject />} />
 			<Route path="/project/:project_id" element={<DisplayProject />} />
 			<Route

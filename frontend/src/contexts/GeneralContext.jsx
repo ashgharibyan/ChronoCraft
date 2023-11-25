@@ -14,6 +14,8 @@ export const GeneralProvider = ({ children }) => {
 	const [projectArrowClicked, setProjectArrowClicked] = useState(false);
 	const [folderArrowClicked, setFolderArrowClicked] = useState(false);
 	const [triggerSidebarRefresh, setTriggerSidebarRefresh] = useState(true);
+	const [triggerSidebarFolderRefresh, setTriggerSidebarFolderRefresh] =
+		useState(true);
 	return (
 		<GeneralContext.Provider
 			value={{
@@ -35,6 +37,8 @@ export const GeneralProvider = ({ children }) => {
 				setFolderArrowClicked,
 				triggerSidebarRefresh,
 				setTriggerSidebarRefresh,
+				triggerSidebarFolderRefresh,
+				setTriggerSidebarFolderRefresh,
 			}}
 		>
 			{children}

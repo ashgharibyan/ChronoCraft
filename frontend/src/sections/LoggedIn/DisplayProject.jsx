@@ -62,6 +62,12 @@ const DisplayProject = () => {
 				</div>
 			)}
 
+			<Link to={`/dashboard/${project_id}/create-folder/`}>
+				<button className="p-2 bg-white text-black">
+					Create Folder
+				</button>
+			</Link>
+
 			{currentProjectFolders && (
 				<div>
 					{currentProjectFolders.map((folder) => (

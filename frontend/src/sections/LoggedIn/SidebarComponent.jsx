@@ -33,6 +33,8 @@ const SidebarComponent = () => {
 		setToggleProfile,
 		triggerSidebarRefresh,
 		setTriggerSidebarRefresh,
+		triggerSidebarFolderRefresh,
+		setTriggerSidebarFolderRefresh,
 	} = useGeneral();
 	const navigate = useNavigate();
 	const { logOut } = useUser();
@@ -43,6 +45,8 @@ const SidebarComponent = () => {
 		setFolders,
 		setSelectedProject,
 		selectedProject,
+		selectedFolder,
+		setSelectedFolder,
 	} = useModel();
 	const { projectArrowClicked, setProjectArrowClicked } = useGeneral();
 	// const [openProjectId, setOpenProjectId] = useState(null);
@@ -52,7 +56,26 @@ const SidebarComponent = () => {
 			listProjectsAxios(setProjects, navigate);
 			setTriggerSidebarRefresh(false);
 		}
-	}, [triggerSidebarRefresh]);
+		if (triggerSidebarFolderRefresh && selectedProject != "") {
+			const fetchFoldersData = async () => {
+				try {
+					const foldersData = await listFolderByProjectAxios(
+						selectedProject,
+						navigate
+					);
+					// Handle the project data
+					setFolders(foldersData);
+				} catch (error) {
+					// Handle any errors
+					console.error("Error fetching project data:", error);
+				}
+			};
+
+			// Call the function
+			fetchFoldersData();
+			setTriggerSidebarFolderRefresh(false);
+		}
+	}, [triggerSidebarRefresh, triggerSidebarFolderRefresh]);
 
 	const handleProjectOpen = (projectId) => {
 		if (selectedProject === projectId) {

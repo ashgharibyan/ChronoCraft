@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SidebarButton from "./SidebarButton";
 import FolderButton from "./FolderButton";
 import {
@@ -28,9 +28,37 @@ const ProjectButton = ({
 	project_id,
 }) => {
 	const navigate = useNavigate();
-	const { lists, setLists, selectedFolder, setSelectedFolder } = useModel();
+	const { lists, setLists, selectedFolder, setSelectedFolder, setFolders } =
+		useModel();
 	const [openFolderId, setOpenFolderId] = useState(null);
-	const { folderArrowClicked, setFolderArrowClicked } = useGeneral();
+	const {
+		folderArrowClicked,
+		setFolderArrowClicked,
+		triggerSidebarFolderRefresh,
+		setTriggerSidebarFolderRefresh,
+	} = useGeneral();
+
+	// useEffect(() => {
+	// 	if (triggerSidebarFolderRefresh) {
+	// 		const fetchFoldersData = async () => {
+	// 			try {
+	// 				const foldersData = await listFolderByProjectAxios(
+	// 					project_id,
+	// 					navigate
+	// 				);
+	// 				// Handle the project data
+	// 				setFolders(foldersData);
+	// 			} catch (error) {
+	// 				// Handle any errors
+	// 				console.error("Error fetching project data:", error);
+	// 			}
+	// 		};
+
+	// 		// Call the function
+	// 		fetchFoldersData();
+	// 		setTriggerSidebarFolderRefresh(false);
+	// 	}
+	// }, [triggerSidebarFolderRefresh]);
 
 	const handleFolderOpen = (folder) => {
 		if (selectedFolder?.id === folder.id) {
@@ -79,7 +107,9 @@ const ProjectButton = ({
 					<SidebarButton icon={Icon} label={label} />
 				</div>
 				<div className="flex items-center gap-2">
-					<AiOutlinePlus className="h-4 w-4 text-white  " />
+					<Link to={`/${project_id}/create-folder/`}>
+						<AiOutlinePlus className="h-4 w-4 text-white  " />
+					</Link>
 					<Link to={`/dashboard/edit-project/${project_id}`}>
 						<MdEdit className="h-4 w-4 text-white mr-4 " />
 					</Link>
