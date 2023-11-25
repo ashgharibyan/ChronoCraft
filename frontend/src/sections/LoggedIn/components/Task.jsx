@@ -23,6 +23,7 @@ const Task = (task) => {
 	useEffect(() => {
 		const formattedCreatedAt = formatDateToCustom(task.task.created_at);
 		const formattedUpdatedAt = formatDateToCustom(task.task.updated_at);
+
 		if (task.task.due_date == null) {
 			setUpdatedTask({
 				...updatedTask,
@@ -54,47 +55,41 @@ const Task = (task) => {
 		if (getTrigger) {
 			getTaskByIdAxios(updatedTask.id, setUpdatedTask, navigate);
 			setGetTrigger(false);
-			setTimeFormatTrigger(true);
+			// setTimeFormatTrigger(true);
 		}
 	}, [getTrigger]);
 
-	useEffect(() => {
-		if (timeFormatTrigger) {
-			console.log("-----------------------------");
+	// useEffect(() => {
+	// 	if (timeFormatTrigger) {
+	// 		const formattedCreatedAt = formatDateToCustom(
+	// 			updatedTask.created_at
+	// 		);
 
-			console.log("in formatted time");
-			console.log("updatedTask: ", updatedTask);
+	// 		const formattedUpdatedAt = formatDateToCustom(
+	// 			updatedTask.updated_at
+	// 		);
 
-			const formattedCreatedAt = formatDateToCustom(
-				updatedTask.created_at
-			);
+	// 		if (updatedTask.due_date == null) {
+	// 			setUpdatedTask({
+	// 				...updatedTask,
+	// 				due_date: null,
+	// 				created_at: formattedCreatedAt,
+	// 				updated_at: formattedUpdatedAt,
+	// 			});
+	// 		} else {
+	// 			const formattedDueDate = formatDate(updatedTask.due_date);
 
-			const formattedUpdatedAt = formatDateToCustom(
-				updatedTask.updated_at
-			);
+	// 			setUpdatedTask({
+	// 				...updatedTask,
+	// 				due_date: formattedDueDate,
+	// 				created_at: formattedCreatedAt,
+	// 				updated_at: formattedUpdatedAt,
+	// 			});
+	// 		}
 
-			if (updatedTask.due_date == null) {
-				setUpdatedTask({
-					...updatedTask,
-					due_date: null,
-					created_at: formattedCreatedAt,
-					updated_at: formattedUpdatedAt,
-				});
-			} else {
-				const formattedDueDate = formatDate(updatedTask.due_date);
-
-				setUpdatedTask({
-					...updatedTask,
-					due_date: formattedDueDate,
-					created_at: formattedCreatedAt,
-					updated_at: formattedUpdatedAt,
-				});
-			}
-			console.log("updatedTask AFTER: ", updatedTask);
-			console.log("-----------------------------");
-			setTimeFormatTrigger(false);
-		}
-	}, [timeFormatTrigger]);
+	// 		setTimeFormatTrigger(false);
+	// 	}
+	// }, [timeFormatTrigger]);
 
 	const handleIsCompletedChange = () => {
 		setUpdatedTask({

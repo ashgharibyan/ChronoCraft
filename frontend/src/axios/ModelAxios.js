@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie } from "./GeneralAxios";
+import { formatDate, formatDateToCustom, getCookie } from "./GeneralAxios";
 
 export const listProjectsAxios = async (setProjects, navigate) => {
 	const csrfToken = getCookie("csrftoken");
@@ -225,7 +225,7 @@ export const updateTaskByIdAxios = async (task_id, updatedData, navigate) => {
 	}
 };
 
-export const getTaskByIdAxios = async (task_id, setTask, navigate) => {
+export const getTaskByIdAxios = async (task_id, setUpdatedTask, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 	try {
 		const response = await axios.get(
@@ -239,7 +239,30 @@ export const getTaskByIdAxios = async (task_id, setTask, navigate) => {
 		);
 		console.log(`Successfully got info of task number ${task_id}`);
 		console.log(response.data);
-		setTask(response.data);
+		let updatedData = response.data;
+
+		const formattedCreatedAt = formatDateToCustom(updatedData.created_at);
+
+		const formattedUpdatedAt = formatDateToCustom(updatedData.updated_at);
+
+		if (updatedData.due_date == null) {
+			updatedData = {
+				...updatedData,
+				due_date: null,
+				created_at: formattedCreatedAt,
+				updated_at: formattedUpdatedAt,
+			};
+		} else {
+			const formattedDueDate = formatDate(updatedData.due_date);
+
+			updatedData = {
+				...updatedData,
+				due_date: formattedDueDate,
+				created_at: formattedCreatedAt,
+				updated_at: formattedUpdatedAt,
+			};
+		}
+		setUpdatedTask(updatedData);
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
 			try {
@@ -257,7 +280,7 @@ export const getTaskByIdAxios = async (task_id, setTask, navigate) => {
 				localStorage.setItem("jwtToken", newAccessToken);
 				axios.defaults.headers.common["Authorization"] =
 					"Bearer " + newAccessToken;
-				getTaskByIdAxios(task_id, updatedData, navigate); // retry fetching user data with the new token
+				getTaskByIdAxios(task_id, setUpdatedTask, navigate); // retry fetching user data with the new token
 			} catch (refreshErr) {
 				console.error("Error refreshing token", refreshErr);
 				navigate("/login");
