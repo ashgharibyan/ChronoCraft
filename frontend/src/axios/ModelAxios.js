@@ -291,3 +291,49 @@ export const getTaskByIdAxios = async (task_id, navigate) => {
 		}
 	}
 };
+
+export const fetchUserData = async (navigate) => {
+	const csrfToken = getCookie("csrftoken");
+
+	try {
+		const response = await axios.get(
+			"http://localhost:8000/api/v1/accounts/dj-rest-auth/user/",
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log("Successfully fetched user data");
+		console.log(response.data);
+		return response.data;
+	} catch (err) {
+		if (err.response.status === 401) {
+			try {
+				const csrfToken = getCookie("csrftoken");
+
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				fetchUserData(navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.log("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.log("Error fetching user data", err);
+		}
+	}
+};
