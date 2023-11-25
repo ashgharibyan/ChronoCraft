@@ -3,7 +3,6 @@ import { useModel } from "../../contexts/ModelContext";
 import { listTasksByListAxios } from "../../axios/ModelAxios";
 import { useNavigate, useParams } from "react-router-dom";
 import Task from "./components/Task";
-import NewTask from "./components/NewTask";
 
 const ListDisplay = () => {
 	const navigate = useNavigate();
@@ -31,7 +30,7 @@ const ListDisplay = () => {
 					folderId
 				);
 				setTasks(res);
-				console.log("ListDisplay.jsx: listTasksByListAxios called");
+				// console.log("ListDisplay.jsx: listTasksByListAxios called");
 			} catch (error) {
 				console.error("Error fetching data: ", error);
 				// Handle errors here, such as updating the UI accordingly
@@ -50,9 +49,7 @@ const ListDisplay = () => {
 			className={`overflow-y-scroll min-h-full overflow-x-scroll bg-slate-300 m-4 `}
 		>
 			{tasks?.map((task, idx) => {
-				// return <Task key={idx} task={task} />;
-				return <NewTask key={idx} task={task} />;
-				// return <span>{task.name}</span>;
+				return <Task key={idx} task={task} />;
 			})}
 		</div>
 	);

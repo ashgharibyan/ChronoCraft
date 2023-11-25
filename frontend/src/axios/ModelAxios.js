@@ -151,7 +151,7 @@ export const listTasksByListAxios = async (setTasks, listId, navigate) => {
 			}
 		);
 		console.log("Successfully fetched tasks data");
-		console.log(response.data.results);
+		// console.log(response.data.results);
 		// setTasks(response.data.results);
 		return response.data.results;
 	} catch (err) {
@@ -197,7 +197,7 @@ export const updateTaskByIdAxios = async (task_id, updatedData, navigate) => {
 			}
 		);
 		console.log(`Successfully updated task number ${task_id}`);
-		console.log(response.data);
+		// console.log(response.data);
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
 			try {
@@ -239,7 +239,7 @@ export const getTaskByIdAxios = async (task_id, navigate) => {
 			}
 		);
 		console.log(`Successfully got info of task number ${task_id}`);
-		console.log(response.data);
+		// console.log(response.data);
 		let updatedData = response.data;
 
 		const formattedCreatedAt = formatDateToCustom(updatedData.created_at);
