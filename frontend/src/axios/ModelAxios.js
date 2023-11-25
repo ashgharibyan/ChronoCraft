@@ -150,8 +150,8 @@ export const listTasksByListAxios = async (setTasks, listId, navigate) => {
 				},
 			}
 		);
-		console.log("Successfully fetched tasks data");
-		// console.log(response.data.results);
+		console.log("Successfully fetched tasks data in Get Tasks By List");
+		console.log(response.data.results);
 		// setTasks(response.data.results);
 		return response.data.results;
 	} catch (err) {
@@ -292,7 +292,7 @@ export const getTaskByIdAxios = async (task_id, navigate) => {
 	}
 };
 
-export const fetchUserData = async (navigate) => {
+export const fetchUserData = async (setUser, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 
 	try {
@@ -306,13 +306,13 @@ export const fetchUserData = async (navigate) => {
 			}
 		);
 		console.log("Successfully fetched user data");
-		console.log(response.data);
-		return response.data;
+		// console.log(response.data);
+		setUser(response.data);
 	} catch (err) {
 		if (err.response.status === 401) {
 			try {
 				const csrfToken = getCookie("csrftoken");
-
+				console.log("Refreshing token");
 				const refreshResponse = await axios.post(
 					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
@@ -327,7 +327,7 @@ export const fetchUserData = async (navigate) => {
 				localStorage.setItem("jwtToken", newAccessToken);
 				axios.defaults.headers.common["Authorization"] =
 					"Bearer " + newAccessToken;
-				fetchUserData(navigate); // retry fetching user data with the new token
+				fetchUserData(setUser, navigate); // retry fetching user data with the new token
 			} catch (refreshErr) {
 				console.log("Error refreshing token", refreshErr);
 				navigate("/login");

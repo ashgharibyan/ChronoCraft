@@ -7,43 +7,13 @@ import { fetchUserData } from "../../axios/ModelAxios";
 import axios from "axios";
 
 const TopBar = () => {
-	const {
-		toggleSidebar,
-		setToggleSidebar,
-		setWasToggledManually,
-		user,
-		setUser,
-	} = useGeneral();
-
-	const navigate = useNavigate();
+	const { toggleSidebar, setToggleSidebar, setWasToggledManually, user } =
+		useGeneral();
 
 	const handleSidebarOpenButton = () => {
 		setToggleSidebar(!toggleSidebar);
 		setWasToggledManually(true);
 	};
-
-	useEffect(() => {
-		const jwtToken = localStorage.getItem("jwtToken");
-
-		if (jwtToken) {
-			axios.defaults.headers.common["Authorization"] =
-				"Bearer " + jwtToken;
-			const fetchData = async () => {
-				try {
-					const data = await fetchUserData(navigate);
-					setUser(data);
-				} catch (error) {
-					console.error("Error fetching user data: ", error);
-					// Handle error (e.g., show error message)
-					// Optionally, you can handle error state here
-				}
-			};
-
-			fetchData();
-		} else {
-			navigate("/login");
-		}
-	}, []);
 
 	return (
 		<div className="w-full text-white flex min-h-[83px] gap-4 justify-between items-center p-4 bg-gradient-to-tr from-indigo-600 to-indigo-800  border-b-[1px] border-white">
