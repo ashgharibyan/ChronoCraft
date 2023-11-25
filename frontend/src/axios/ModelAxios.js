@@ -84,7 +84,7 @@ export const getProjectByIdAxios = async (projectId, navigate) => {
 				navigate("/login");
 			}
 		} else {
-			console.error("Error fetching projects list data", err);
+			console.error("Error fetching folder data", err);
 		}
 	}
 };
@@ -176,12 +176,12 @@ export const listFolderByProjectAxios = async (project_id, navigate) => {
 	}
 };
 
-export const listListByFolderAxios = async (setLists, folder_id, navigate) => {
+export const getFolderByIdAxios = async (folderId, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 
 	try {
 		const response = await axios.get(
-			`http://localhost:8000/api/v1/lists/?folder_id=${folder_id}`,
+			`http://localhost:8000/api/v1/folders/${folderId}`,
 			{
 				withCredentials: true,
 				headers: {
@@ -189,9 +189,8 @@ export const listListByFolderAxios = async (setLists, folder_id, navigate) => {
 				},
 			}
 		);
-		console.log("Successfully fetched lists data");
-		// console.log(response.data.results);
-		setLists(response.data.results);
+		console.log("Successfully fetched folder data");
+		return response.data;
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
 			try {
@@ -209,7 +208,51 @@ export const listListByFolderAxios = async (setLists, folder_id, navigate) => {
 				localStorage.setItem("jwtToken", newAccessToken);
 				axios.defaults.headers.common["Authorization"] =
 					"Bearer " + newAccessToken;
-				listListByFolderAxios(setLists, folder_id, navigate); // retry fetching user data with the new token
+				return getFolderByIdAxios(folderId, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error("Error fetching folder data", err);
+		}
+	}
+};
+
+export const listListsByFolderAxios = async (folder_id, navigate) => {
+	const csrfToken = getCookie("csrftoken");
+
+	try {
+		const response = await axios.get(
+			`http://localhost:8000/api/v1/lists/?folder_id=${folder_id}`,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log("Successfully fetched lists data");
+		// console.log(response.data.results);
+		return response.data.results;
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return listListsByFolderAxios(folder_id, navigate); // retry fetching user data with the new token
 			} catch (refreshErr) {
 				console.error("Error refreshing token", refreshErr);
 				navigate("/login");

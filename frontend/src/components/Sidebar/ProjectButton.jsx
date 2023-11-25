@@ -11,7 +11,7 @@ import { MdEdit } from "react-icons/md";
 
 import {
 	listFolderByProjectAxios,
-	listListByFolderAxios,
+	listListsByFolderAxios,
 } from "../../axios/ModelAxios";
 import { useModel } from "../../contexts/ModelContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -32,15 +32,36 @@ const ProjectButton = ({
 	const [openFolderId, setOpenFolderId] = useState(null);
 	const { folderArrowClicked, setFolderArrowClicked } = useGeneral();
 
-	const handleFolderOpen = (folderId) => {
-		if (selectedFolder === folderId) {
+	const handleFolderOpen = (folder) => {
+		if (selectedFolder?.id === folder.id) {
 			setSelectedFolder(null);
 		} else {
-			const folder_id = folderId;
-			setSelectedFolder(folderId); // Open the new folder
-			listListByFolderAxios(setLists, folder_id, navigate);
+			const folder_id = folder.id;
+			setSelectedFolder(folder); // Open the new folder
+			const fetchListsData = async () => {
+				try {
+					const listsData = await listListsByFolderAxios(
+						folder_id,
+						navigate
+					);
+					// Handle the project data
+					setLists(listsData);
+				} catch (error) {
+					// Handle any errors
+					console.error("Error fetching project data:", error);
+				}
+			};
+
+			// Call the function
+			fetchListsData();
 		}
-		setFolderArrowClicked(!folderArrowClicked);
+		if (folderArrowClicked) {
+			setFolderArrowClicked(false);
+			navigate(`/dashboard/project/${project_id}`);
+		} else {
+			setFolderArrowClicked(true);
+			navigate(`/dashboard/project/${project_id}/folder/${folder.id}`);
+		}
 	};
 
 	return (
@@ -69,14 +90,14 @@ const ProjectButton = ({
 				folders &&
 				folders.map((folder, idx) => (
 					<FolderButton
-						icon={AiOutlineFolderOpen}
 						key={idx}
+						icon={AiOutlineFolderOpen}
 						customClassName="pl-2"
 						lists={lists}
 						tasks={tasks}
 						label={folder.name}
-						isOpen={selectedFolder === folder.id}
-						onFolderClick={() => handleFolderOpen(folder.id)}
+						isOpen={selectedFolder?.id === folder.id}
+						onFolderClick={() => handleFolderOpen(folder)}
 					/>
 				))}
 		</div>

@@ -8,6 +8,7 @@ import ListDisplay from "../sections/LoggedIn/ListDisplay";
 import CreateProject from "../sections/LoggedIn/CreateProject";
 import EditProject from "../sections/LoggedIn/EditProject";
 import DisplayProject from "../sections/LoggedIn/DisplayProject";
+import DisplayFolder from "../sections/LoggedIn/DisplayFolder";
 
 const LoggedInRoutes = () => {
 	return (
@@ -22,6 +23,10 @@ const LoggedInRoutes = () => {
 			<Route path="/create-project" element={<CreateProject />} />
 			<Route path="/edit-project/:project_id" element={<EditProject />} />
 			<Route path="/project/:project_id" element={<DisplayProject />} />
+			<Route
+				path="/project/:project_id/folder/:folder_id"
+				element={<DisplayFolder />}
+			/>
 			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);

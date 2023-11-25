@@ -49,9 +49,13 @@ const ListDisplay = () => {
 		<div
 			className={`overflow-y-scroll min-h-full overflow-x-scroll bg-slate-300 m-4 `}
 		>
-			{tasks?.map((task, idx) => {
-				return <Task key={idx} task={task} />;
-			})}
+			{tasks.length > 0 ? (
+				tasks?.map((task, idx) => {
+					return <Task key={idx} task={task} />;
+				})
+			) : (
+				<div className=" text-center">No tasks in this list</div>
+			)}
 		</div>
 	);
 };

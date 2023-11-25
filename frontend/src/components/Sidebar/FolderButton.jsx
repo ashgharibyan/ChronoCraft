@@ -22,7 +22,7 @@ const FolderButton = ({
 
 	const onListClick = (list_id) => {
 		setSelectedList(list_id);
-		navigate(`${selectedProject}/${selectedFolder}/${list_id}`);
+		navigate(`${selectedProject}/${selectedFolder.id}/${list_id}`);
 
 		console.log("List clicked");
 	};

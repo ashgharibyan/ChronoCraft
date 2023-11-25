@@ -8,7 +8,7 @@ export const ModelProvider = ({ children }) => {
 	const [projects, setProjects] = useState([]);
 	const [selectedProject, setSelectedProject] = useState("");
 	const [folders, setFolders] = useState([]);
-	const [selectedFolder, setSelectedFolder] = useState("");
+	const [selectedFolder, setSelectedFolder] = useState(null);
 	const [lists, setLists] = useState([]);
 	const [selectedList, setSelectedList] = useState("");
 	const [tasks, setTasks] = useState([]);

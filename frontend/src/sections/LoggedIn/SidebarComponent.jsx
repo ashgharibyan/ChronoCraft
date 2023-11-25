@@ -240,8 +240,8 @@ const SidebarComponent = () => {
 							{projects &&
 								projects.map((project, idx) => (
 									<ProjectButton
-										key={idx}
 										label={project.title}
+										key={idx}
 										project_id={project.id}
 										icon={GoProjectRoadmap}
 										folders={folders}
