@@ -18,62 +18,32 @@ const ListDisplay = () => {
 	// 	console.log(tasks);
 	// }, [listId, projectId, folderId]);
 
-	useEffect(() => {
-		console.log("ListDisplay.jsx: useEffect called");
-
-		listTasksByListAxios(setTasks, listId, navigate, projectId, folderId);
-	}, [listId, navigate, projectId, folderId]);
-
 	// useEffect(() => {
 	// 	console.log("ListDisplay.jsx: useEffect called");
-	// 	const fetchData = async () => {
-	// 		try {
-	// 			// Assuming listTasksByListAxios is an async function
-	// 			const res = await listTasksByListAxios(
-	// 				setTasks,
-	// 				listId,
-	// 				navigate,
-	// 				projectId,
-	// 				folderId
-	// 			);
-	// 			console.log("ListDisplay.jsx: listTasksByListAxios called");
-	// 			console.log(res);
-	// 			setTasks(res);
-	// 			// console.log("ListDisplay.jsx: listTasksByListAxios called");
-	// 		} catch (err) {
-	// 			if (err.response && err.response.status === 401) {
-	// 				try {
-	// 					const refreshResponse = await axios.post(
-	// 						"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
-	// 						{},
-	// 						{
-	// 							withCredentials: true,
-	// 							headers: {
-	// 								"X-CSRFToken": csrfToken,
-	// 							},
-	// 						}
-	// 					);
-	// 					const newAccessToken = refreshResponse.data.access;
-	// 					localStorage.setItem("jwtToken", newAccessToken);
-	// 					axios.defaults.headers.common["Authorization"] =
-	// 						"Bearer " + newAccessToken;
-	// 					fetchData(); // retry fetching user data with the new token
-	// 				} catch (refreshErr) {
-	// 					console.error("Error refreshing token", refreshErr);
-	// 					navigate("/login");
-	// 				}
-	// 			} else {
-	// 				console.error("Error fetching user data", err);
-	// 			}
-	// 		}
-	// 	};
 
-	// 	// Call the async function
-	// 	fetchData();
-
-	// 	// If you want to log the tasks, you should do it in a separate useEffect
-	// 	// because tasks state update will not be reflected immediately after fetchData call
+	// 	listTasksByListAxios(setTasks, listId, navigate, projectId, folderId);
 	// }, [listId, navigate, projectId, folderId]);
+
+	useEffect(() => {
+		console.log("ListDisplay.jsx: useEffect called");
+		const fetchData = async () => {
+			try {
+				const res = await listTasksByListAxios(listId, navigate);
+				if (res) {
+					setTasks(res);
+					console.log("ListDisplay.jsx: listTasksByListAxios called");
+					console.log(res);
+				}
+			} catch (err) {
+				console.error("Error in fetchData", err);
+			}
+		};
+
+		fetchData();
+
+		// If you want to log the tasks, you should do it in a separate useEffect
+		// because tasks state update will not be reflected immediately after fetchData call
+	}, [listId, navigate, projectId, folderId]);
 
 	return (
 		<div

@@ -137,7 +137,7 @@ export const listListByFolderAxios = async (setLists, folder_id, navigate) => {
 	}
 };
 
-export const listTasksByListAxios = async (setTasks, listId, navigate) => {
+export const listTasksByListAxios = async (listId, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 
 	try {
@@ -171,7 +171,7 @@ export const listTasksByListAxios = async (setTasks, listId, navigate) => {
 				localStorage.setItem("jwtToken", newAccessToken);
 				axios.defaults.headers.common["Authorization"] =
 					"Bearer " + newAccessToken;
-				listTasksByListAxios(setTasks, listId, navigate); // retry fetching user data with the new token
+				return listTasksByListAxios(listId, navigate); // retry fetching user data with the new token
 			} catch (refreshErr) {
 				console.error("Error refreshing token", refreshErr);
 				navigate("/login");
