@@ -11,99 +11,60 @@ import {
 } from "../../../axios/ModelAxios";
 import { useNavigate } from "react-router-dom";
 
-const Task = (task) => {
+const NewTask = ({ task }) => {
 	const [isEditing, setIsEditing] = useState(false);
-	const [updatedTask, setUpdatedTask] = useState(task.task);
+	const [updatedTask, setUpdatedTask] = useState({
+		name: "",
+		due_date: null,
+		completed: false,
+		high_priority: false,
+		description: "",
+		created_at: "",
+		updated_at: "",
+		// ... any other fields that your task might have
+	});
 	const [triggerUpdate, setTriggerUpdate] = useState(false);
 	const [getTrigger, setGetTrigger] = useState(false);
 	const [timeFormatTrigger, setTimeFormatTrigger] = useState(false);
 
 	const navigate = useNavigate();
 
-	// useEffect(() => {
-	// 	console.log("Inside initial useEffect");
-	// 	setUpdatedTask(task.task);
-
-	// 	// setTimeFormatTrigger(true);
-	// }, [task]);
-
 	useEffect(() => {
-		console.log("Inside timeFormatTrigger useEffect");
-		const formattedCreatedAt = formatDateToCustom(task.task.created_at);
-		const formattedUpdatedAt = formatDateToCustom(task.task.updated_at);
+		console.log("Inside initial useEffect");
+		const formattedCreatedAt = formatDateToCustom(task.created_at);
+		const formattedUpdatedAt = formatDateToCustom(task.updated_at);
 
-		if (task.task.due_date == null) {
-			setUpdatedTask({
-				...task.task,
-				due_date: null,
-				created_at: formattedCreatedAt,
-				updated_at: formattedUpdatedAt,
-			});
-		} else {
-			const formattedDueDate = formatDate(task.task.due_date);
-
-			setUpdatedTask({
-				...task.task,
-				due_date: formattedDueDate,
-				created_at: formattedCreatedAt,
-				updated_at: formattedUpdatedAt,
-			});
-		}
+		setUpdatedTask((prevState) => ({
+			...prevState,
+			...task,
+			due_date: task.due_date == null ? "" : formatDate(task.due_date),
+			created_at: formattedCreatedAt,
+			updated_at: formattedUpdatedAt,
+		}));
 	}, [task]);
 
-	// Trigger tp update the task in the database
-	useEffect(() => {
-		console.log("Inside triggerUpdate useEffect");
-		if (triggerUpdate) {
-			updateTaskByIdAxios(updatedTask.id, updatedTask, navigate);
-			setTriggerUpdate(false);
-			setGetTrigger(true);
-		}
-	}, [updatedTask, triggerUpdate]);
-
-	//After updating the task, get the updated task from the database
+	// // getting the task by id
 	// useEffect(() => {
-	// 	console.log("Inside getTrigger useEffect");
-	// 	if (getTrigger) {
-	// 		getTaskByIdAxios(updatedTask.id, setUpdatedTask, navigate);
-	// 		setGetTrigger(false);
-	// 		setTimeFormatTrigger(true);
-	// 	}
-	// }, [getTrigger]);
+	// 	console.log("Inside get by id useEffect");
 
-	useEffect(() => {
-		console.log("Inside getTrigger useEffect");
+	// 	const fetchData = async () => {
+	// 		try {
+	// 			// Assuming getTaskByIdAxios returns a promise
+	// 			const data = await getTaskByIdAxios(task_id, navigate);
+	// 			setUpdatedTask(data);
+	// 			setGetTrigger(false);
+	// 		} catch (error) {
+	// 			console.error("Error fetching task data: ", error);
+	// 			// Handle error (e.g., show error message)
+	// 			setGetTrigger(false); // Reset trigger in case of error
+	// 			// Optionally, you can handle error state here
+	// 		}
+	// 	};
 
-		let isMounted = true; // flag to track whether the component is mounted
+	// 	fetchData();
+	// }, [getTrigger, task_id]);
 
-		const fetchData = async () => {
-			if (getTrigger) {
-				try {
-					// Assuming getTaskByIdAxios returns a promise
-					const data = await getTaskByIdAxios(updatedTask.id);
-					if (isMounted) {
-						setUpdatedTask(data);
-						setGetTrigger(false);
-						setTimeFormatTrigger(true);
-					}
-				} catch (error) {
-					console.error("Error fetching task data: ", error);
-					// Handle error (e.g., show error message)
-					if (isMounted) {
-						setGetTrigger(false); // Reset trigger in case of error
-						// Optionally, you can handle error state here
-					}
-				}
-			}
-		};
-
-		fetchData();
-
-		// Cleanup function to set the isMounted flag to false
-		return () => {
-			isMounted = false;
-		};
-	}, [getTrigger, updatedTask.id, setUpdatedTask, setTimeFormatTrigger]);
+	// Updating the task
 
 	const handleIsCompletedChange = () => {
 		setUpdatedTask({
@@ -223,4 +184,4 @@ const Task = (task) => {
 	);
 };
 
-export default Task;
+export default NewTask;

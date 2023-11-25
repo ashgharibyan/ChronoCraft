@@ -15,7 +15,7 @@ export const listProjectsAxios = async (setProjects, navigate) => {
 			}
 		);
 		console.log("Successfully fetched projects data");
-		console.log(response.data.results);
+		// console.log(response.data.results);
 		setProjects(response.data.results);
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
@@ -63,7 +63,7 @@ export const listFolderByProjectAxios = async (
 			}
 		);
 		console.log("Successfully fetched folders data");
-		console.log(response.data.results);
+		// console.log(response.data.results);
 		setFolders(response.data.results);
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
@@ -107,7 +107,7 @@ export const listListByFolderAxios = async (setLists, folder_id, navigate) => {
 			}
 		);
 		console.log("Successfully fetched lists data");
-		console.log(response.data.results);
+		// console.log(response.data.results);
 		setLists(response.data.results);
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
@@ -152,7 +152,8 @@ export const listTasksByListAxios = async (setTasks, listId, navigate) => {
 		);
 		console.log("Successfully fetched tasks data");
 		console.log(response.data.results);
-		setTasks(response.data.results);
+		// setTasks(response.data.results);
+		return response.data.results;
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
 			try {
@@ -225,7 +226,7 @@ export const updateTaskByIdAxios = async (task_id, updatedData, navigate) => {
 	}
 };
 
-export const getTaskByIdAxios = async (task_id, setUpdatedTask, navigate) => {
+export const getTaskByIdAxios = async (task_id, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 	try {
 		const response = await axios.get(
@@ -262,7 +263,7 @@ export const getTaskByIdAxios = async (task_id, setUpdatedTask, navigate) => {
 				updated_at: formattedUpdatedAt,
 			};
 		}
-		setUpdatedTask(updatedData);
+		return updatedData;
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
 			try {
@@ -280,7 +281,7 @@ export const getTaskByIdAxios = async (task_id, setUpdatedTask, navigate) => {
 				localStorage.setItem("jwtToken", newAccessToken);
 				axios.defaults.headers.common["Authorization"] =
 					"Bearer " + newAccessToken;
-				getTaskByIdAxios(task_id, setUpdatedTask, navigate); // retry fetching user data with the new token
+				getTaskByIdAxios(task_id, navigate); // retry fetching user data with the new token
 			} catch (refreshErr) {
 				console.error("Error refreshing token", refreshErr);
 				navigate("/login");
