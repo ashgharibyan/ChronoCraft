@@ -5,6 +5,7 @@ import Profile from "../sections/Account/Profile";
 import Dashboard from "../sections/LoggedIn/Dashboard";
 import ProjectsList from "../sections/LoggedIn/Projects/ProjectsList";
 import ListDisplay from "../sections/LoggedIn/ListDisplay";
+import CreateProject from "../sections/LoggedIn/CreateProject";
 const LoggedInRoutes = () => {
 	return (
 		<Routes>
@@ -15,6 +16,7 @@ const LoggedInRoutes = () => {
 				path="/:projectId/:folderId/:listId"
 				element={<ListDisplay />}
 			/>
+			<Route path="/create-project" element={<CreateProject />} />
 			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);

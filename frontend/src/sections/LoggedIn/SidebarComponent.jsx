@@ -209,7 +209,9 @@ const SidebarComponent = () => {
 								My Projects
 							</h3>
 
-							<BsPlusCircle className="h-4 w-4 text-white " />
+							<Link to="/dashboard/create-project">
+								<BsPlusCircle className="h-4 w-4 text-white " />
+							</Link>
 						</div>
 						{/* <div className="space-y-1 overflow-y-scroll max-h-[425px] "> */}
 						<div className="space-y-1 overflow-y-scroll min-h-[200px] max-h-[calc(100vh-450px)] ">
