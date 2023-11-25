@@ -1,5 +1,6 @@
 import axios from "axios";
 import { formatDate, formatDateToCustom, getCookie } from "./GeneralAxios";
+import { useGeneral } from "../contexts/GeneralContext";
 
 export const listProjectsAxios = async (setProjects, navigate) => {
 	const csrfToken = getCookie("csrftoken");
@@ -41,6 +42,49 @@ export const listProjectsAxios = async (setProjects, navigate) => {
 			}
 		} else {
 			console.error("Error fetching projects list data", err);
+		}
+	}
+};
+
+export const createProjectAxios = async (newProject, navigate) => {
+	const csrfToken = getCookie("csrftoken");
+
+	try {
+		const response = await axios.post(
+			"http://localhost:8000/api/v1/projects/",
+			newProject,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log("Successfully created project", newProject);
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return createProjectAxios(newProject, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error("Error creating a project", err);
 		}
 	}
 };

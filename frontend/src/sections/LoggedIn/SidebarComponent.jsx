@@ -31,6 +31,8 @@ const SidebarComponent = () => {
 		setWasToggledManually,
 		toggleProfile,
 		setToggleProfile,
+		triggerSidebarRefresh,
+		setTriggerSidebarRefresh,
 	} = useGeneral();
 	const navigate = useNavigate();
 	const { logOut } = useUser();
@@ -46,8 +48,11 @@ const SidebarComponent = () => {
 	// const [openProjectId, setOpenProjectId] = useState(null);
 
 	useEffect(() => {
-		listProjectsAxios(setProjects, navigate);
-	}, []);
+		if (triggerSidebarRefresh) {
+			listProjectsAxios(setProjects, navigate);
+			setTriggerSidebarRefresh(false);
+		}
+	}, [triggerSidebarRefresh]);
 
 	const handleProjectOpen = (projectId) => {
 		if (selectedProject === projectId) {

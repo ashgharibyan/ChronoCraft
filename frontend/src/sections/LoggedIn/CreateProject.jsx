@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { createProjectAxios } from "../../axios/ModelAxios";
+import { useNavigate } from "react-router-dom";
+import { useGeneral } from "../../contexts/GeneralContext";
 
 const CreateProject = () => {
 	const [newProjectData, setNewProjectData] = useState({
@@ -7,6 +10,8 @@ const CreateProject = () => {
 	});
 
 	const [newProjectErrors, setNewProjectErrors] = useState([]);
+	const navigate = useNavigate();
+	const { triggerSidebarRefresh, setTriggerSidebarRefresh } = useGeneral();
 
 	const handleChange = (e) => {
 		setNewProjectErrors([]);
@@ -45,7 +50,9 @@ const CreateProject = () => {
 
 		console.log(newProjectData);
 
-		// If there are no errors, send the data to the backend
+		createProjectAxios(newProjectData, navigate);
+		setTriggerSidebarRefresh(true);
+		navigate("/dashboard");
 	};
 
 	return (

@@ -13,6 +13,7 @@ export const GeneralProvider = ({ children }) => {
 	const [projects, setProjects] = useState([]);
 	const [projectArrowClicked, setProjectArrowClicked] = useState(false);
 	const [folderArrowClicked, setFolderArrowClicked] = useState(false);
+	const [triggerSidebarRefresh, setTriggerSidebarRefresh] = useState(true);
 	return (
 		<GeneralContext.Provider
 			value={{
@@ -32,6 +33,8 @@ export const GeneralProvider = ({ children }) => {
 				setProjectArrowClicked,
 				folderArrowClicked,
 				setFolderArrowClicked,
+				triggerSidebarRefresh,
+				setTriggerSidebarRefresh,
 			}}
 		>
 			{children}
