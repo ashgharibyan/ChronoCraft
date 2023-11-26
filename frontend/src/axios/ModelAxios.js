@@ -16,8 +16,8 @@ export const listProjectsAxios = async (setProjects, navigate) => {
 			}
 		);
 		console.log("Successfully fetched projects data");
-		// console.log(response.data.results);
-		setProjects(response.data.results);
+		console.log(response.data);
+		setProjects(response.data);
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
 			try {
@@ -147,7 +147,7 @@ export const listFolderByProjectAxios = async (project_id, navigate) => {
 		);
 		console.log("Successfully fetched folders data");
 		// console.log(response.data.results);
-		return response.data.results;
+		return response.data;
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
 			try {
@@ -277,7 +277,7 @@ export const listListsByFolderAxios = async (folder_id, navigate) => {
 		);
 		console.log("Successfully fetched lists data");
 		// console.log(response.data.results);
-		return response.data.results;
+		return response.data;
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
 			try {
@@ -322,7 +322,7 @@ export const listTasksByListAxios = async (listId, navigate) => {
 		console.log("Successfully fetched tasks data in Get Tasks By List");
 		console.log(response.data.results);
 		// setTasks(response.data.results);
-		return response.data.results;
+		return response.data;
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
 			try {
