@@ -5,8 +5,9 @@ import {
 	getCookie,
 	projectsAxios,
 } from "../../../axios/GeneralAxios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { listProjectsAxios } from "../../../axios/ModelAxios";
 // const dummyProjects = [
 // 	{
 // 		owner: 1,
@@ -101,7 +102,7 @@ const ProjectsList = () => {
 			navigate("/login");
 		}
 
-		projectsAxios(setProjects, navigate);
+		listProjectsAxios(setProjects, navigate);
 	}, []);
 
 	return (
@@ -109,6 +110,11 @@ const ProjectsList = () => {
 			<h1 className="text-3xl uppercase font-bold text-white p-4">
 				Your Projects
 			</h1>
+			<Link to="/dashboard/create-project">
+				<button className="bg-black text-white p-2 rounded-lg">
+					Create A Project
+				</button>
+			</Link>
 			{projects &&
 				projects.map((project, idx) => (
 					<div
@@ -119,9 +125,11 @@ const ProjectsList = () => {
 						<p>{project.id}</p>
 						<p>{project.description}</p>
 						<p>{project.created_at}</p>
-						<button className="bg-slate-500 text-white p-2 rounded-lg">
-							Open Project
-						</button>
+						<Link to={`/dashboard/project/${project.id}`}>
+							<button className="bg-slate-500 text-white p-2 rounded-lg">
+								Open Project
+							</button>
+						</Link>
 					</div>
 				))}
 		</div>
