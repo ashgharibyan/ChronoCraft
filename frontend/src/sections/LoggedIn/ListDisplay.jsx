@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useModel } from "../../contexts/ModelContext";
 import { listTasksByListAxios } from "../../axios/ModelAxios";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Task from "./components/Task";
 
 const ListDisplay = () => {
@@ -49,6 +49,13 @@ const ListDisplay = () => {
 		<div
 			className={`overflow-y-scroll min-h-full overflow-x-scroll bg-slate-300 m-4 `}
 		>
+			<Link
+				to={`/dashboard/${projectId}/${folderId}/${listId}/create-task`}
+			>
+				<button className="bg-black text-white p-2">
+					Create A Task
+				</button>
+			</Link>
 			{tasks.length > 0 ? (
 				tasks?.map((task, idx) => {
 					return <Task key={idx} task={task} />;

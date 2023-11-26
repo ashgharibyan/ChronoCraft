@@ -11,6 +11,7 @@ import DisplayProject from "../sections/LoggedIn/DisplayProject";
 import DisplayFolder from "../sections/LoggedIn/DisplayFolder";
 import CreateFolder from "../sections/LoggedIn/CreateFolder";
 import CreateList from "../sections/LoggedIn/CreateList";
+import CreateTask from "../sections/LoggedIn/CreateTask";
 
 const LoggedInRoutes = () => {
 	return (
@@ -32,7 +33,10 @@ const LoggedInRoutes = () => {
 				path="/:project_id/:folder_id/create-list"
 				element={<CreateList />}
 			/>
-
+			<Route
+				path="/:project_id/:folder_id/:list_id/create-task"
+				element={<CreateTask />}
+			/>
 			<Route path="/edit-project/:project_id" element={<EditProject />} />
 			<Route path="/project/:project_id" element={<DisplayProject />} />
 			<Route
