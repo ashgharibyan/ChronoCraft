@@ -19,6 +19,7 @@ import { useModel } from "../../contexts/ModelContext";
 import {
 	listProjectsAxios,
 	listFolderByProjectAxios,
+	listListsByFolderAxios,
 } from "../../axios/ModelAxios";
 
 const SidebarComponent = () => {
@@ -35,6 +36,8 @@ const SidebarComponent = () => {
 		setTriggerSidebarRefresh,
 		triggerSidebarFolderRefresh,
 		setTriggerSidebarFolderRefresh,
+		triggerSidebarListRefresh,
+		setTriggerSidebarListRefresh,
 	} = useGeneral();
 	const navigate = useNavigate();
 	const { logOut } = useUser();
@@ -43,6 +46,7 @@ const SidebarComponent = () => {
 		setProjects,
 		folders,
 		setFolders,
+		setLists,
 		setSelectedProject,
 		selectedProject,
 		selectedFolder,
@@ -70,10 +74,9 @@ const SidebarComponent = () => {
 					);
 					// Handle the project data
 					setFolders(foldersData);
-					console.log("-----FOLDERDATA", foldersData);
 				} catch (error) {
 					// Handle any errors
-					console.error("Error fetching project data:", error);
+					console.error("Error fetching folder data:", error);
 				}
 			};
 
@@ -82,6 +85,28 @@ const SidebarComponent = () => {
 			setTriggerSidebarFolderRefresh(false);
 		}
 	}, [triggerSidebarFolderRefresh]);
+
+	useEffect(() => {
+		if (triggerSidebarListRefresh) {
+			const fetchListsData = async () => {
+				try {
+					const listsData = await listListsByFolderAxios(
+						selectedFolder.id,
+						navigate
+					);
+					// Handle the project data
+					setLists(listsData);
+				} catch (error) {
+					// Handle any errors
+					console.error("Error fetching list data:", error);
+				}
+			};
+
+			// Call the function
+			fetchListsData();
+			setTriggerSidebarListRefresh(false);
+		}
+	}, [triggerSidebarListRefresh]);
 
 	const handleProjectOpen = (projectId) => {
 		if (selectedProject === projectId) {

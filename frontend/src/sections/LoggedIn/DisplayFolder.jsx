@@ -65,6 +65,9 @@ const DisplayFolder = () => {
 					<h1>Folder: {selectedFolder.name}</h1>
 				</div>
 			)}
+			<Link to={`/dashboard/${project_id}/${folder_id}/create-list/`}>
+				<button className="p-2 bg-white text-black">Create List</button>
+			</Link>
 			{lists && (
 				<div>
 					{lists.map((list) => (

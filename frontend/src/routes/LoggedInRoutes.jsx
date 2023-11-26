@@ -10,6 +10,7 @@ import EditProject from "../sections/LoggedIn/EditProject";
 import DisplayProject from "../sections/LoggedIn/DisplayProject";
 import DisplayFolder from "../sections/LoggedIn/DisplayFolder";
 import CreateFolder from "../sections/LoggedIn/CreateFolder";
+import CreateList from "../sections/LoggedIn/CreateList";
 
 const LoggedInRoutes = () => {
 	return (
@@ -21,11 +22,17 @@ const LoggedInRoutes = () => {
 				path="/:projectId/:folderId/:listId"
 				element={<ListDisplay />}
 			/>
+
 			<Route path="/create-project" element={<CreateProject />} />
 			<Route
 				path="/:project_id/create-folder"
 				element={<CreateFolder />}
 			/>
+			<Route
+				path="/:project_id/:folder_id/create-list"
+				element={<CreateList />}
+			/>
+
 			<Route path="/edit-project/:project_id" element={<EditProject />} />
 			<Route path="/project/:project_id" element={<DisplayProject />} />
 			<Route

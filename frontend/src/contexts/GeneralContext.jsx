@@ -16,6 +16,10 @@ export const GeneralProvider = ({ children }) => {
 	const [triggerSidebarRefresh, setTriggerSidebarRefresh] = useState(true);
 	const [triggerSidebarFolderRefresh, setTriggerSidebarFolderRefresh] =
 		useState(false);
+
+	const [triggerSidebarListRefresh, setTriggerSidebarListRefresh] =
+		useState(false);
+
 	return (
 		<GeneralContext.Provider
 			value={{
@@ -39,6 +43,8 @@ export const GeneralProvider = ({ children }) => {
 				setTriggerSidebarRefresh,
 				triggerSidebarFolderRefresh,
 				setTriggerSidebarFolderRefresh,
+				triggerSidebarListRefresh,
+				setTriggerSidebarListRefresh,
 			}}
 		>
 			{children}
