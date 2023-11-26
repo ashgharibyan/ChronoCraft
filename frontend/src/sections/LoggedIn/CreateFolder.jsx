@@ -44,7 +44,7 @@ const CreateFolder = () => {
 		//add axios call here
 		createFolderAxios(newFolderData, navigate);
 		setTriggerSidebarFolderRefresh(true);
-		// navigate("/dashboard");
+		navigate(`/dashboard/project/${project_id}/`);
 	};
 
 	return (

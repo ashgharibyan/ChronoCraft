@@ -15,7 +15,7 @@ export const GeneralProvider = ({ children }) => {
 	const [folderArrowClicked, setFolderArrowClicked] = useState(false);
 	const [triggerSidebarRefresh, setTriggerSidebarRefresh] = useState(true);
 	const [triggerSidebarFolderRefresh, setTriggerSidebarFolderRefresh] =
-		useState(true);
+		useState(false);
 	return (
 		<GeneralContext.Provider
 			value={{

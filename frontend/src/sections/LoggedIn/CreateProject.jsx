@@ -52,7 +52,7 @@ const CreateProject = () => {
 
 		createProjectAxios(newProjectData, navigate);
 		setTriggerSidebarRefresh(true);
-		navigate("/dashboard");
+		navigate("/dashboard/projects-overview/");
 	};
 
 	return (

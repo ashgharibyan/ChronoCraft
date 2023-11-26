@@ -56,7 +56,12 @@ const SidebarComponent = () => {
 			listProjectsAxios(setProjects, navigate);
 			setTriggerSidebarRefresh(false);
 		}
-		if (triggerSidebarFolderRefresh && selectedProject != "") {
+	}, [triggerSidebarRefresh]);
+
+	useEffect(() => {
+		console.log("inside useeffect for folders -----");
+		if (triggerSidebarFolderRefresh) {
+			console.log("inside if statement for folders");
 			const fetchFoldersData = async () => {
 				try {
 					const foldersData = await listFolderByProjectAxios(
@@ -65,6 +70,7 @@ const SidebarComponent = () => {
 					);
 					// Handle the project data
 					setFolders(foldersData);
+					console.log("-----FOLDERDATA", foldersData);
 				} catch (error) {
 					// Handle any errors
 					console.error("Error fetching project data:", error);
@@ -75,7 +81,7 @@ const SidebarComponent = () => {
 			fetchFoldersData();
 			setTriggerSidebarFolderRefresh(false);
 		}
-	}, [triggerSidebarRefresh, triggerSidebarFolderRefresh]);
+	}, [triggerSidebarFolderRefresh]);
 
 	const handleProjectOpen = (projectId) => {
 		if (selectedProject === projectId) {
