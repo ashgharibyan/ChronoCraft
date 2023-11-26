@@ -5,7 +5,7 @@ import { AiOutlinePlus, AiOutlineDown, AiOutlineRight } from "react-icons/ai";
 import { useGeneral } from "../../contexts/GeneralContext";
 import { listTasksByListAxios } from "../../axios/ModelAxios";
 import { useModel } from "../../contexts/ModelContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const FolderButton = ({
 	icon: Icon,
@@ -41,7 +41,12 @@ const FolderButton = ({
 					)}
 					<SidebarButton icon={Icon} label={label} />
 				</div>
-				<AiOutlinePlus className="h-4 w-4 text-white mr-4 " />
+				<Link
+					to={`/dashboard/${selectedProject}/${selectedFolder?.id}/create-list/`}
+					onClick={(e) => e.stopPropagation()}
+				>
+					<AiOutlinePlus className="h-4 w-4 text-white mr-4 " />
+				</Link>
 			</div>
 			{isOpen &&
 				lists &&

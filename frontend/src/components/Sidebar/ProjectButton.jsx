@@ -106,14 +106,12 @@ const ProjectButton = ({
 					)}
 					<SidebarButton icon={Icon} label={label} />
 				</div>
-				<div className="flex items-center gap-2">
-					<Link to={`/${project_id}/create-folder/`}>
-						<AiOutlinePlus className="h-4 w-4 text-white  " />
-					</Link>
-					<Link to={`/dashboard/edit-project/${project_id}`}>
-						<MdEdit className="h-4 w-4 text-white mr-4 " />
-					</Link>
-				</div>
+				<Link
+					to={`/dashboard/${project_id}/create-folder/`}
+					onClick={(e) => e.stopPropagation()}
+				>
+					<AiOutlinePlus className="h-4 w-4 mr-4 text-white  " />
+				</Link>
 			</div>
 
 			{isOpen &&

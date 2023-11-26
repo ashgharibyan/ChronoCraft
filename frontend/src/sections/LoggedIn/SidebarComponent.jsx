@@ -63,9 +63,7 @@ const SidebarComponent = () => {
 	}, [triggerSidebarRefresh]);
 
 	useEffect(() => {
-		console.log("inside useeffect for folders -----");
 		if (triggerSidebarFolderRefresh) {
-			console.log("inside if statement for folders");
 			const fetchFoldersData = async () => {
 				try {
 					const foldersData = await listFolderByProjectAxios(
