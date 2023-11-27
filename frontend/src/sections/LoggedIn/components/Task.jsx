@@ -6,12 +6,14 @@ import {
 } from "../../../axios/GeneralAxios";
 import { IoFlagOutline, IoFlag } from "react-icons/io5";
 import {
+	deleteTaskByIdAxios,
 	getTaskByIdAxios,
 	updateTaskByIdAxios,
 } from "../../../axios/ModelAxios";
 import { useNavigate } from "react-router-dom";
+import { useGeneral } from "../../../contexts/GeneralContext";
 
-const Task = ({ task }) => {
+const Task = ({ task, projectId, folderId, listId }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [updatedTask, setUpdatedTask] = useState({
 		name: "",
@@ -28,6 +30,9 @@ const Task = ({ task }) => {
 	const [timeFormatTrigger, setTimeFormatTrigger] = useState(false);
 
 	const navigate = useNavigate();
+
+	const { triggerTasksListViewRefresh, setTriggerTasksListViewRefresh } =
+		useGeneral();
 
 	useEffect(() => {
 		const formattedCreatedAt = formatDateToCustom(task.created_at);
@@ -117,6 +122,15 @@ const Task = ({ task }) => {
 		}
 	};
 
+	const handleDelete = (e) => {
+		e.preventDefault();
+
+		// Delete the task
+		deleteTaskByIdAxios(updatedTask.id, navigate);
+		setTriggerTasksListViewRefresh(true);
+		navigate(`/dashboard/${projectId}/${folderId}/${listId}`);
+	};
+
 	return (
 		<div className="m-4 p-4 bg-white text-black w-[75%] text-base flex flex-col gap-2">
 			<div className="bg-gray-200 text-lg p-4 font-bold uppercase flex justify-between items-center">
@@ -158,6 +172,10 @@ const Task = ({ task }) => {
 						) : (
 							<IoFlagOutline />
 						)}
+					</button>
+
+					<button type="button" onClick={handleDelete}>
+						Delete Task
 					</button>
 				</div>
 			</div>

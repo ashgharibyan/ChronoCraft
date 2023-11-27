@@ -3,11 +3,15 @@ import { useModel } from "../../contexts/ModelContext";
 import { listTasksByListAxios } from "../../axios/ModelAxios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Task from "./components/Task";
+import { useGeneral } from "../../contexts/GeneralContext";
 
 const ListDisplay = () => {
 	const navigate = useNavigate();
 	const { selectedProject, selectedFolder, selectedList, setTasks, tasks } =
 		useModel();
+
+	const { triggerTasksListViewRefresh, setTriggerTasksListViewRefresh } =
+		useGeneral();
 
 	const { projectId, folderId, listId } = useParams();
 
@@ -40,10 +44,11 @@ const ListDisplay = () => {
 		};
 
 		fetchData();
+		setTriggerTasksListViewRefresh(false);
 
 		// If you want to log the tasks, you should do it in a separate useEffect
 		// because tasks state update will not be reflected immediately after fetchData call
-	}, [listId, navigate, projectId, folderId]);
+	}, [listId, navigate, projectId, folderId, triggerTasksListViewRefresh]);
 
 	return (
 		<div
@@ -58,7 +63,15 @@ const ListDisplay = () => {
 			</Link>
 			{tasks.length > 0 ? (
 				tasks?.map((task, idx) => {
-					return <Task key={idx} task={task} />;
+					return (
+						<Task
+							key={idx}
+							task={task}
+							projectId={projectId}
+							folderId={folderId}
+							listId={listId}
+						/>
+					);
 				})
 			) : (
 				<div className=" text-center">No tasks in this list</div>

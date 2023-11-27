@@ -107,7 +107,7 @@ const CreateTask = () => {
 					type="date"
 					name="due_date"
 					id="due_date"
-					value={newTaskData?.due_date}
+					value={newTaskData.due_date ? newTaskData.due_date : ""}
 					placeholder="Task Due Date"
 					onChange={handleChange}
 				/>
