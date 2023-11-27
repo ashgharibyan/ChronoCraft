@@ -68,6 +68,12 @@ const DisplayProject = () => {
 				</button>
 			</Link>
 
+			<Link to={`/dashboard/project/${project_id}/edit/`}>
+				<button className="p-2 bg-white text-black">
+					Edit Project
+				</button>
+			</Link>
+
 			{currentProjectFolders && (
 				<div>
 					{currentProjectFolders.map((folder) => (
@@ -82,6 +88,14 @@ const DisplayProject = () => {
 							>
 								<button className="p-2 bg-white text-black">
 									Open Folder
+								</button>
+							</Link>
+
+							<Link
+								to={`/dashboard/project/${project_id}/folder/${folder.id}/edit`}
+							>
+								<button className="p-2 bg-white text-black">
+									Edit Folder
 								</button>
 							</Link>
 						</div>

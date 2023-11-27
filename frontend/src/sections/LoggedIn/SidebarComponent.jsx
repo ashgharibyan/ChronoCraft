@@ -46,6 +46,7 @@ const SidebarComponent = () => {
 		setProjects,
 		folders,
 		setFolders,
+		lists,
 		setLists,
 		setSelectedProject,
 		selectedProject,
@@ -297,6 +298,7 @@ const SidebarComponent = () => {
 										project_id={project.id}
 										icon={GoProjectRoadmap}
 										folders={folders}
+										lists={lists}
 										tasks={tasksTest}
 										isOpen={selectedProject === project.id}
 										onProjectClick={() =>

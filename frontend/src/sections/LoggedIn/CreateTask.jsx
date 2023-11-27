@@ -63,6 +63,7 @@ const CreateTask = () => {
 		//add axios call here
 		createTaskAxios(newTaskData, navigate);
 		setTriggerSidebarTaskRefresh(true);
+
 		navigate(`/dashboard/${project_id}/${folder_id}/${list_id}`);
 	};
 

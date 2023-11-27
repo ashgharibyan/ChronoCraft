@@ -12,6 +12,7 @@ import { listProjectsAxios } from "../../../axios/ModelAxios";
 const ProjectsList = () => {
 	const { user, setUser, projects, setProjects } = useGeneral();
 	const navigate = useNavigate();
+	const [projectEditToggle, setProjectEditToggle] = useState(false);
 
 	useEffect(() => {
 		const jwtToken = localStorage.getItem("jwtToken");
@@ -44,6 +45,14 @@ const ProjectsList = () => {
 						className="bg-green-500 text-white text-center min-w-[500px] p-4 mx-4 mb-4 flex flex-col justify-center items-center gap-3"
 					>
 						<h1 className="text-2xl font-bold">{project.title}</h1>
+						<Link to={`/dashboard/project/${project.id}/edit`}>
+							<button
+								className="p-2 bg-black text-white"
+								type="button"
+							>
+								Edit
+							</button>
+						</Link>
 						<p>{project.id}</p>
 						<p>{project.description}</p>
 						<p>{project.created_at}</p>

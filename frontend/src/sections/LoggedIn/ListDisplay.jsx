@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useModel } from "../../contexts/ModelContext";
-import { listTasksByListAxios } from "../../axios/ModelAxios";
+import { getListByIdAxios, listTasksByListAxios } from "../../axios/ModelAxios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Task from "./components/Task";
 import { useGeneral } from "../../contexts/GeneralContext";
@@ -13,6 +13,7 @@ const ListDisplay = () => {
 	const { triggerTasksListViewRefresh, setTriggerTasksListViewRefresh } =
 		useGeneral();
 
+	const [currentList, setCurrentList] = useState();
 	const { projectId, folderId, listId } = useParams();
 
 	// useEffect(() => {
@@ -29,7 +30,20 @@ const ListDisplay = () => {
 	// }, [listId, navigate, projectId, folderId]);
 
 	useEffect(() => {
-		console.log("ListDisplay.jsx: useEffect called");
+		const fetchListData = async () => {
+			try {
+				const listData = await getListByIdAxios(listId, navigate);
+				// Handle the list data
+				setCurrentList(listData);
+			} catch (error) {
+				// Handle any errors
+				console.error("Error fetching list data:", error);
+			}
+		};
+
+		// Call the function
+		fetchListData();
+
 		const fetchData = async () => {
 			try {
 				const res = await listTasksByListAxios(listId, navigate);
@@ -54,11 +68,19 @@ const ListDisplay = () => {
 		<div
 			className={`overflow-y-scroll min-h-full overflow-x-scroll bg-slate-300 m-4 `}
 		>
+			<h1>List: {currentList?.name}</h1>
 			<Link
 				to={`/dashboard/${projectId}/${folderId}/${listId}/create-task`}
 			>
 				<button className="bg-black text-white p-2">
 					Create A Task
+				</button>
+			</Link>
+			<Link
+				to={`/dashboard/project/${projectId}/folder/${folderId}/list/${listId}/edit`}
+			>
+				<button className="bg-black text-white p-2">
+					Edit The List
 				</button>
 			</Link>
 			{tasks.length > 0 ? (

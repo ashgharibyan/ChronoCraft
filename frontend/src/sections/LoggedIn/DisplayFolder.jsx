@@ -15,58 +15,67 @@ const DisplayFolder = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (selectedFolder === null) {
-			console.log("inside if of DisplayFolder");
-			if (project_id && folder_id) {
-				// Get project data
-				const fetchFolderData = async () => {
-					try {
-						const folderData = await getFolderByIdAxios(
-							folder_id,
-							navigate
-						);
-						// Handle the project data
-						setSelectedFolder(folderData);
-					} catch (error) {
-						// Handle any errors
-						console.error("Error fetching project data:", error);
-					}
-				};
+		// if (selectedFolder === null) {
+		// 	console.log("inside if of DisplayFolder");
+		if (project_id && folder_id) {
+			// Get project data
+			const fetchFolderData = async () => {
+				try {
+					const folderData = await getFolderByIdAxios(
+						folder_id,
+						navigate
+					);
+					// Handle the project data
+					setCurrentFolder(folderData);
+					setSelectedFolder(folderData);
+					console.log("inside of try folder by id", folderData);
+				} catch (error) {
+					// Handle any errors
+					console.error("Error fetching folder data:", error);
+				}
+			};
 
-				// Call the function
-				fetchFolderData();
-				// Get project folders
+			// Call the function
+			fetchFolderData();
+			// Get project folders
 
-				const fetchListsData = async () => {
-					try {
-						const listsData = await listListsByFolderAxios(
-							folder_id,
-							navigate
-						);
-						// Handle the project data
-						setLists(listsData);
-					} catch (error) {
-						// Handle any errors
-						console.error("Error fetching project data:", error);
-					}
-				};
+			const fetchListsData = async () => {
+				try {
+					const listsData = await listListsByFolderAxios(
+						folder_id,
+						navigate
+					);
+					// Handle the project data
+					setLists(listsData);
+				} catch (error) {
+					// Handle any errors
+					console.error("Error fetching project data:", error);
+				}
+			};
 
-				// Call the function
-				fetchListsData();
-			}
+			// Call the function
+			fetchListsData();
 		}
+		// }
 	}, [project_id, folder_id]);
 
 	return (
 		<div>
 			Display Folder project id: {project_id} folder id: {folder_id}
-			{selectedFolder && (
+			{currentFolder && (
 				<div>
-					<h1>Folder: {selectedFolder.name}</h1>
+					<h1>Folder: {currentFolder.name}</h1>
 				</div>
 			)}
 			<Link to={`/dashboard/${project_id}/${folder_id}/create-list/`}>
 				<button className="p-2 bg-white text-black">Create List</button>
+			</Link>
+			<Link
+				to={`/dashboard/project/${project_id}/folder/${folder_id}/edit/`}
+			>
+				<button className="p-2 bg-white text-black">
+					Edit Folder{" "}
+				</button>
 			</Link>
 			{lists && (
 				<div>
@@ -82,6 +91,13 @@ const DisplayFolder = () => {
 							>
 								<button className="p-2 bg-white text-black">
 									Open List
+								</button>
+							</Link>
+							<Link
+								to={`/dashboard/project/${project_id}/folder/${folder_id}/list/${list.id}/edit`}
+							>
+								<button className="p-2 bg-white text-black">
+									Edit List
 								</button>
 							</Link>
 						</div>

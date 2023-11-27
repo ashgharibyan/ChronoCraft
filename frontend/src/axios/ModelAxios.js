@@ -84,7 +84,58 @@ export const getProjectByIdAxios = async (projectId, navigate) => {
 				navigate("/login");
 			}
 		} else {
-			console.error("Error fetching folder data", err);
+			console.error("Error fetching project data", err);
+		}
+	}
+};
+
+export const updateProjectByIdAxios = async (
+	projectId,
+	updatedProject,
+	navigate
+) => {
+	const csrfToken = getCookie("csrftoken");
+
+	try {
+		const response = await axios.put(
+			`http://localhost:8000/api/v1/projects/${projectId}/`,
+			updatedProject,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log("Successfully updated project data");
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return updateProjectByIdAxios(
+					projectId,
+					updatedProject,
+					navigate
+				); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error("Error updating project data", err);
 		}
 	}
 };
@@ -219,6 +270,53 @@ export const getFolderByIdAxios = async (folderId, navigate) => {
 	}
 };
 
+export const updateFolderByIdAxios = async (
+	folderId,
+	updatedFolder,
+	navigate
+) => {
+	const csrfToken = getCookie("csrftoken");
+
+	try {
+		const response = await axios.put(
+			`http://localhost:8000/api/v1/folders/${folderId}/`,
+			updatedFolder,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log("Successfully updated folder data");
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return updateFolderByIdAxios(folderId, updatedFolder, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error("Error updating folder data", err);
+		}
+	}
+};
+
 export const createFolderAxios = async (newFolder, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 
@@ -345,6 +443,90 @@ export const createListAxios = async (newList, navigate) => {
 			}
 		} else {
 			console.error("Error creating a list", err);
+		}
+	}
+};
+
+export const getListByIdAxios = async (list_id, navigate) => {
+	const csrfToken = getCookie("csrftoken");
+	try {
+		const response = await axios.get(
+			`http://localhost:8000/api/v1/lists/${list_id}/`,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log(`Successfully got info of list number ${list_id}`);
+		return response.data;
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				getListByIdAxios(list_id, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error(`Error getting info of list #${task_id}`, err);
+		}
+	}
+};
+
+export const updateListByIdAxios = async (list_id, newList, navigate) => {
+	const csrfToken = getCookie("csrftoken");
+	try {
+		const response = await axios.put(
+			`http://localhost:8000/api/v1/lists/${list_id}/`,
+			newList,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log(`Successfully updated list number ${list_id}`);
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				getListByIdAxios(list_id, newList, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error(`Error updating list #${task_id}`, err);
 		}
 	}
 };
