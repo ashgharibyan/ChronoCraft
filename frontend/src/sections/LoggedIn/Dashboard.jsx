@@ -87,7 +87,7 @@ const Dashboard = () => {
 				// Handle the folder data
 				console.log("--------------------");
 				console.log(projectsData);
-				let tempProjectsData = projectsData;
+				let tempProjectsData = [...projectsData];
 				if (tempProjectsData.length > 3) {
 					tempProjectsData = tempProjectsData.slice(
 						tempProjectsData.length - 3,
