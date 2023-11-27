@@ -7,6 +7,7 @@ const EditList = () => {
 	const { project_id, folder_id, list_id } = useParams();
 	const [list, setList] = useState({ parent_folder: folder_id });
 	const [listErrors, setListErrors] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
 	const navigate = useNavigate();
 	const {
 		triggerTasksListViewRefresh,
@@ -22,19 +23,22 @@ const EditList = () => {
 	} = useGeneral();
 
 	useEffect(() => {
-		const fetchListData = async () => {
-			try {
-				const listData = await getListByIdAxios(list_id, navigate);
-				// Handle the list data
-				setList(listData);
-			} catch (error) {
-				// Handle any errors
-				console.error("Error fetching list data:", error);
-			}
-		};
+		if (list_id) {
+			const fetchListData = async () => {
+				try {
+					const listData = await getListByIdAxios(list_id, navigate);
+					// Handle the list data
+					setList(listData);
+				} catch (error) {
+					// Handle any errors
+					console.error("Error fetching list data:", error);
+				}
+			};
 
-		// Call the function
-		fetchListData();
+			// Call the function
+			fetchListData();
+		}
+		setIsLoading(false);
 	}, [project_id, folder_id, list_id]);
 
 	const handleChange = (e) => {
@@ -45,6 +49,8 @@ const EditList = () => {
 	const handleListEditSubmit = (e) => {
 		e.preventDefault();
 		setListErrors([]);
+
+		console.log("inside update list");
 
 		let errors = [];
 		if (list.name === "") {
@@ -57,7 +63,7 @@ const EditList = () => {
 			setListErrors(errors);
 			return;
 		}
-
+		console.log("inside update list: passed");
 		updateListByIdAxios(list_id, list, navigate);
 		setTriggerTasksListViewRefresh(true);
 		setTriggerSidebarRefresh(true);
@@ -69,22 +75,35 @@ const EditList = () => {
 
 	return (
 		<div>
-			{listErrors &&
-				listErrors.map((error, idx) => <p key={idx}>{error}</p>)}
-			<form action="" onSubmit={handleListEditSubmit}>
-				<label htmlFor="name">Name</label>
-				<input
-					type="text"
-					name="name"
-					id="name"
-					onChange={handleChange}
-					value={list?.name}
-				/>
+			{isLoading ? (
+				<h1>Loading ... </h1>
+			) : (
+				<div>
+					{listErrors &&
+						listErrors.map((error, idx) => (
+							<p key={idx}>{error}</p>
+						))}
+					{
+						<form action="" onSubmit={handleListEditSubmit}>
+							<label htmlFor="name">Name</label>
+							<input
+								type="text"
+								name="name"
+								id="name"
+								onChange={handleChange}
+								value={list?.name}
+							/>
 
-				<button className="p-2 bg-black text-white" type="submit">
-					Submit
-				</button>
-			</form>
+							<button
+								className="p-2 bg-black text-white"
+								type="submit"
+							>
+								Submit
+							</button>
+						</form>
+					}
+				</div>
+			)}
 		</div>
 	);
 };

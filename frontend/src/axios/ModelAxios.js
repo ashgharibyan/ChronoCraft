@@ -520,7 +520,7 @@ export const updateListByIdAxios = async (list_id, newList, navigate) => {
 				localStorage.setItem("jwtToken", newAccessToken);
 				axios.defaults.headers.common["Authorization"] =
 					"Bearer " + newAccessToken;
-				getListByIdAxios(list_id, newList, navigate); // retry fetching user data with the new token
+				return getListByIdAxios(list_id, newList, navigate); // retry fetching user data with the new token
 			} catch (refreshErr) {
 				console.error("Error refreshing token", refreshErr);
 				navigate("/login");
@@ -718,7 +718,7 @@ export const getTaskByIdAxios = async (task_id, navigate) => {
 				localStorage.setItem("jwtToken", newAccessToken);
 				axios.defaults.headers.common["Authorization"] =
 					"Bearer " + newAccessToken;
-				getTaskByIdAxios(task_id, navigate); // retry fetching user data with the new token
+				return getTaskByIdAxios(task_id, navigate); // retry fetching user data with the new token
 			} catch (refreshErr) {
 				console.error("Error refreshing token", refreshErr);
 				navigate("/login");
@@ -764,7 +764,7 @@ export const fetchUserData = async (setUser, navigate) => {
 				localStorage.setItem("jwtToken", newAccessToken);
 				axios.defaults.headers.common["Authorization"] =
 					"Bearer " + newAccessToken;
-				fetchUserData(setUser, navigate); // retry fetching user data with the new token
+				return fetchUserData(setUser, navigate); // retry fetching user data with the new token
 			} catch (refreshErr) {
 				console.log("Error refreshing token", refreshErr);
 				navigate("/login");

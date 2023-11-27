@@ -15,6 +15,7 @@ const ListDisplay = () => {
 
 	const [currentList, setCurrentList] = useState();
 	const { projectId, folderId, listId } = useParams();
+	const [isLoading, setIsLoading] = useState(true);
 
 	// useEffect(() => {
 	// 	listTasksByListAxios(setTasks, listId, navigate, projectId folderId);
@@ -59,44 +60,52 @@ const ListDisplay = () => {
 
 		fetchData();
 		setTriggerTasksListViewRefresh(false);
-
+		setIsLoading(false);
 		// If you want to log the tasks, you should do it in a separate useEffect
 		// because tasks state update will not be reflected immediately after fetchData call
-	}, [listId, navigate, projectId, folderId, triggerTasksListViewRefresh]);
+	}, [listId, projectId, folderId, triggerTasksListViewRefresh]);
 
 	return (
 		<div
 			className={`overflow-y-scroll min-h-full overflow-x-scroll bg-slate-300 m-4 `}
 		>
-			<h1>List: {currentList?.name}</h1>
-			<Link
-				to={`/dashboard/${projectId}/${folderId}/${listId}/create-task`}
-			>
-				<button className="bg-black text-white p-2">
-					Create A Task
-				</button>
-			</Link>
-			<Link
-				to={`/dashboard/project/${projectId}/folder/${folderId}/list/${listId}/edit`}
-			>
-				<button className="bg-black text-white p-2">
-					Edit The List
-				</button>
-			</Link>
-			{tasks.length > 0 ? (
-				tasks?.map((task, idx) => {
-					return (
-						<Task
-							key={idx}
-							task={task}
-							projectId={projectId}
-							folderId={folderId}
-							listId={listId}
-						/>
-					);
-				})
+			{isLoading ? (
+				<h1>Loading...</h1>
 			) : (
-				<div className=" text-center">No tasks in this list</div>
+				<div>
+					<h1>List: {currentList?.name}</h1>
+					<Link
+						to={`/dashboard/${projectId}/${folderId}/${listId}/create-task`}
+					>
+						<button className="bg-black text-white p-2">
+							Create A Task
+						</button>
+					</Link>
+					<Link
+						to={`/dashboard/project/${projectId}/folder/${folderId}/list/${listId}/edit`}
+					>
+						<button className="bg-black text-white p-2">
+							Edit The List
+						</button>
+					</Link>
+					{tasks.length > 0 ? (
+						tasks?.map((task, idx) => {
+							return (
+								<Task
+									key={idx}
+									task={task}
+									projectId={projectId}
+									folderId={folderId}
+									listId={listId}
+								/>
+							);
+						})
+					) : (
+						<div className=" text-center">
+							No tasks in this list
+						</div>
+					)}
+				</div>
 			)}
 		</div>
 	);
