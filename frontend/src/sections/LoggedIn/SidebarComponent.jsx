@@ -253,7 +253,7 @@ const SidebarComponent = () => {
 								/>
 							</Link>
 						</div>
-						<div>
+						{/* <div>
 							<Link to="/dashboard/projects-overview/">
 								<SidebarButton
 									icon={BsCalendarRange}
@@ -273,7 +273,7 @@ const SidebarComponent = () => {
 							<Link to="/dashboard/projects-overview/">
 								<SidebarButton icon={LuGoal} label="Goals" />
 							</Link>
-						</div>
+						</div> */}
 					</div>
 					<hr className=" border-white" />
 

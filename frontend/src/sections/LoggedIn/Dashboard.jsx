@@ -4,7 +4,16 @@ import axios from "axios";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { useUser } from "../../contexts/UserContext";
 import { useGeneral } from "../../contexts/GeneralContext";
-import { fetchUserData } from "../../axios/ModelAxios";
+import {
+	fetchUserData,
+	getFolderByIdAxios,
+	listProjectsAxios,
+	listProjectsPromiseAxios,
+} from "../../axios/ModelAxios";
+import { VscAccount } from "react-icons/vsc";
+import { GoProjectRoadmap } from "react-icons/go";
+import ProjectCard from "./components/ProjectCard";
+
 function getCookie(name) {
 	let value = "; " + document.cookie;
 	let parts = value.split("; " + name + "=");
@@ -16,6 +25,7 @@ const Dashboard = () => {
 	const { logOut } = useUser();
 	const [isEmailVerified, setIsEmailVerified] = useState(false);
 	const { user, setUser } = useGeneral();
+	const [last3Projects, setLast3Projects] = useState([]);
 
 	const isEmailVerifiedAxios = async () => {
 		const csrfToken = getCookie("csrftoken");
@@ -69,6 +79,37 @@ const Dashboard = () => {
 	// 		isEmailVerifiedAxios();
 	// 	}
 	// }, [user]);
+
+	useEffect(() => {
+		const fetchProjectsData = async () => {
+			try {
+				const projectsData = await listProjectsPromiseAxios(navigate);
+				// Handle the folder data
+				console.log("--------------------");
+				console.log(projectsData);
+				let tempProjectsData = projectsData;
+				if (tempProjectsData.length > 3) {
+					tempProjectsData = tempProjectsData.slice(
+						tempProjectsData.length - 3,
+						tempProjectsData.length
+					);
+				} else {
+					tempProjectsData = tempProjectsData.slice(
+						0,
+						tempProjectsData.length
+					);
+				}
+
+				setLast3Projects(tempProjectsData);
+			} catch (error) {
+				// Handle any errors
+				console.error("Error fetching folder data:", error);
+			}
+		};
+
+		// Call the function
+		fetchProjectsData();
+	}, []);
 
 	const logoutAxios = async () => {
 		try {
@@ -127,15 +168,31 @@ const Dashboard = () => {
 
 	return (
 		<div
-			className={`overflow-y-scroll min-h-full overflow-x-scroll bg-slate-300 m-4 `}
+			className={`overflow-y-scroll min-h-full overflow-x-scroll bg-slate-50 w-full `}
 		>
 			{user && user.username ? (
-				<div className="relative isolate px-6 pt-14 lg:px-8">
-					<div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-						<div className="text-center">
-							<h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-								WELCOME TO YOUR DASHBOARD, {user.username}
-							</h1>
+				<div className="w-full p-4">
+					<div className="text-center">
+						<h1 className="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
+							WELCOME TO YOUR DASHBOARD, {user.username}
+						</h1>
+						{/* <VscAccount className="h-20 w-20 text-indigo-500" />
+													<GoProjectRoadmap className="h-20 w-20 text-indigo-500" /> */}
+					</div>
+					<div className="space-y-4 text-center ">
+						<p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+							Check out your latest projects
+						</p>
+						<div className="flex flex-col items-center justify-evenly gap-4 ">
+							{last3Projects &&
+								last3Projects.map((project, idx) => {
+									return (
+										<ProjectCard
+											key={idx}
+											project={project}
+										/>
+									);
+								})}
 						</div>
 					</div>
 				</div>

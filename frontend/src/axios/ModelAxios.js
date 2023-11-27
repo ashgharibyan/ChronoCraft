@@ -45,6 +45,48 @@ export const listProjectsAxios = async (setProjects, navigate) => {
 		}
 	}
 };
+export const listProjectsPromiseAxios = async (navigate) => {
+	const csrfToken = getCookie("csrftoken");
+
+	try {
+		const response = await axios.get(
+			"http://localhost:8000/api/v1/projects/",
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log("Successfully fetched projects data");
+		return response.data;
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return listProjectsAxios(navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error("Error fetching projects list data", err);
+		}
+	}
+};
 
 export const getProjectByIdAxios = async (projectId, navigate) => {
 	const csrfToken = getCookie("csrftoken");
