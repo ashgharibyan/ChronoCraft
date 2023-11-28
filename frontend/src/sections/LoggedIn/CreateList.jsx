@@ -48,24 +48,42 @@ const CreateList = () => {
 	};
 
 	return (
-		<div>
-			<h1>Create a list</h1>
-			{newListErrors &&
-				newListErrors.map((error, idx) => <p key={idx}>{error}</p>)}
-			<form action="" onSubmit={handleCreateList}>
-				<label htmlFor="name">List Name:</label>
-				<input
-					type="text"
-					name="name"
-					id="name"
-					value={newListData?.name}
-					placeholder="List Name"
-					onChange={handleChange}
-				/>
-				<button className="bg-black text-white p-4" type="submit">
-					Create List
-				</button>
-			</form>
+		<div className="bg-gray-50 h-full flex flex-col justify-center items-center gap-4  text-gray-700 ">
+			<div className=" flex flex-col justify-center items-center gap-2">
+				<h1 className="text-4xl uppercase">Create a list</h1>
+				<div className="py-2">
+					{newListErrors &&
+						newListErrors.map((error, idx) => (
+							<p
+								className="text-red-500 text-center font-bold"
+								key={idx}
+							>
+								{error}
+							</p>
+						))}
+				</div>
+				<form
+					className="flex flex-col justify-center items-center gap-4"
+					action=""
+					onSubmit={handleCreateList}
+				>
+					{/* <label htmlFor="name">List Name:</label> */}
+					<input
+						type="text"
+						name="name"
+						id="name"
+						value={newListData?.name}
+						placeholder="List Name"
+						onChange={handleChange}
+					/>
+					<button
+						className="bg-gray-800 text-gray-50 hover:bg-indigo-500 px-8 py-4 uppercase rounded-md"
+						type="submit"
+					>
+						Create List
+					</button>
+				</form>
+			</div>
 		</div>
 	);
 };

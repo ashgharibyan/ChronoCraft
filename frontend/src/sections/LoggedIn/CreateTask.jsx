@@ -68,65 +68,88 @@ const CreateTask = () => {
 	};
 
 	return (
-		<div>
-			<h1>Create a task</h1>
-			{newTaskErrors &&
-				newTaskErrors.map((error, idx) => <p key={idx}>{error}</p>)}
-			<form action="" onSubmit={handleCreateTask}>
-				<label htmlFor="name">Task Name:</label>
-				<input
-					type="text"
-					name="name"
-					id="name"
-					value={newTaskData?.name}
-					placeholder="Task Name"
-					onChange={handleChange}
-				/>
-
-				<label htmlFor="description">Task Description:</label>
-				<input
-					type="text"
-					name="description"
-					id="description"
-					value={newTaskData?.description}
-					placeholder="Task Description"
-					onChange={handleChange}
-				/>
-
-				<label htmlFor="completed">Task Completed:</label>
-				<input
-					type="checkbox"
-					name="completed"
-					id="completed"
-					value={newTaskData?.completed}
-					placeholder="Task Completed"
-					onChange={handleChange}
-				/>
-
-				<label htmlFor="due_date">Task Due Date:</label>
-				<input
-					type="date"
-					name="due_date"
-					id="due_date"
-					value={newTaskData.due_date ? newTaskData.due_date : ""}
-					placeholder="Task Due Date"
-					onChange={handleChange}
-				/>
-
-				<label htmlFor="high_priority">Task High Priority:</label>
-				<input
-					type="checkbox"
-					name="high_priority"
-					id="high_priority"
-					value={newTaskData?.high_priority}
-					placeholder="Task High Priority"
-					onChange={handleChange}
-				/>
-
-				<button className="bg-black text-white p-4" type="submit">
-					Create Task
-				</button>
-			</form>
+		<div className="bg-gray-50 h-full flex flex-col justify-center items-center gap-4  text-gray-700 ">
+			<div className=" flex flex-col justify-center items-center gap-2">
+				<h1 className="text-4xl uppercase">Create a task</h1>
+				<div className="py-2">
+					{newTaskErrors &&
+						newTaskErrors.map((error, idx) => (
+							<p
+								className="text-red-500 text-center font-bold"
+								key={idx}
+							>
+								{error}
+							</p>
+						))}
+				</div>
+				<form
+					className="flex flex-col justify-center items-center gap-4"
+					action=""
+					onSubmit={handleCreateTask}
+				>
+					{/* <label htmlFor="name">Task Name:</label> */}
+					<input
+						type="text"
+						name="name"
+						id="name"
+						value={newTaskData?.name}
+						placeholder="Task Name"
+						onChange={handleChange}
+					/>
+					{/* <label htmlFor="description">Task Description:</label> */}
+					<input
+						type="text"
+						name="description"
+						id="description"
+						value={newTaskData?.description}
+						placeholder="Task Description"
+						onChange={handleChange}
+					/>
+					<div className="flex gap-2 items-center justify-center">
+						<label htmlFor="completed">Task Completed:</label>
+						<input
+							type="checkbox"
+							name="completed"
+							id="completed"
+							value={newTaskData?.completed}
+							placeholder="Task Completed"
+							onChange={handleChange}
+						/>
+					</div>
+					<div className="flex gap-2 items-center justify-center">
+						<label htmlFor="due_date">Task Due Date:</label>
+						<input
+							type="datetime-local"
+							name="due_date"
+							id="due_date"
+							value={
+								newTaskData.due_date ? newTaskData.due_date : ""
+							}
+							placeholder="Task Due Date"
+							onChange={handleChange}
+						/>
+					</div>
+					<div className="flex gap-2 items-center justify-center">
+						<label htmlFor="high_priority">
+							Task High Priority:
+						</label>
+						<input
+							type="checkbox"
+							name="high_priority"
+							id="high_priority"
+							value={newTaskData?.high_priority}
+							placeholder="Task High Priority"
+							onChange={handleChange}
+						/>
+					</div>
+					<button
+						className="bg-gray-800 text-gray-50 hover:bg-indigo-500 px-8 py-4 uppercase rounded-md"
+						type="submit"
+					>
+						Create Task
+					</button>
+				</form>
+			</div>
 		</div>
 	);
 };
