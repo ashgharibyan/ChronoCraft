@@ -59,7 +59,7 @@ export const listProjectsPromiseAxios = async (navigate) => {
 			}
 		);
 		console.log("Successfully fetched projects data");
-		console.log("====== in axios:", response.data);
+		// console.log("====== in axios:", response.data);
 		return response.data;
 	} catch (err) {
 		if (err.response && err.response.status === 401) {

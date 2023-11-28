@@ -85,8 +85,8 @@ const Dashboard = () => {
 			try {
 				const projectsData = await listProjectsPromiseAxios(navigate);
 				// Handle the folder data
-				console.log("--------------------");
-				console.log(projectsData);
+				// console.log("--------------------");
+				// console.log(projectsData);
 				let tempProjectsData = projectsData;
 				if (tempProjectsData.length > 3) {
 					tempProjectsData = tempProjectsData.slice(
