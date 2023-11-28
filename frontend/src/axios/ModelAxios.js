@@ -78,7 +78,7 @@ export const listProjectsPromiseAxios = async (navigate) => {
 				localStorage.setItem("jwtToken", newAccessToken);
 				axios.defaults.headers.common["Authorization"] =
 					"Bearer " + newAccessToken;
-				return listProjectsAxios(navigate); // retry fetching user data with the new token
+				return listProjectsPromiseAxios(navigate); // retry fetching user data with the new token
 			} catch (refreshErr) {
 				console.error("Error refreshing token", refreshErr);
 				navigate("/login");
