@@ -8,6 +8,8 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { listProjectsAxios } from "../../../axios/ModelAxios";
+import ProjectCard from "../components/ProjectCard";
+import { BsPlusCircle } from "react-icons/bs";
 
 const ProjectsList = () => {
 	const { user, setUser, projects, setProjects } = useGeneral();
@@ -29,40 +31,26 @@ const ProjectsList = () => {
 	}, []);
 
 	return (
-		<div className="min-h-full overflow-auto  bg-blue-500 flex flex-col justify-center items-center">
-			<h1 className="text-3xl uppercase font-bold text-white p-4">
-				Your Projects
-			</h1>
-			<Link to="/dashboard/create-project">
-				<button className="bg-black text-white p-2 rounded-lg">
-					Create A Project
-				</button>
-			</Link>
-			{projects &&
-				projects.map((project, idx) => (
-					<div
-						key={idx}
-						className="bg-green-500 text-white text-center min-w-[500px] p-4 mx-4 mb-4 flex flex-col justify-center items-center gap-3"
-					>
-						<h1 className="text-2xl font-bold">{project.title}</h1>
-						<Link to={`/dashboard/project/${project.id}/edit`}>
-							<button
-								className="p-2 bg-black text-white"
-								type="button"
-							>
-								Edit
-							</button>
-						</Link>
-						<p>{project.id}</p>
-						<p>{project.description}</p>
-						<p>{project.created_at}</p>
-						<Link to={`/dashboard/project/${project.id}`}>
-							<button className="bg-slate-500 text-white p-2 rounded-lg">
-								Open Project
-							</button>
-						</Link>
+		<div className="p-4 min-h-full overflow-auto bg-gray-50 flex flex-col justify-center items-center gap-6">
+			<div className="flex flex-col justify-between items-center w-full ">
+				<h1 className="text-4xl uppercase font-bold text-gray-700 hover:text-indigo-500 ">
+					My Projects
+				</h1>
+				<Link to="/dashboard/create-project">
+					<div className="flex items-center gap-2 text-gray-500 hover:text-indigo-500 ">
+						<button className="p-2 rounded-lg uppercase ">
+							Create A Project
+						</button>
+						<BsPlusCircle className="h-6 w-6" />
 					</div>
-				))}
+				</Link>
+			</div>
+			<div className="grid md:grid-cols-2 gap-4">
+				{projects &&
+					projects.map((project, idx) => (
+						<ProjectCard key={idx} project={project} />
+					))}
+			</div>
 		</div>
 	);
 };
