@@ -17,7 +17,7 @@ const ProjectCard = ({ project }) => {
 	);
 
 	return (
-		<div className="min-w-full rounded overflow-hidden shadow-lg bg-white p-2 hover:bg-gray-100">
+		<div className="min-w-fit rounded overflow-hidden shadow-lg bg-white p-2 hover:bg-gray-100">
 			<div className="px-6 py-2">
 				<div className="font-bold text-xl mb-3 text-gray-700">
 					{title}
