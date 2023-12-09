@@ -69,7 +69,7 @@ const CreateTask = () => {
 
 	return (
 		<div className="bg-gray-50 h-full flex flex-col justify-center items-center gap-4  text-gray-700 ">
-			<div className=" flex flex-col justify-center items-center gap-2">
+			<div className=" flex flex-col justify-center items-center gap-2 w-[70%]">
 				<h1 className="text-4xl uppercase">Create a task</h1>
 				<div className="py-2">
 					{newTaskErrors &&
@@ -83,30 +83,34 @@ const CreateTask = () => {
 						))}
 				</div>
 				<form
-					className="flex flex-col justify-center items-center gap-4"
+					className="flex flex-col justify-center items-center gap-4 w-[70%] "
 					action=""
 					onSubmit={handleCreateTask}
 				>
-					{/* <label htmlFor="name">Task Name:</label> */}
-					<input
-						type="text"
-						name="name"
-						id="name"
-						value={newTaskData?.name}
-						placeholder="Task Name"
-						onChange={handleChange}
-					/>
-					{/* <label htmlFor="description">Task Description:</label> */}
-					<input
-						type="text"
-						name="description"
-						id="description"
-						value={newTaskData?.description}
-						placeholder="Task Description"
-						onChange={handleChange}
-					/>
 					<div className="flex gap-2 items-center justify-center">
-						<label htmlFor="completed">Task Completed:</label>
+						<label htmlFor="name">Name:</label>
+						<input
+							type="text"
+							name="name"
+							id="name"
+							value={newTaskData?.name}
+							placeholder="Task Name"
+							onChange={handleChange}
+						/>{" "}
+					</div>
+					<div className="flex gap-2 items-center justify-center">
+						<label htmlFor="description">Description:</label>
+						<input
+							type="text"
+							name="description"
+							id="description"
+							value={newTaskData?.description}
+							placeholder="Task Description"
+							onChange={handleChange}
+						/>
+					</div>
+					<div className="flex gap-2 items-center justify-center">
+						<label htmlFor="completed">Completed? :</label>
 						<input
 							type="checkbox"
 							name="completed"
@@ -117,7 +121,7 @@ const CreateTask = () => {
 						/>
 					</div>
 					<div className="flex gap-2 items-center justify-center">
-						<label htmlFor="due_date">Task Due Date:</label>
+						<label htmlFor="due_date">Due Date:</label>
 						<input
 							type="datetime-local"
 							name="due_date"
@@ -130,9 +134,7 @@ const CreateTask = () => {
 						/>
 					</div>
 					<div className="flex gap-2 items-center justify-center">
-						<label htmlFor="high_priority">
-							Task High Priority:
-						</label>
+						<label htmlFor="high_priority">High Priority? :</label>
 						<input
 							type="checkbox"
 							name="high_priority"

@@ -5,6 +5,7 @@ import {
 	listFolderByProjectAxios,
 } from "../../axios/ModelAxios";
 import { AiOutlineFolderOpen } from "react-icons/ai";
+import { BsPlusCircle } from "react-icons/bs";
 
 const DisplayProject = () => {
 	const { project_id } = useParams();
@@ -54,50 +55,63 @@ const DisplayProject = () => {
 	}, [project_id]);
 
 	return (
-		<div>
-			{currentProject && (
-				<div>
-					<h1>Project: {currentProject.title}</h1>
-					<h3>{currentProject.description}</h3>
+		<div id="display-project" className="bg-gray-50 h-full p-4">
+			<div className="flex items-center gap-4 w-full">
+				{currentProject && (
+					<div className=" p-2 min-w-[75%]">
+						<h1 className="text-3xl">{currentProject.title}</h1>
+						<h3 className="text-lg  p-2">
+							{currentProject.description}
+						</h3>
+					</div>
+				)}
+				<div className="flex flex-col justify-center items-center w-[25%] text-center gap-2">
+					<Link
+						to={`/dashboard/${project_id}/create-folder/`}
+						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-center gap-2"
+					>
+						<BsPlusCircle className="h-5 w-5 text-black " />
+						<button className=" text-black">Create Folder</button>
+					</Link>
+					<Link
+						to={`/dashboard/project/${project_id}/edit/`}
+						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-center gap-2"
+					>
+						<BsPlusCircle className="h-5 w-5 text-black " />
+						<button className=" text-black">Edit Project</button>
+					</Link>
 				</div>
-			)}
-
-			<Link to={`/dashboard/${project_id}/create-folder/`}>
-				<button className="p-2 bg-white text-black">
-					Create Folder
-				</button>
-			</Link>
-
-			<Link to={`/dashboard/project/${project_id}/edit/`}>
-				<button className="p-2 bg-white text-black">
-					Edit Project
-				</button>
-			</Link>
+			</div>
 
 			{currentProjectFolders && (
-				<div>
+				<div className="bg-gray-100 h-full p-4 w-full flex justify-start items-center flex-col border border-1 border-gray-500 ">
 					{currentProjectFolders.map((folder) => (
 						<div
-							className="flex items-center justify-center p-2 bg-gray-400 gap-4"
+							className="flex items-cneter justify-between min-w-fit w-[50%] mt-2 gap-4"
 							key={folder.id}
 						>
-							<AiOutlineFolderOpen className="h-8 w-8 text-white " />
-							<h2>{folder.name}</h2>
-							<Link
-								to={`/dashboard/project/${project_id}/folder/${folder.id}`}
-							>
-								<button className="p-2 bg-white text-black">
-									Open Folder
-								</button>
-							</Link>
-
-							<Link
-								to={`/dashboard/project/${project_id}/folder/${folder.id}/edit`}
-							>
-								<button className="p-2 bg-white text-black">
-									Edit Folder
-								</button>
-							</Link>
+							<div className="flex justify-start items-center p-2 min-w-fit gap-4">
+								<AiOutlineFolderOpen className="h-12 w-12 text-black " />
+								<h2 className="text-4xl">{folder.name}</h2>
+							</div>
+							<div className="flex flex-col justify-center items-center min-w-[25%] text-center gap-2">
+								<Link
+									to={`/dashboard/project/${project_id}/folder/${folder.id}`}
+									className=" w-full p-2 border border-1 border-gray-400 flex items-center justify-center gap-2"
+								>
+									<button className="p-2 text-black">
+										Open Folder
+									</button>
+								</Link>
+								<Link
+									to={`/dashboard/project/${project_id}/folder/${folder.id}/edit`}
+									className="w-full p-2 border border-1 border-gray-400 flex items-center justify-center gap-2"
+								>
+									<button className="p-2 text-black">
+										Edit Folder
+									</button>
+								</Link>
+							</div>
 						</div>
 					))}
 				</div>
