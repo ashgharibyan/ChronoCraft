@@ -104,7 +104,7 @@ const DisplayProject = () => {
 			);
 		}
 
-		if (errors.length > 1) {
+		if (errors.length > 0) {
 			setProjectErrors(errors);
 			return;
 		}
@@ -129,7 +129,9 @@ const DisplayProject = () => {
 						>
 							{projectErrors &&
 								projectErrors.map((error, idx) => (
-									<p key={idx}>{error}</p>
+									<p key={idx} className="text-red-500 p-2">
+										{error}
+									</p>
 								))}
 							<input
 								className="text-2xl  lg:text-6xl w-full"
@@ -148,10 +150,16 @@ const DisplayProject = () => {
 						</form>
 					) : (
 						<div className=" flex-grow">
-							<h1 className="font-bold text-4xl lg:text-6xl">
+							<h1
+								className="font-bold text-4xl lg:text-6xl"
+								onDoubleClick={() => setEditToggle(true)}
+							>
 								{currentProject.title}
 							</h1>
-							<h3 className="text-md lg:text-2xl  p-2">
+							<h3
+								className="text-md lg:text-2xl  p-2"
+								onDoubleClick={() => setEditToggle(true)}
+							>
 								{currentProject.description}
 							</h3>
 						</div>
@@ -162,7 +170,7 @@ const DisplayProject = () => {
 						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-gray-800 hover:text-gray-50"
 					>
 						<BsPlusCircle className="h-5 w-5  " />
-						<button className=" ">Create Folder</button>
+						<button className=" ">Create A Folder</button>
 					</Link>
 					{editToggle ? (
 						<button
@@ -194,10 +202,10 @@ const DisplayProject = () => {
 						>
 							<Link
 								to={`/dashboard/project/${project_id}/folder/${folder.id}`}
-								className="flex justify-start items-center p-2 min-w-fit flex-grow gap-4"
+								className="flex justify-start items-center p-2 max-w-full flex-grow gap-4"
 							>
 								<AiOutlineFolderOpen className="h-12 w-12 " />
-								<h2 className="text-4xl lg:text-6xl">
+								<h2 className="text-4xl lg:text-4xl">
 									{folder.name}
 								</h2>
 							</Link>

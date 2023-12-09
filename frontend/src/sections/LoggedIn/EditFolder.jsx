@@ -12,15 +12,10 @@ const EditFolder = () => {
 	const [folderErrors, setFolderErrors] = useState(null);
 	const navigate = useNavigate();
 	const {
-		triggerTasksListViewRefresh,
 		setTriggerTasksListViewRefresh,
-		triggerSidebarRefresh,
 		setTriggerSidebarRefresh,
-		triggerSidebarFolderRefresh,
 		setTriggerSidebarFolderRefresh,
-		triggerSidebarListRefresh,
 		setTriggerSidebarListRefresh,
-		triggerSidebarTaskRefresh,
 		setTriggerSidebarTaskRefresh,
 	} = useGeneral();
 
