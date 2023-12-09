@@ -662,7 +662,13 @@ export const createTaskAxios = async (newTask, navigate) => {
 	}
 };
 
-export const updateTaskByIdAxios = async (task_id, updatedData, navigate) => {
+export const updateTaskByIdAxios = async (
+	task_id,
+	updatedData,
+	navigate,
+	setTriggerTasksRefreshInListDisplay = null,
+	triggerTasksRefreshInListDisplay = null
+) => {
 	const csrfToken = getCookie("csrftoken");
 	// console.log("updating task", task_id, updatedData);
 	try {
@@ -677,6 +683,11 @@ export const updateTaskByIdAxios = async (task_id, updatedData, navigate) => {
 			}
 		);
 		console.log(`Successfully updated task number ${task_id}`);
+		if (triggerTasksRefreshInListDisplay != null) {
+			setTriggerTasksRefreshInListDisplay(
+				!triggerTasksRefreshInListDisplay
+			);
+		}
 		// console.log(response.data);
 	} catch (err) {
 		if (err.response && err.response.status === 401) {

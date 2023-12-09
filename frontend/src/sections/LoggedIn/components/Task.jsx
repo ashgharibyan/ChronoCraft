@@ -31,8 +31,12 @@ const Task = ({ task, projectId, folderId, listId }) => {
 
 	const navigate = useNavigate();
 
-	const { triggerTasksListViewRefresh, setTriggerTasksListViewRefresh } =
-		useGeneral();
+	const {
+		triggerTasksListViewRefresh,
+		setTriggerTasksListViewRefresh,
+		setTriggerTasksRefreshInListDisplay,
+		triggerTasksRefreshInListDisplay,
+	} = useGeneral();
 
 	useEffect(() => {
 		const formattedCreatedAt = formatDateToCustom(task.created_at);
@@ -69,7 +73,13 @@ const Task = ({ task, projectId, folderId, listId }) => {
 	// Updating the task
 	useEffect(() => {
 		if (triggerUpdate) {
-			updateTaskByIdAxios(updatedTask.id, updatedTask, navigate);
+			updateTaskByIdAxios(
+				updatedTask.id,
+				updatedTask,
+				navigate,
+				setTriggerTasksRefreshInListDisplay,
+				triggerTasksRefreshInListDisplay
+			);
 			setTriggerUpdate(false);
 			setGetTrigger(true);
 		}

@@ -10,7 +10,13 @@ import Task from "./components/Task";
 import { useGeneral } from "../../contexts/GeneralContext";
 import { BsPlusCircle } from "react-icons/bs";
 import { FaRegCheckCircle, FaEdit } from "react-icons/fa";
-
+import {
+	AiOutlineFolderOpen,
+	AiOutlineDown,
+	AiOutlineLeft,
+	AiOutlineRight,
+	AiOutlinePlus,
+} from "react-icons/ai";
 const ListDisplay = () => {
 	const navigate = useNavigate();
 	const { selectedProject, selectedFolder, selectedList, setTasks, tasks } =
@@ -19,7 +25,12 @@ const ListDisplay = () => {
 	const [currentList, setCurrentList] = useState();
 	const [editToggle, setEditToggle] = useState(false);
 	const [listErrors, setListErrors] = useState(null);
-
+	const [todoTasks, setTodoTasks] = useState([]);
+	const [priorityTasks, setPriorityTasks] = useState([]);
+	const [completedTasks, setCompletedTasks] = useState([]);
+	const [isTodoOpen, setIsTodoOpen] = useState(true);
+	const [isPriorityOpen, setIsPriorityOpen] = useState(true);
+	const [isCompletedOpen, setIsCompletedOpen] = useState(true);
 	const { projectId, folderId, listId } = useParams();
 	const [isLoading, setIsLoading] = useState(true);
 	const {
@@ -33,6 +44,7 @@ const ListDisplay = () => {
 		setTriggerSidebarListRefresh,
 		triggerSidebarTaskRefresh,
 		setTriggerSidebarTaskRefresh,
+		triggerTasksRefreshInListDisplay,
 	} = useGeneral();
 	// useEffect(() => {
 	// 	listTasksByListAxios(setTasks, listId, navigate, projectId folderId);
@@ -75,8 +87,34 @@ const ListDisplay = () => {
 
 		fetchData();
 		setTriggerTasksListViewRefresh(false);
+
 		// setIsLoading(false);
-	}, [listId]);
+	}, [listId, triggerTasksRefreshInListDisplay]);
+
+	useEffect(() => {
+		if (tasks) {
+			let tempTodoTasks = [];
+			let tempPriorityTasks = [];
+			let tempCompletedTasks = [];
+
+			tasks.forEach((task) => {
+				if (task.completed === true) {
+					tempCompletedTasks.push(task);
+				} else if (task.high_priority === true) {
+					tempPriorityTasks.push(task);
+				} else {
+					tempTodoTasks.push(task);
+				}
+			});
+			console.log("tempTodoTasks", tempTodoTasks);
+			console.log("tempPriorityTasks", tempPriorityTasks);
+			console.log("tempCompletedTasks", tempCompletedTasks);
+
+			setTodoTasks(tempTodoTasks);
+			setPriorityTasks(tempPriorityTasks);
+			setCompletedTasks(tempCompletedTasks);
+		}
+	}, [tasks]);
 
 	const handleChange = (e) => {
 		setListErrors([]);
@@ -109,8 +147,8 @@ const ListDisplay = () => {
 	};
 
 	return (
-		<div className="bg-gray-50 overflow-y-scroll min-h-full overflow-x-scroll m-4  flex flex-col">
-			<div className="flex items-center justify-between gap-2 w-full p-4 ">
+		<div className="bg-gray-50 overflow-y-scroll min-h-full overflow-x-scroll   flex flex-col">
+			<div className="flex items-center justify-between gap-2 max-w-full p-4 m-4 ">
 				{currentList &&
 					(editToggle ? (
 						<form
@@ -170,18 +208,84 @@ const ListDisplay = () => {
 				</div>
 			</div>
 			{tasks.length > 0 ? (
-				<div className=" p-4 w-full flex justify-start items-center flex-col   ">
-					{tasks?.map((task, idx) => {
-						return (
-							<Task
-								key={idx}
-								task={task}
-								projectId={projectId}
-								folderId={folderId}
-								listId={listId}
-							/>
-						);
-					})}
+				<div className=" w-full flex justify-start flex-col gap-1  ">
+					<div className=" ">
+						<div
+							className="flex justify-between items-center bg-indigo-600 px-4 py-2 text-gray-50"
+							onClick={() => setIsTodoOpen(!isTodoOpen)}
+						>
+							<h1 className="font-bold text-2xl ">To-Do</h1>
+							{isTodoOpen ? (
+								<AiOutlineDown className="h-4 w-4 text-white font-bold " />
+							) : (
+								<AiOutlineLeft className="h-4 w-4 text-white  " />
+							)}
+						</div>
+						{isTodoOpen &&
+							todoTasks.map((task, idx) => {
+								return (
+									<Task
+										key={idx}
+										task={task}
+										projectId={projectId}
+										folderId={folderId}
+										listId={listId}
+									/>
+								);
+							})}
+					</div>
+
+					<div className=" ">
+						<div
+							className="flex justify-between items-center bg-indigo-600 px-4 py-2 text-gray-50"
+							onClick={() => setIsPriorityOpen(!isPriorityOpen)}
+						>
+							<h1 className="font-bold text-2xl">Priority</h1>
+							{isPriorityOpen ? (
+								<AiOutlineDown className="h-4 w-4 text-white font-bold " />
+							) : (
+								<AiOutlineLeft className="h-4 w-4 text-white  " />
+							)}
+						</div>
+						{isPriorityOpen &&
+							priorityTasks.map((task, idx) => {
+								return (
+									<Task
+										key={idx}
+										task={task}
+										projectId={projectId}
+										folderId={folderId}
+										listId={listId}
+									/>
+								);
+							})}
+					</div>
+
+					<div className=" ">
+						<div
+							className="flex justify-between items-center bg-indigo-600 px-4 py-2 text-gray-50"
+							onClick={() => setIsCompletedOpen(!isCompletedOpen)}
+						>
+							<h1 className="font-bold text-2xl">Completed</h1>
+							{isCompletedOpen ? (
+								<AiOutlineDown className="h-4 w-4 text-white font-bold " />
+							) : (
+								<AiOutlineLeft className="h-4 w-4 text-white  " />
+							)}
+						</div>
+						{isCompletedOpen &&
+							completedTasks.map((task, idx) => {
+								return (
+									<Task
+										key={idx}
+										task={task}
+										projectId={projectId}
+										folderId={folderId}
+										listId={listId}
+									/>
+								);
+							})}
+					</div>
 				</div>
 			) : (
 				<div className="text-lg mt-5 text-center">
