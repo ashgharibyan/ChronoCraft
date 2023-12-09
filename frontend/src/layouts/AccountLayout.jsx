@@ -2,7 +2,7 @@ import React from "react";
 
 const AccountLayout = ({ children }) => (
 	<>
-		<div>{children}</div>
+		<div className="">{children}</div>
 	</>
 );
 

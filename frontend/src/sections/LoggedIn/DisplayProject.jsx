@@ -11,6 +11,7 @@ import { FaRegCheckCircle } from "react-icons/fa";
 
 import { FaEdit } from "react-icons/fa";
 import { useGeneral } from "../../contexts/GeneralContext";
+import { useModel } from "../../contexts/ModelContext";
 const DisplayProject = () => {
 	const { project_id } = useParams();
 	const [currentProject, setCurrentProject] = useState(null);
@@ -31,6 +32,7 @@ const DisplayProject = () => {
 	} = useGeneral();
 	const navigate = useNavigate();
 
+	const { folders, setFolders } = useModel();
 	useEffect(() => {
 		if (project_id) {
 			// Get project data
@@ -60,8 +62,7 @@ const DisplayProject = () => {
 					);
 					// Handle the project data
 
-					console.log(foldersData);
-					setCurrentProjectFolders(foldersData);
+					setFolders(foldersData);
 				} catch (error) {
 					// Handle any errors
 					console.error(
@@ -193,9 +194,9 @@ const DisplayProject = () => {
 				</div>
 			</div>
 
-			{currentProjectFolders && (
+			{folders.length > 0 ? (
 				<div className=" p-4 w-full flex justify-start items-center flex-col   ">
-					{currentProjectFolders.map((folder) => (
+					{folders.map((folder) => (
 						<div
 							className="flex items-cneter justify-between min-w-fit w-full border border-1 border-gray-500 mt-2 gap-4 bg-gray-100 p-2 hover:bg-gray-800 hover:text-gray-50"
 							key={folder.id}
@@ -227,6 +228,10 @@ const DisplayProject = () => {
 							</div>
 						</div>
 					))}
+				</div>
+			) : (
+				<div className="text-lg mt-5 text-center">
+					No folders in this project
 				</div>
 			)}
 		</div>

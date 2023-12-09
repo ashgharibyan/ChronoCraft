@@ -67,8 +67,6 @@ const ListDisplay = () => {
 				const res = await listTasksByListAxios(listId, navigate);
 				if (res) {
 					setTasks(res);
-					console.log("ListDisplay.jsx: listTasksByListAxios called");
-					console.log(res);
 				}
 			} catch (err) {
 				console.error("Error in fetchData", err);
@@ -186,7 +184,9 @@ const ListDisplay = () => {
 					})}
 				</div>
 			) : (
-				<div className=" text-center">No tasks in this list</div>
+				<div className="text-lg mt-5 text-center">
+					No tasks in this list
+				</div>
 			)}
 		</div>
 	);

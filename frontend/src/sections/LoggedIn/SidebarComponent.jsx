@@ -227,9 +227,11 @@ const SidebarComponent = () => {
 			{/* Project name and arrow */}
 			<div className="space-y-4">
 				<div className="flex justify-between items-center px-4 pt-4">
-					<h1 className=" text-white  uppercase text-3xl font-bold ">
-						Mobile App
-					</h1>
+					<Link to="/dashboard">
+						<h1 className=" text-white  text-3xl font-bold ">
+							ChronoCraft
+						</h1>
+					</Link>
 					<button type="button" onClick={handleSidebarToggleButton}>
 						<HiArrowSmLeft className="h-6 w-6 text-white " />
 					</button>

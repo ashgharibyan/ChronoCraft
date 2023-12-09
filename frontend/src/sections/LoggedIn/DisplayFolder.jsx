@@ -164,7 +164,7 @@ const DisplayFolder = () => {
 					)}
 				</div>
 			</div>
-			{lists && (
+			{lists.length > 0 ? (
 				<div className=" p-4 w-full flex justify-start items-center flex-col   ">
 					{lists.map((list) => (
 						<div
@@ -197,6 +197,10 @@ const DisplayFolder = () => {
 							</div>
 						</div>
 					))}
+				</div>
+			) : (
+				<div className="text-lg mt-5 text-center">
+					No lists in this folder
 				</div>
 			)}
 		</div>

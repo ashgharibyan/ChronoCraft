@@ -5,7 +5,7 @@ import { useGeneral } from "../../contexts/GeneralContext";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchUserData } from "../../axios/ModelAxios";
 import axios from "axios";
-
+import { CgProfile } from "react-icons/cg";
 const TopBar = () => {
 	const { toggleSidebar, setToggleSidebar, setWasToggledManually, user } =
 		useGeneral();
@@ -51,13 +51,9 @@ const TopBar = () => {
 					to="/dashboard/profile/"
 					className="h-10 w-10 rounded-full"
 				>
-					<img
-						src="https://picsum.photos/200/300"
-						alt="profile picture"
-						className="h-10 w-10 rounded-full"
-					/>
+					<CgProfile className="h-10 w-10 rounded-full" />
 				</Link>
-				<AiOutlineCaretDown className="text-white" />
+				{/* <AiOutlineCaretDown className="text-white" /> */}
 			</div>
 		</div>
 	);

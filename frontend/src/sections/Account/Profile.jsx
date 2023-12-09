@@ -385,7 +385,9 @@ const Profile = () => {
 	};
 
 	return (
-		<div className={`flex-grow flex flex-col overflow-scroll bg-stone-200`}>
+		<div
+			className={`bg-gray-50 overflow-scroll min-h-full  min-w-full  flex flex-col`}
+		>
 			{/* EMAIL VERIFICATION */}
 			{isEmailVerified ? (
 				""
@@ -402,7 +404,7 @@ const Profile = () => {
 					<div className="flex justify-evenly items-center  px-4 py-8">
 						<button
 							type="button"
-							className="  px-4 py-2 font-bold  text-indigo-600 hover:text-indigo-900 focus:text-indigo-950 "
+							className="  px-2 py-2 font-bold  text-indigo-600 hover:text-indigo-900 focus:text-indigo-950 "
 							onClick={() => {
 								setEditErrors([]);
 								setEditToggle(false);
@@ -413,7 +415,7 @@ const Profile = () => {
 						</button>
 						<button
 							type="button"
-							className="  px-4 py-2 font-bold text-indigo-600 hover:text-indigo-900 focus:text-indigo-950 "
+							className="  px-2 py-2 font-bold text-indigo-600 hover:text-indigo-900 focus:text-indigo-950 "
 							onClick={() => {
 								setEditErrors([]);
 								setEditToggle(true);
@@ -424,20 +426,20 @@ const Profile = () => {
 						</button>
 						<button
 							type="button"
-							className="  px-4 py-2 font-bold text-indigo-600 hover:text-indigo-900 focus:text-indigo-950 "
+							className="  px-2 py-2 font-bold text-indigo-600 hover:text-indigo-900 focus:text-indigo-950 "
 							onClick={() => setIsModalOpen(true)}
 						>
 							DELETE ACCOUNT
 						</button>
 						<button
 							type="button"
-							className="  px-4 py-2 font-bold text-indigo-600 hover:text-indigo-900 focus:text-indigo-950 "
+							className="  px-2 py-2 font-bold text-indigo-600 hover:text-indigo-900 focus:text-indigo-950 "
 						>
 							BILLING
 						</button>
 						<Link
 							to="/account/password/change/"
-							className="px-4 py-2  font-bold text-indigo-600 hover:text-indigo-900 focus:text-indigo-950"
+							className="px-2 py-2  font-bold text-indigo-600 hover:text-indigo-900 focus:text-indigo-950"
 						>
 							CHANGE PASSWORD
 						</Link>
@@ -484,7 +486,7 @@ const Profile = () => {
 									) : (
 										""
 									)}
-									<div className="flex flex-col items-center text-center">
+									{/* <div className="flex flex-col items-center text-center">
 										<img
 											className="w-32 h-32 rounded-full p-2"
 											src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
@@ -493,10 +495,10 @@ const Profile = () => {
 										<p className="text-center text-indigo-600">
 											Change Profile Picture
 										</p>
-									</div>
+									</div> */}
 									<div className="flex flex-col gap-2">
-										<div className="flex justify-between items-center gap-4 p-2">
-											<label className="w-[200px] text-lg font-bold text-indigo-600 px-4 py-2">
+										<div className="flex justify-center items-center gap-4 p-2">
+											<label className=" text-lg font-bold text-indigo-600 px-4 py-2">
 												Name:
 											</label>
 											<input
@@ -506,12 +508,12 @@ const Profile = () => {
 														: ""
 												}
 												name="name"
-												className="w-[300px] text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg"
+												className=" text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg"
 												onChange={handleEditDataChange}
 											/>
 										</div>
 										<div className="flex justify-center items-center gap-4 p-2">
-											<label className="w-[200px] text-lg font-bold text-indigo-600 px-4 py-2">
+											<label className=" text-lg font-bold text-indigo-600 px-4 py-2">
 												Username:
 											</label>
 											<input
@@ -521,12 +523,12 @@ const Profile = () => {
 														? userEditData.username
 														: ""
 												}
-												className="w-[300px] text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg"
+												className=" text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg"
 												onChange={handleEditDataChange}
 											/>
 										</div>
 										<div className="flex justify-center items-center gap-4 p-2">
-											<label className="w-[200px] text-lg font-bold text-indigo-600 px-4 py-2">
+											<label className=" text-lg font-bold text-indigo-600 px-4 py-2">
 												Email:
 											</label>
 											<input
@@ -536,7 +538,7 @@ const Profile = () => {
 														? userEditData.email
 														: ""
 												}
-												className="w-[300px] text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg "
+												className=" text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg "
 												onChange={handleEditDataChange}
 											/>
 										</div>
@@ -555,12 +557,6 @@ const Profile = () => {
 								<h1 className="uppercase text-indigo-700 p-2 px-6 rounded-lg font-bold text-3xl">
 									Your Information
 								</h1>
-								<img
-									className="w-32 h-32 rounded-full p-2"
-									src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
-									alt=""
-								/>
-
 								<div className="flex justify-center items-center gap-4 p-2">
 									<label className="text-lg font-bold  text-indigo-600 px-4 py-2">
 										Name:
@@ -587,7 +583,7 @@ const Profile = () => {
 									</label>
 									<input
 										value={user.email}
-										className="text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg min-w-full"
+										className="text-lg bg-indigo-600 text-white px-4 py-2 rounded-lg "
 										readOnly
 									/>
 								</div>

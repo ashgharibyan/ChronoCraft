@@ -64,7 +64,9 @@ const LoggedInLayout = ({ children }) => {
 					{toggleSidebar ? <SidebarComponent /> : ""}
 					<div className="flex flex-col w-full flex-grow">
 						<TopBar />
-						<div className="flex-1 overflow-auto ">{children}</div>
+						<div className="flex-1 overflow-auto bg-gray-50">
+							{children}
+						</div>
 					</div>
 				</div>
 			)}
