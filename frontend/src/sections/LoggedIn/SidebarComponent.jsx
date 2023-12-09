@@ -67,6 +67,7 @@ const SidebarComponent = () => {
 		if (triggerSidebarFolderRefresh) {
 			const fetchFoldersData = async () => {
 				try {
+					console.log("inside fetchFoldersData");
 					const foldersData = await listFolderByProjectAxios(
 						selectedProject,
 						navigate
@@ -75,7 +76,10 @@ const SidebarComponent = () => {
 					setFolders(foldersData);
 				} catch (error) {
 					// Handle any errors
-					console.error("Error fetching folder data:", error);
+					console.error(
+						"Error fetching folder in sidebar data:",
+						error
+					);
 				}
 			};
 
@@ -86,7 +90,7 @@ const SidebarComponent = () => {
 	}, [triggerSidebarFolderRefresh]);
 
 	useEffect(() => {
-		if (triggerSidebarListRefresh) {
+		if (triggerSidebarListRefresh && selectedFolder) {
 			const fetchListsData = async () => {
 				try {
 					const listsData = await listListsByFolderAxios(

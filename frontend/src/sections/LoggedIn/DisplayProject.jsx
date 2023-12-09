@@ -3,14 +3,32 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
 	getProjectByIdAxios,
 	listFolderByProjectAxios,
+	updateProjectByIdAxios,
 } from "../../axios/ModelAxios";
 import { AiOutlineFolderOpen } from "react-icons/ai";
 import { BsPlusCircle } from "react-icons/bs";
+import { FaRegCheckCircle } from "react-icons/fa";
 
+import { FaEdit } from "react-icons/fa";
+import { useGeneral } from "../../contexts/GeneralContext";
 const DisplayProject = () => {
 	const { project_id } = useParams();
 	const [currentProject, setCurrentProject] = useState(null);
 	const [currentProjectFolders, setCurrentProjectFolders] = useState(null);
+	const [editToggle, setEditToggle] = useState(false);
+	const [projectErrors, setProjectErrors] = useState(null);
+	const {
+		triggerTasksListViewRefresh,
+		setTriggerTasksListViewRefresh,
+		triggerSidebarRefresh,
+		setTriggerSidebarRefresh,
+		triggerSidebarFolderRefresh,
+		setTriggerSidebarFolderRefresh,
+		triggerSidebarListRefresh,
+		setTriggerSidebarListRefresh,
+		triggerSidebarTaskRefresh,
+		setTriggerSidebarTaskRefresh,
+	} = useGeneral();
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -41,11 +59,15 @@ const DisplayProject = () => {
 						navigate
 					);
 					// Handle the project data
+
 					console.log(foldersData);
 					setCurrentProjectFolders(foldersData);
 				} catch (error) {
 					// Handle any errors
-					console.error("Error fetching project data:", error);
+					console.error(
+						"Error fetching folder in displayproject.jsx data:",
+						error
+					);
 				}
 			};
 
@@ -54,60 +76,143 @@ const DisplayProject = () => {
 		}
 	}, [project_id]);
 
+	const handleChange = (e) => {
+		setProjectErrors([]);
+		setCurrentProject({
+			...currentProject,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const handleEditChanges = (e) => {
+		console.log("insied handle edit changes");
+		e.preventDefault();
+		setProjectErrors([]);
+
+		let errors = [];
+		if (currentProject.title === "") {
+			errors.push("Title cannot be empty");
+		} else if (currentProject.title.length > 120) {
+			errors.push("Project title cannot be longer than 120 characters");
+		}
+
+		if (currentProject.description === "") {
+			errors.push("Description cannot be empty");
+		} else if (currentProject.description.length > 225) {
+			errors.push(
+				"Project description cannot be longer than 255 characters"
+			);
+		}
+
+		if (errors.length > 1) {
+			setProjectErrors(errors);
+			return;
+		}
+
+		updateProjectByIdAxios(project_id, currentProject, navigate);
+		setTriggerSidebarRefresh(true);
+
+		setEditToggle(false);
+	};
+
 	return (
-		<div id="display-project" className="bg-gray-50 h-full p-4">
-			<div className="flex items-center gap-4 w-full">
-				{currentProject && (
-					<div className=" p-2 min-w-[75%]">
-						<h1 className="text-3xl">{currentProject.title}</h1>
-						<h3 className="text-lg  p-2">
-							{currentProject.description}
-						</h3>
-					</div>
-				)}
-				<div className="flex flex-col justify-center items-center w-[25%] text-center gap-2">
+		<div
+			id="display-project"
+			className="bg-gray-50 h-full p-4  flex flex-col "
+		>
+			<div className="flex items-center justify-between gap-2 w-full p-4 ">
+				{currentProject &&
+					(editToggle ? (
+						<form
+							className=" flex-grow flex flex-col gap-2"
+							onSubmit={handleEditChanges}
+						>
+							{projectErrors &&
+								projectErrors.map((error, idx) => (
+									<p key={idx}>{error}</p>
+								))}
+							<input
+								className="text-2xl  lg:text-6xl w-full"
+								type="text"
+								name="title"
+								value={currentProject.title}
+								onChange={handleChange}
+							/>
+							<textarea
+								className="text-sm lg:text-2xl p-2 w-full"
+								type="text"
+								name="description"
+								value={currentProject.description}
+								onChange={handleChange}
+							/>
+						</form>
+					) : (
+						<div className=" flex-grow">
+							<h1 className="font-bold text-4xl lg:text-6xl">
+								{currentProject.title}
+							</h1>
+							<h3 className="text-md lg:text-2xl  p-2">
+								{currentProject.description}
+							</h3>
+						</div>
+					))}
+				<div className="flex flex-col justify-center items-center max-w-[25%] text-center gap-2">
 					<Link
 						to={`/dashboard/${project_id}/create-folder/`}
-						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-center gap-2"
+						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-gray-800 hover:text-gray-50"
 					>
-						<BsPlusCircle className="h-5 w-5 text-black " />
-						<button className=" text-black">Create Folder</button>
+						<BsPlusCircle className="h-5 w-5  " />
+						<button className=" ">Create Folder</button>
 					</Link>
-					<Link
-						to={`/dashboard/project/${project_id}/edit/`}
-						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-center gap-2"
-					>
-						<BsPlusCircle className="h-5 w-5 text-black " />
-						<button className=" text-black">Edit Project</button>
-					</Link>
+					{editToggle ? (
+						<button
+							type="submit"
+							className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 bg-gray-800 text-gray-50 hover:bg-gray-50 hover:text-gray-800"
+							onClick={handleEditChanges}
+						>
+							<FaRegCheckCircle className="h-5 w-5  " />
+							Submit Changes
+						</button>
+					) : (
+						<button
+							className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-gray-800 hover:text-gray-50"
+							onClick={() => setEditToggle(true)}
+						>
+							<FaEdit className="h-5 w-5  " />
+							Edit Project
+						</button>
+					)}
 				</div>
 			</div>
 
 			{currentProjectFolders && (
-				<div className="bg-gray-100 h-full p-4 w-full flex justify-start items-center flex-col border border-1 border-gray-500 ">
+				<div className=" p-4 w-full flex justify-start items-center flex-col   ">
 					{currentProjectFolders.map((folder) => (
 						<div
-							className="flex items-cneter justify-between min-w-fit w-[50%] mt-2 gap-4"
+							className="flex items-cneter justify-between min-w-fit w-full border border-1 border-gray-500 mt-2 gap-4 bg-gray-100 p-2 hover:bg-gray-800 hover:text-gray-50"
 							key={folder.id}
 						>
-							<div className="flex justify-start items-center p-2 min-w-fit gap-4">
-								<AiOutlineFolderOpen className="h-12 w-12 text-black " />
-								<h2 className="text-4xl">{folder.name}</h2>
-							</div>
+							<Link
+								to={`/dashboard/project/${project_id}/folder/${folder.id}`}
+								className="flex justify-start items-center p-2 min-w-fit flex-grow gap-4"
+							>
+								<AiOutlineFolderOpen className="h-12 w-12 " />
+								<h2 className="text-4xl lg:text-6xl">
+									{folder.name}
+								</h2>
+							</Link>
 							<div className="flex flex-col justify-center items-center min-w-[25%] text-center gap-2">
 								<Link
 									to={`/dashboard/project/${project_id}/folder/${folder.id}`}
-									className=" w-full p-2 border border-1 border-gray-400 flex items-center justify-center gap-2"
+									className=" w-full p-2 border border-1 border-gray-400  flex items-center justify-center gap-2 hover:bg-gray-50 hover:text-gray-800"
 								>
-									<button className="p-2 text-black">
-										Open Folder
-									</button>
+									<button className="p-2">Open Folder</button>
 								</Link>
 								<Link
 									to={`/dashboard/project/${project_id}/folder/${folder.id}/edit`}
-									className="w-full p-2 border border-1 border-gray-400 flex items-center justify-center gap-2"
+									className="w-full p-2 border border-1 border-gray-400 flex items-center justify-center gap-2 hover:bg-gray-50 hover:text-gray-800"
 								>
-									<button className="p-2 text-black">
+									<button className="p-2 ">
 										Edit Folder
 									</button>
 								</Link>
