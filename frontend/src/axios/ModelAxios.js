@@ -521,7 +521,7 @@ export const getListByIdAxios = async (list_id, navigate) => {
 				localStorage.setItem("jwtToken", newAccessToken);
 				axios.defaults.headers.common["Authorization"] =
 					"Bearer " + newAccessToken;
-				getListByIdAxios(list_id, navigate); // retry fetching user data with the new token
+				return getListByIdAxios(list_id, navigate); // retry fetching user data with the new token
 			} catch (refreshErr) {
 				console.error("Error refreshing token", refreshErr);
 				navigate("/login");

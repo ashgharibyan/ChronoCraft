@@ -104,7 +104,7 @@ const DisplayFolder = () => {
 	return (
 		<div
 			id="display-folder"
-			className="bg-gray-50 h-full p-4  flex flex-col "
+			className="bg-gray-50 overflow-y-scroll min-h-full overflow-x-scroll m-4  flex flex-col "
 		>
 			<div className="flex items-center justify-between gap-2 w-full p-4 ">
 				{currentFolder &&
