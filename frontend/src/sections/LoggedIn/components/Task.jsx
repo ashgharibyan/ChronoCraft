@@ -138,7 +138,10 @@ const Task = ({ task, projectId, folderId, listId }) => {
 		// Delete the task
 		deleteTaskByIdAxios(updatedTask.id, navigate);
 		setTriggerTasksListViewRefresh(true);
-		navigate(`/dashboard/${projectId}/${folderId}/${listId}`);
+		setTriggerTasksRefreshInListDisplay(true);
+		// setTriggerUpdate(true);
+
+		// navigate(`/dashboard/${projectId}/${folderId}/${listId}`);
 	};
 
 	return (
