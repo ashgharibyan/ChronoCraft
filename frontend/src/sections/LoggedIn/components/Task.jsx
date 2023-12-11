@@ -142,76 +142,110 @@ const Task = ({ task, projectId, folderId, listId }) => {
 	};
 
 	return (
-		<div className="m-4 p-4 bg-white text-black w-[75%] text-base flex flex-col gap-2">
-			<div className="bg-gray-200 text-lg p-4 font-bold uppercase flex justify-between items-center">
-				{isEditing ? (
-					<input
-						name="name"
-						type="text"
-						value={updatedTask?.name}
-						onChange={handleDataChange}
-					/>
-				) : (
-					<h1 onDoubleClick={() => setIsEditing(!isEditing)}>
-						{updatedTask?.name}
-					</h1>
-				)}
-				<div className="flex justify-between items-center gap-4">
-					<label htmlFor="due_date">Due:</label>
-					<input
-						id="due_date"
-						name="due_date"
-						type="datetime-local"
-						value={
-							updatedTask?.due_date ? updatedTask?.due_date : ""
-						}
-						onChange={handleDataChange}
-						readOnly={!isEditing}
-						onDoubleClick={() => setIsEditing(!isEditing)}
-					/>
-					<input
-						type="checkbox"
-						name="completed"
-						value={updatedTask?.completed}
-						checked={updatedTask?.completed}
-						onChange={handleIsCompletedChange}
-					/>
-					<button type="button" onClick={handleIsHighPriorityChange}>
-						{updatedTask?.high_priority ? (
-							<IoFlag className="text-red-500" />
-						) : (
-							<IoFlagOutline />
-						)}
-					</button>
+		<div className="mx-8 my-4 text-gray-800 max-w-full text-sm lg:text-base flex flex-col gap-2 border-2 p-2 border-indigo-600 rounded-lg mt-2">
+			<div className="flex justify-between w-full gap-2">
+				<div className="flex-grow flex flex-col gap-3">
+					<div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+						<div className=" w-full gap-2 flex  flex-col  border-0 p-2 border-indigo-600 rounded-lg bg-gray-50">
+							{isEditing ? (
+								<input
+									name="name"
+									type="text"
+									value={updatedTask?.name}
+									onChange={handleDataChange}
+									className="text-lg lg:text-2xl"
+								/>
+							) : (
+								<h1
+									onDoubleClick={() =>
+										setIsEditing(!isEditing)
+									}
+									className="text-lg lg:text-3xl font-bold"
+								>
+									{updatedTask?.name}
+								</h1>
+							)}
+						</div>
+						<div className="flex  justify-center items-center gap-2  font-bold  text-lg lg:text-2xl">
+							<button
+								onClick={handleEditSubmit}
+								type="button"
+								className="p-2 border-[1px] border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white rounded-lg  w-full"
+							>
+								{isEditing ? "SUBMIT" : "EDIT"}
+							</button>
+							<button
+								type="button"
+								onClick={handleDelete}
+								className=" border-[1px] border-red-600 text-red-600 hover:bg-red-600 hover:text-white p-2 rounded-lg  w-full"
+							>
+								DELETE
+							</button>
+						</div>
+					</div>
 
-					<button type="button" onClick={handleDelete}>
-						Delete Task
-					</button>
+					<hr className="border-1 border-indigo-600" />
+
+					{isEditing ? (
+						<input
+							type="text"
+							name="description"
+							value={updatedTask?.description}
+							onChange={handleDataChange}
+						/>
+					) : (
+						<h1 onDoubleClick={() => setIsEditing(!isEditing)}>
+							Description: {updatedTask?.description}
+						</h1>
+					)}
+					<div className="flex justify-start items-center gap-2">
+						<label htmlFor="due_date">Due:</label>
+						<input
+							id="due_date"
+							name="due_date"
+							type="datetime-local"
+							value={
+								updatedTask?.due_date
+									? updatedTask?.due_date
+									: ""
+							}
+							onChange={handleDataChange}
+							readOnly={!isEditing}
+							onDoubleClick={() => setIsEditing(!isEditing)}
+							className="bg-gray-200 border-0 text-sm"
+						/>
+					</div>
+					<div className="flex justify-start items-center gap-2">
+						<label htmlFor="completed">Completed:</label>
+						<input
+							type="checkbox"
+							name="completed"
+							value={updatedTask?.completed}
+							checked={updatedTask?.completed}
+							onChange={handleIsCompletedChange}
+						/>
+					</div>
+					<div className="flex justify-start items-center gap-2">
+						<label>Priority:</label>
+						<button
+							type="button"
+							onClick={handleIsHighPriorityChange}
+						>
+							{updatedTask?.high_priority ? (
+								<IoFlag className="text-red-500" />
+							) : (
+								<IoFlagOutline />
+							)}
+						</button>
+					</div>
+
+					<hr className="border-1 border-indigo-600" />
+					<div className="flex flex-col gap-2 border-0 p-2 border-indigo-600 rounded-lg bg-gray-50">
+						<h1>Created At: {updatedTask?.created_at}</h1>
+						<h1>Last Updated: {updatedTask?.updated_at}</h1>
+					</div>
 				</div>
 			</div>
-			{isEditing ? (
-				<input
-					type="text"
-					name="description"
-					value={updatedTask?.description}
-					onChange={handleDataChange}
-				/>
-			) : (
-				<h1 onDoubleClick={() => setIsEditing(!isEditing)}>
-					Description: {updatedTask?.description}
-				</h1>
-			)}
-			<div className="flex justify-between items-center">
-				<h1>Created At: {updatedTask?.created_at}</h1>
-				<h1>Last Updated: {updatedTask?.updated_at}</h1>
-			</div>
-			<button
-				onClick={handleEditSubmit}
-				type="button"
-				className="p-4 bg-yellow-500 text-white"
-			>
-				{isEditing ? "SUBMIT" : "EDIT"}
-			</button>
 		</div>
 	);
 };

@@ -222,7 +222,7 @@ const SidebarComponent = () => {
 	return (
 		<div
 			// className={`border-r-[1px]  max-h-screen border-white min-w-[300px] bg-gradient-to-tr from-indigo-800 to-indigo-600 flex flex-col shadow-lg shadow-black`}
-			className={` overflow-y-auto border-r-[1px]  max-h-screen border-white min-w-[300px] bg-gradient-to-tr from-indigo-800 to-indigo-600 flex flex-col shadow-lg shadow-black`}
+			className={` no-scrollbar border-r-[1px] overflow-y-scroll max-h-screen border-white min-w-[350px] max-w-[350px] bg-gradient-to-tr from-indigo-800 to-indigo-600 flex flex-col shadow-lg shadow-black`}
 		>
 			{/* Project name and arrow */}
 			<div className="space-y-4">
@@ -239,7 +239,7 @@ const SidebarComponent = () => {
 				<hr className="border-white" />
 			</div>
 
-			<div className="space-y-4 overflow-y-scroll flex justify-between flex-col h-full">
+			<div className="space-y-4 no-scrollbar overflow-y-scroll flex justify-between flex-col h-full">
 				{/* Menu Buttons */}
 				<div>
 					<div className="space-y-2 py-4">
@@ -295,7 +295,7 @@ const SidebarComponent = () => {
 							</Link>
 						</div>
 						{/* <div className="space-y-1 overflow-y-scroll max-h-[425px] "> */}
-						<div className="space-y-1 overflow-y-scroll min-h-[200px] max-h-[calc(100vh-450px)] ">
+						<div className="space-y-1 no-scrollbar overflow-y-scroll min-h-[200px] max-h-[calc(100vh-450px)] ">
 							{projects &&
 								projects.map((project, idx) => (
 									<ProjectButton
