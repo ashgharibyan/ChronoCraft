@@ -14,6 +14,7 @@ import CreateList from "../sections/LoggedIn/CreateList";
 import CreateTask from "../sections/LoggedIn/CreateTask";
 import EditFolder from "../sections/LoggedIn/EditFolder";
 import EditList from "../sections/LoggedIn/EditList";
+import SearchResults from "../sections/LoggedIn/SearchResults";
 
 const LoggedInRoutes = () => {
 	return (
@@ -53,6 +54,7 @@ const LoggedInRoutes = () => {
 				path="/project/:project_id/folder/:folder_id/list/:list_id/edit"
 				element={<EditList />}
 			/>
+			<Route path="/search/:searchTerm" element={<SearchResults />} />
 			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);

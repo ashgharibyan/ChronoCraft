@@ -1,9 +1,11 @@
 from django.shortcuts import get_object_or_404
 from .models import Task
 from lists.models import List
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, request
 from .serializers import TaskSerializer
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
@@ -23,3 +25,16 @@ class TaskViewSet(viewsets.ModelViewSet):
         if parent_project.owner != self.request.user:
             raise PermissionDenied({'message': "You don't have permission to add to this list"})
         serializer.save(parent_list=parent_list)
+
+
+class TaskSearch(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        query = request.query_params.get('task_name')
+        if query:
+            queryset = Task.objects.filter(name__icontains=query)
+            serializer = TaskSerializer(queryset, many=True)
+            return Response(serializer.data)
+        return Response({"message": "No search term provided"}, status=400)
+    

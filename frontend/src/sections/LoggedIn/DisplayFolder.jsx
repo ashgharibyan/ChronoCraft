@@ -139,7 +139,7 @@ const DisplayFolder = () => {
 				<div className="flex flex-col justify-center items-center max-w-[25%] text-center gap-2">
 					<Link
 						to={`/dashboard/${project_id}/${folder_id}/create-list/`}
-						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-gray-800 hover:text-gray-50"
+						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-indigo-800 hover:text-gray-50"
 					>
 						<BsPlusCircle className="h-5 w-5  " />
 						<button className="">Create A List</button>
@@ -147,7 +147,7 @@ const DisplayFolder = () => {
 					{editToggle ? (
 						<button
 							type="submit"
-							className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 bg-gray-800 text-gray-50 hover:bg-gray-50 hover:text-gray-800"
+							className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 bg-indigo-800 text-gray-50 hover:bg-gray-50 hover:text-gray-800"
 							onClick={handleEditChanges}
 						>
 							<FaRegCheckCircle className="h-5 w-5  " />
@@ -155,7 +155,7 @@ const DisplayFolder = () => {
 						</button>
 					) : (
 						<button
-							className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-gray-800 hover:text-gray-50"
+							className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-indigo-800 hover:text-gray-50"
 							onClick={() => setEditToggle(true)}
 						>
 							<FaEdit className="h-5 w-5  " />
@@ -168,7 +168,7 @@ const DisplayFolder = () => {
 				<div className=" p-4 w-full flex justify-start items-center flex-col   ">
 					{lists.map((list) => (
 						<div
-							className="flex items-cneter justify-between min-w-fit w-full border border-1 border-gray-500 mt-2 gap-4 bg-gray-100 p-2 hover:bg-gray-800 hover:text-gray-50"
+							className="flex items-cneter justify-between min-w-fit w-full border border-1 border-gray-500 mt-2 gap-4 bg-gray-100 p-2 hover:bg-indigo-800 hover:text-gray-50"
 							key={list.id}
 						>
 							{/* <AiOutlineFolderOpen className="h-8 w-8 text-white " /> */}
@@ -176,8 +176,10 @@ const DisplayFolder = () => {
 								to={`/dashboard/${project_id}/${folder_id}/${list.id}`}
 								className="flex justify-start items-center p-2 max-w-full flex-grow gap-4"
 							>
-								<GoDot className="h-12 w-12 " />
-								<h2 className="text-4xl lg:text-4xl">
+								<div>
+									<GoDot className="h-8 w-8 lg:h-12 lg:w-12" />
+								</div>
+								<h2 className="text-2xl lg:text-4xl">
 									{list.name}
 								</h2>
 							</Link>

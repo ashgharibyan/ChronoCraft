@@ -180,7 +180,7 @@ const ListDisplay = () => {
 				<div className="flex flex-col justify-center items-center max-w-[25%] text-center gap-2">
 					<Link
 						to={`/dashboard/${projectId}/${folderId}/${listId}/create-task`}
-						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-gray-800 hover:text-gray-50"
+						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-indigo-800 hover:text-gray-50"
 					>
 						<BsPlusCircle className="h-5 w-5  " />
 
@@ -190,7 +190,7 @@ const ListDisplay = () => {
 					{editToggle ? (
 						<button
 							type="submit"
-							className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 bg-gray-800 text-gray-50 hover:bg-gray-50 hover:text-gray-800"
+							className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 bg-indigo-800 text-gray-50 hover:bg-gray-50 hover:text-gray-800"
 							onClick={handleEditChanges}
 						>
 							<FaRegCheckCircle className="h-5 w-5  " />
@@ -198,7 +198,7 @@ const ListDisplay = () => {
 						</button>
 					) : (
 						<button
-							className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-gray-800 hover:text-gray-50"
+							className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-indigo-800 hover:text-gray-50"
 							onClick={() => setEditToggle(true)}
 						>
 							<FaEdit className="h-5 w-5  " />

@@ -1,9 +1,11 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets,permissions
+from rest_framework import viewsets,permissions, request
 from .models import Folder
 from projects.models import Project
 from .serializers import FolderSerializer
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 class FolderViewSet(viewsets.ModelViewSet):
     queryset = Folder.objects.all()
@@ -23,3 +25,14 @@ class FolderViewSet(viewsets.ModelViewSet):
             raise PermissionDenied({'message': "You don't have permission to add to this project"})
         serializer.save(parent_project=parent_project)
    
+
+class FolderSearch(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        query = request.query_params.get('folder_name')
+        if query:
+            queryset = Folder.objects.filter(name__icontains=query)
+            serializer = FolderSerializer(queryset, many=True)
+            return Response(serializer.data)
+        return Response({"message": "No search term provided"}, status=400)

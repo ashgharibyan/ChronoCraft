@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineSearch } from "react-icons/ai";
 import { BsReverseLayoutTextSidebarReverse } from "react-icons/bs";
 import { useGeneral } from "../../contexts/GeneralContext";
@@ -9,10 +9,17 @@ import { CgProfile } from "react-icons/cg";
 const TopBar = () => {
 	const { toggleSidebar, setToggleSidebar, setWasToggledManually, user } =
 		useGeneral();
-
+	const [searchTerm, setSearchTerm] = useState("");
+	const navigate = useNavigate();
 	const handleSidebarOpenButton = () => {
 		setToggleSidebar(!toggleSidebar);
 		setWasToggledManually(true);
+	};
+
+	const handleSearch = () => {
+		console.log(searchTerm);
+		navigate(`/dashboard/search/${searchTerm}`);
+		setSearchTerm("");
 	};
 
 	return (
@@ -35,10 +42,16 @@ const TopBar = () => {
 					type="search"
 					name="searchBar"
 					id="searchBar"
+					value={searchTerm}
 					className="bg-transparent border-b-[1px] w-full rounded-xl border-white text-white placeholder-white focus:outline-none focus:border-white "
 					placeholder="Search"
+					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button type="submit" className="text-white">
+				<button
+					type="submit"
+					onClick={handleSearch}
+					className="text-white"
+				>
 					<AiOutlineSearch className="h-6 w-6" />
 				</button>
 			</div>

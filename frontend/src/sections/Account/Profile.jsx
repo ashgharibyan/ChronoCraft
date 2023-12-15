@@ -545,7 +545,7 @@ const Profile = () => {
 									</div>
 									<button
 										type="submit"
-										className=" bg-indigo-600 text-white p-2 px-6 rounded-lg font-bold text-lg"
+										className=" bg-indigo-600 text-white p-2 px-6 rounded-lg font-bold text-lg hover:bg-white hover:text-indigo-600 hover:border-2 hover:border-indigo-600"
 									>
 										Submit Changes
 									</button>
