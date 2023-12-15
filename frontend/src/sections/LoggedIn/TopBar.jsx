@@ -36,7 +36,10 @@ const TopBar = () => {
 				</button>
 			)}
 
-			<div className="flex items-center space-x-2 w-[350px]">
+			<form
+				onSubmit={handleSearch}
+				className="flex items-center space-x-2 w-[350px]"
+			>
 				<label forhtml="searchBar" className="text-white" />
 				<input
 					type="search"
@@ -47,14 +50,10 @@ const TopBar = () => {
 					placeholder="Search"
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-				<button
-					type="submit"
-					onClick={handleSearch}
-					className="text-white"
-				>
+				<button type="submit" className="text-white">
 					<AiOutlineSearch className="h-6 w-6" />
 				</button>
-			</div>
+			</form>
 
 			<div id="userInfo" className="flex items-center space-x-2">
 				<Link to="/dashboard/profile/" className="hidden md:block">

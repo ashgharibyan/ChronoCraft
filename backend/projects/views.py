@@ -26,7 +26,7 @@ class ProjectSearch(APIView):
     def get(self, request, *args, **kwargs):
         query = request.query_params.get('project_title')
         if query:
-            queryset = Project.objects.filter(title__icontains=query)
+            queryset = Project.objects.filter(title__icontains=query, owner = self.request.user)
             serializer = ProjectSerializer(queryset, many=True)
             return Response(serializer.data)
         return Response({"message": "No search term provided"}, status=400)

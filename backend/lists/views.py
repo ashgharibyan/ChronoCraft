@@ -33,7 +33,7 @@ class ListSearch(APIView):
     def get(self, request, *args, **kwargs):
         query = request.query_params.get('list_name')
         if query:
-            queryset = List.objects.filter(name__icontains=query)
+            queryset = List.objects.filter(name__icontains=query,  parent_folder__parent_project__owner = self.request.user)
             serializer = ListSerializer(queryset, many=True)
             return Response(serializer.data)
         return Response({"message": "No search term provided"}, status=400)

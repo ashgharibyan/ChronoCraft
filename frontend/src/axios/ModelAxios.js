@@ -15,8 +15,8 @@ export const listProjectsAxios = async (setProjects, navigate) => {
 				},
 			}
 		);
-		console.log("Successfully fetched projects data");
-		console.log(response.data);
+		// console.log("Successfully fetched projects data");
+		// console.log(response.data);
 		setProjects(response.data);
 	} catch (err) {
 		if (err.response && err.response.status === 401) {
@@ -866,6 +866,180 @@ export const deleteTaskByIdAxios = async (task_id, navigate) => {
 			}
 		} else {
 			console.error(`Error deleteing task #${task_id}`, err);
+		}
+	}
+};
+
+// SEARCHES
+
+export const searchProject = async (searchTerm, navigate) => {
+	const csrfToken = getCookie("csrftoken");
+
+	try {
+		const response = await axios.get(
+			`http://localhost:8000/api/v1/projects/search/?project_title=${searchTerm}`,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log(`Successfully searched ${searchTerm} in projects `);
+		return response.data;
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return searchProject(searchTerm, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error(`Error searching ${searchTerm} in projects `, err);
+		}
+	}
+};
+
+export const searchFolder = async (searchTerm, navigate) => {
+	const csrfToken = getCookie("csrftoken");
+
+	try {
+		const response = await axios.get(
+			`http://localhost:8000/api/v1/folders/search/?folder_name=${searchTerm}`,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log(`Successfully searched ${searchTerm} in folders `);
+		return response.data;
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return searchFolder(searchTerm, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error(`Error searching ${searchTerm} in folders `, err);
+		}
+	}
+};
+
+export const searchList = async (searchTerm, navigate) => {
+	const csrfToken = getCookie("csrftoken");
+
+	try {
+		const response = await axios.get(
+			`http://localhost:8000/api/v1/lists/search/?list_name=${searchTerm}`,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log(`Successfully searched ${searchTerm} in lists `);
+		return response.data;
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return searchList(searchTerm, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error(`Error searching ${searchTerm} in lists `, err);
+		}
+	}
+};
+
+export const searchTask = async (searchTerm, navigate) => {
+	const csrfToken = getCookie("csrftoken");
+
+	try {
+		const response = await axios.get(
+			`http://localhost:8000/api/v1/tasks/search/?task_name=${searchTerm}`,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log(`Successfully searched ${searchTerm} in tasks `);
+		return response.data;
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return searchTask(searchTerm, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error(`Error searching ${searchTerm} in tasks `, err);
 		}
 	}
 };

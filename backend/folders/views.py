@@ -32,7 +32,7 @@ class FolderSearch(APIView):
     def get(self, request, *args, **kwargs):
         query = request.query_params.get('folder_name')
         if query:
-            queryset = Folder.objects.filter(name__icontains=query)
+            queryset = Folder.objects.filter(name__icontains=query, parent_project__owner = self.request.user)
             serializer = FolderSerializer(queryset, many=True)
             return Response(serializer.data)
         return Response({"message": "No search term provided"}, status=400)

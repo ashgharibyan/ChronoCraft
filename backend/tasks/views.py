@@ -33,7 +33,7 @@ class TaskSearch(APIView):
     def get(self, request, *args, **kwargs):
         query = request.query_params.get('task_name')
         if query:
-            queryset = Task.objects.filter(name__icontains=query)
+            queryset = Task.objects.filter(name__icontains=query,  parent_list__parent_folder__parent_project__owner = self.request.user)
             serializer = TaskSerializer(queryset, many=True)
             return Response(serializer.data)
         return Response({"message": "No search term provided"}, status=400)
