@@ -114,7 +114,7 @@ const NavBar = () => {
 			>
 				<div className="flex lg:flex-1 gap-2 items-center">
 					<Link
-						on="/"
+						to="/"
 						onClick={() => scrollToRef(topPageRef)}
 						className="-m-1.5 p-1.5"
 					>
