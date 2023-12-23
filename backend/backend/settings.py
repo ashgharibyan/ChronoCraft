@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1', 'chronocraft.vercel.app', 'chronocraft.com', 'www.chronocraft.com']
+ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1', 'chronocraft.vercel.app', 'chronocraft.com', 'www.chronocraft.com', '.vercel.app']
 
 # Application definition
 
@@ -106,8 +106,8 @@ EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ACCOUNT_EMAIL_SUBJECT_PREFIX = 'ChronoCraft.com - '
 
-WSGI_APPLICATION = 'backend.wsgi.application'
-
+# WSGI_APPLICATION = 'backend.wsgi.application'
+WSGI_APPLICATION = 'vercel_app.wsgi.app'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
