@@ -126,7 +126,9 @@ const SearchResults = () => {
 					folderResults < 1 &&
 					listResults < 1 &&
 					taskResults < 1 ? (
-						<h1>No results found</h1>
+						<h1 className="text-lg font-bold text-center mt-4">
+							No results found
+						</h1>
 					) : (
 						<div>
 							<div

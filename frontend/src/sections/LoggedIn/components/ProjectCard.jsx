@@ -33,11 +33,6 @@ const ProjectCard = ({ project }) => {
 						Open
 					</button>{" "}
 				</Link>
-				<Link to={`/dashboard/project/${id}/edit`}>
-					<button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
-						Edit
-					</button>
-				</Link>
 			</div>
 		</div>
 	);
