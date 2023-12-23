@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
+	deleteFolderByIdAxios,
 	getFolderByIdAxios,
 	listListsByFolderAxios,
 	updateFolderByIdAxios,
 } from "../../axios/ModelAxios";
 import { useModel } from "../../contexts/ModelContext";
 import { useGeneral } from "../../contexts/GeneralContext";
+import { MdDeleteForever } from "react-icons/md";
 import { BsPlusCircle } from "react-icons/bs";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { GoDot } from "react-icons/go";
@@ -101,6 +103,13 @@ const DisplayFolder = () => {
 		setEditToggle(false);
 	};
 
+	const handleDeleteFolder = () => {
+		deleteFolderByIdAxios(folder_id, navigate);
+		setTriggerSidebarRefresh(true);
+		setTriggerSidebarFolderRefresh(true);
+		navigate("/dashboard");
+	};
+
 	return (
 		<div
 			id="display-folder"
@@ -162,6 +171,14 @@ const DisplayFolder = () => {
 							Edit Folder
 						</button>
 					)}
+					<button
+						type="button"
+						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-indigo-800 hover:text-gray-50"
+						onClick={handleDeleteFolder}
+					>
+						<MdDeleteForever className="h-5 w-5  " />
+						<button className=" ">Delete Folder</button>
+					</button>
 				</div>
 			</div>
 			{lists.length > 0 ? (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useModel } from "../../contexts/ModelContext";
 import {
+	deleteListByIdAxios,
 	getListByIdAxios,
 	listTasksByListAxios,
 	updateListByIdAxios,
@@ -8,6 +9,8 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Task from "./components/Task";
 import { useGeneral } from "../../contexts/GeneralContext";
+import { MdDeleteForever } from "react-icons/md";
+
 import { BsPlusCircle } from "react-icons/bs";
 import { FaRegCheckCircle, FaEdit } from "react-icons/fa";
 import {
@@ -146,6 +149,14 @@ const ListDisplay = () => {
 		setEditToggle(false);
 	};
 
+	const handleDeleteList = () => {
+		deleteListByIdAxios(listId, navigate);
+		setTriggerSidebarRefresh(true);
+		setTriggerSidebarListRefresh(true);
+		setTriggerSidebarTaskRefresh(true);
+		navigate("/dashboard");
+	};
+
 	return (
 		<div className="bg-gray-50 overflow-y-scroll min-h-full overflow-x-scroll   flex flex-col">
 			<div className="flex items-center justify-between gap-2 max-w-full p-4 m-4 ">
@@ -205,6 +216,15 @@ const ListDisplay = () => {
 							Edit List
 						</button>
 					)}
+
+					<button
+						type="button"
+						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-indigo-800 hover:text-gray-50"
+						onClick={handleDeleteList}
+					>
+						<MdDeleteForever className="h-5 w-5  " />
+						<button className=" ">Delete List</button>
+					</button>
 				</div>
 			</div>
 			{tasks.length > 0 ? (

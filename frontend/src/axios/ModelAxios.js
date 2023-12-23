@@ -829,6 +829,8 @@ export const fetchUserData = async (setUser, navigate) => {
 	}
 };
 
+// DELETES
+
 export const deleteTaskByIdAxios = async (task_id, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 	try {
@@ -870,6 +872,128 @@ export const deleteTaskByIdAxios = async (task_id, navigate) => {
 	}
 };
 
+export const deleteProjectByIdAxios = async (project_id, navigate) => {
+	const csrfToken = getCookie("csrftoken");
+	try {
+		const response = await axios.delete(
+			`http://localhost:8000/api/v1/projects/${project_id}/`,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log(`Successfully deleted project number ${project_id}`);
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return deleteProjectByIdAxios(project_id, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error(`Error deleteing project #${project_id}`, err);
+		}
+	}
+};
+
+export const deleteFolderByIdAxios = async (folder_id, navigate) => {
+	const csrfToken = getCookie("csrftoken");
+	try {
+		const response = await axios.delete(
+			`http://localhost:8000/api/v1/folders/${folder_id}/`,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log(`Successfully deleted folder number ${folder_id}`);
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return deleteFolderByIdAxios(folder_id, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error(`Error deleteing folder #${folder_id}`, err);
+		}
+	}
+};
+
+export const deleteListByIdAxios = async (list_id, navigate) => {
+	const csrfToken = getCookie("csrftoken");
+	try {
+		const response = await axios.delete(
+			`http://localhost:8000/api/v1/lists/${list_id}/`,
+			{
+				withCredentials: true,
+				headers: {
+					"X-CSRFToken": csrfToken,
+				},
+			}
+		);
+		console.log(`Successfully deleted list number ${list_id}`);
+	} catch (err) {
+		if (err.response && err.response.status === 401) {
+			try {
+				const refreshResponse = await axios.post(
+					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					{},
+					{
+						withCredentials: true,
+						headers: {
+							"X-CSRFToken": csrfToken,
+						},
+					}
+				);
+				const newAccessToken = refreshResponse.data.access;
+				localStorage.setItem("jwtToken", newAccessToken);
+				axios.defaults.headers.common["Authorization"] =
+					"Bearer " + newAccessToken;
+				return deleteListByIdAxios(list_id, navigate); // retry fetching user data with the new token
+			} catch (refreshErr) {
+				console.error("Error refreshing token", refreshErr);
+				navigate("/login");
+			}
+		} else {
+			console.error(`Error deleteing list #${list_id}`, err);
+		}
+	}
+};
 // SEARCHES
 
 export const searchProject = async (searchTerm, navigate) => {

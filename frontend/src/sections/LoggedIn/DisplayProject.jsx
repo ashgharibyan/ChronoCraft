@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
+	deleteProjectByIdAxios,
 	getProjectByIdAxios,
 	listFolderByProjectAxios,
 	updateProjectByIdAxios,
@@ -8,6 +9,7 @@ import {
 import { AiOutlineFolderOpen } from "react-icons/ai";
 import { BsPlusCircle } from "react-icons/bs";
 import { FaRegCheckCircle } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 
 import { FaEdit } from "react-icons/fa";
 import { useGeneral } from "../../contexts/GeneralContext";
@@ -116,6 +118,12 @@ const DisplayProject = () => {
 		setEditToggle(false);
 	};
 
+	const handleDeleteProject = () => {
+		deleteProjectByIdAxios(project_id, navigate);
+		setTriggerSidebarRefresh(true);
+		navigate("/dashboard");
+	};
+
 	return (
 		<div
 			id="display-project"
@@ -191,6 +199,15 @@ const DisplayProject = () => {
 							Edit Project
 						</button>
 					)}
+
+					<button
+						type="button"
+						className="w-full p-2 border border-1 border-gray-400 flex items-center justify-between gap-2 hover:bg-indigo-800 hover:text-gray-50"
+						onClick={handleDeleteProject}
+					>
+						<MdDeleteForever className="h-5 w-5  " />
+						<button className=" ">Delete Project</button>
+					</button>
 				</div>
 			</div>
 
