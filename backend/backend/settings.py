@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1', 'chronocraft.vercel.app', 'chronocraft.com', 'www.chronocraft.com']
 
 # Application definition
 
@@ -93,8 +93,10 @@ TEMPLATES = [
 ]
 
 
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:5173/account/confirmed'
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:5173/dashboard'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://chronocraft.vercel.app/account/confirmed'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://chronocraft.vercel.app/dashboard'
+# ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:5173/account/confirmed'
+# ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:5173/dashboard'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
@@ -213,11 +215,16 @@ REST_AUTH = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:8000",
+    "chronocraft.vercel.app",
+    "chronocraft.com",
+    'https://chronocraft.vercel.app/'
 ]
 
 
 # REMOVE THE COMMENT --------------------
-CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173", "chronocraft.vercel.app",
+    "chronocraft.com",
+    'https://chronocraft.vercel.app/']
 
 
 CORS_ALLOW_CREDENTIALS = True
