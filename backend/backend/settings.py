@@ -30,7 +30,7 @@ SECRET_KEY = env.str("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1', 'https://chronocraft-2bed77306ebc.herokuapp.com/', '.herokuapp.com']
+ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1', 'https://chronocraft-2bed77306ebc.herokuapp.com/', '.herokuapp.com' 'https://chronocraft-backend-b55cb29d1834.herokuapp.com/', 'https://chronocraft-frontend-4dd2abad499f.herokuapp.com/']
 
 # Application definition
 
@@ -95,8 +95,10 @@ TEMPLATES = [
 ]
 
 
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:5173/account/confirmed'
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:5173/dashboard'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://chronocraft-frontend-4dd2abad499f.herokuapp.com/account/confirmed'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://chronocraft-frontend-4dd2abad499f.herokuapp.com/dashboard'
+# ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:5173/account/confirmed'
+# ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:5173/dashboard'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
@@ -221,11 +223,14 @@ REST_AUTH = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:8000",
+    "http://chronocraft-frontend-4dd2abad499f.herokuapp.com",
+    'https://chronocraft-backend-b55cb29d1834.herokuapp.com/'
 ]
 
 
 # REMOVE THE COMMENT --------------------
-CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
+CSRF_TRUSTED_ORIGINS = ["http://chronocraft-frontend-4dd2abad499f.herokuapp.com"]
+# CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
 
 
 CORS_ALLOW_CREDENTIALS = True
