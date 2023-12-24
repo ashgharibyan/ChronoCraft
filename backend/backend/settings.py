@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1', 'chronocraft.vercel.app', 'chronocraft.com', 'www.chronocraft.com', '.vercel.app']
+ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1', 'chronocraft.vercel.app', 'chronocraft.com', 'www.chronocraft.com', '.vercel.app', 'http://chronocraft.vercel.app']
 
 # Application definition
 
