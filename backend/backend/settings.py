@@ -30,7 +30,8 @@ SECRET_KEY = env.str("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1', 'https://chronocraft-2bed77306ebc.herokuapp.com/', '.herokuapp.com' 'https://chronocraft-backend-b55cb29d1834.herokuapp.com/', 'https://chronocraft-frontend-4dd2abad499f.herokuapp.com/']
+ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1', 'chronocraft-2bed77306ebc.herokuapp.com', 'chronocraft-backend-b55cb29d1834.herokuapp.com', 'chronocraft-frontend-4dd2abad499f.herokuapp.com']
+
 
 # Application definition
 
@@ -224,8 +225,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:8000",
     "http://chronocraft-frontend-4dd2abad499f.herokuapp.com",
-    'https://chronocraft-backend-b55cb29d1834.herokuapp.com/'
+    'https://chronocraft-backend-b55cb29d1834.herokuapp.com'
 ]
+
 
 
 # REMOVE THE COMMENT --------------------
@@ -239,7 +241,7 @@ CORS_ORIGIN_ALLOW_ALL = False
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=15),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
@@ -267,7 +269,7 @@ SIMPLE_JWT = {
     "JTI_CLAIM": "jti",
 
     "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
-    "SLIDING_TOKEN_LIFETIME": timedelta(minutes=1),
+    "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
 
     "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
