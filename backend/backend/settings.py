@@ -25,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env.str("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1', 'chronocraft.vercel.app', 'chronocraft.com', 'www.chronocraft.com', '.vercel.app', 'http://chronocraft.vercel.app']
+ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'dj_rest_auth.registration',
     'corsheaders',
+    "whitenoise.runserver_nostatic", 
     #local
     'accounts.apps.AccountsConfig',
     'core.apps.CoreConfig',
@@ -65,6 +66,7 @@ SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # new
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -93,31 +95,32 @@ TEMPLATES = [
 ]
 
 
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://chronocraft.vercel.app/account/confirmed'
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://chronocraft.vercel.app/dashboard'
-# ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:5173/account/confirmed'
-# ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:5173/dashboard'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:5173/account/confirmed'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:5173/dashboard'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+SENDGRID_API_KEY = env.str("SENDGRID_API_KEY")
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ACCOUNT_EMAIL_SUBJECT_PREFIX = 'ChronoCraft.com - '
 
-# WSGI_APPLICATION = 'backend.wsgi.application'
-WSGI_APPLICATION = 'vercel_app.wsgi.app'
+WSGI_APPLICATION = 'backend.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": env.dj_db_url("DATABASE_URL")
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -154,7 +157,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]  # new
+STATIC_ROOT = BASE_DIR / "staticfiles"  # new
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"  
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -215,16 +221,11 @@ REST_AUTH = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:8000",
-    "chronocraft.vercel.app",
-    "chronocraft.com",
-    'https://chronocraft.vercel.app/'
 ]
 
 
 # REMOVE THE COMMENT --------------------
-CSRF_TRUSTED_ORIGINS = ["http://localhost:5173", "chronocraft.vercel.app",
-    "chronocraft.com",
-    'https://chronocraft.vercel.app/']
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
 
 
 CORS_ALLOW_CREDENTIALS = True
