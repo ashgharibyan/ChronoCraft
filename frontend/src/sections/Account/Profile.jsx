@@ -32,7 +32,7 @@ const Profile = () => {
 
 		try {
 			const response = await axios.get(
-				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/user/",
+				"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/user/",
 				{
 					withCredentials: true,
 					headers: {
@@ -60,7 +60,7 @@ const Profile = () => {
 					console.log("getting a new token in the user fetching...");
 
 					const refreshResponse = await axios.post(
-						"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+						"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 						{},
 						{
 							withCredentials: true,
@@ -89,7 +89,7 @@ const Profile = () => {
 
 		try {
 			const response = await axios.post(
-				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/is-email-verified/",
+				"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/is-email-verified/",
 				{ user_id: user.pk },
 				{
 					withCredentials: true,
@@ -107,7 +107,7 @@ const Profile = () => {
 					const csrfToken = getCookie("csrftoken");
 
 					const refreshResponse = await axios.post(
-						"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+						"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 						{},
 						{
 							withCredentials: true,
@@ -169,7 +169,7 @@ const Profile = () => {
 			const csrfToken = getCookie("csrftoken");
 
 			const response = await axios.post(
-				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/logout/",
+				"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/logout/",
 				{},
 				{
 					withCredentials: true,
@@ -190,7 +190,7 @@ const Profile = () => {
 					const csrfToken = getCookie("csrftoken");
 
 					const refreshResponse = await axios.post(
-						"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+						"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 						{},
 						{
 							withCredentials: true,
@@ -232,7 +232,7 @@ const Profile = () => {
 		const csrfToken = getCookie("csrftoken");
 		try {
 			const response = await axios.patch(
-				`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/users/${user.pk}/`,
+				`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/users/${user.pk}/`,
 				userEditData,
 				{
 					withCredentials: true,
@@ -262,7 +262,7 @@ const Profile = () => {
 					const csrfToken = getCookie("csrftoken");
 
 					const refreshResponse = await axios.post(
-						"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+						"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 						{},
 						{
 							withCredentials: true,
@@ -338,7 +338,7 @@ const Profile = () => {
 
 		try {
 			const response = await axios.post(
-				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/delete-user/",
+				"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/delete-user/",
 				{ pk: user.pk },
 				{
 					withCredentials: true,
@@ -359,7 +359,7 @@ const Profile = () => {
 					const csrfToken = getCookie("csrftoken");
 
 					const refreshResponse = await axios.post(
-						"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+						"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 						{},
 						{
 							withCredentials: true,

@@ -49,7 +49,7 @@ const RegisterPage = () => {
 
 		axios
 			.post(
-				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/registration/",
+				"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/registration/",
 				regInfo,
 				{
 					withCredentials: true,

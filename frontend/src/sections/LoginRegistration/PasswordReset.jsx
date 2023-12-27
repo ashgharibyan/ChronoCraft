@@ -24,7 +24,7 @@ const PasswordReset = () => {
 	const axiosCall = () => {
 		axios
 			.post(
-				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/password/reset/",
+				"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/password/reset/",
 				{ email: email },
 				{ withCredentials: true }
 			)

@@ -169,7 +169,7 @@ const SidebarComponent = () => {
 			const csrfToken = getCookie("csrftoken");
 
 			const response = await axios.post(
-				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/logout/",
+				"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/logout/",
 				{},
 				{
 					withCredentials: true,
@@ -190,7 +190,7 @@ const SidebarComponent = () => {
 					const csrfToken = getCookie("csrftoken");
 
 					const refreshResponse = await axios.post(
-						"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+						"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 						{},
 						{
 							withCredentials: true,

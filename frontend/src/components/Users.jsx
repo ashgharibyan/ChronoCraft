@@ -7,7 +7,7 @@ const Users = () => {
 	useEffect(() => {
 		axios
 			.get(
-				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/users/",
+				"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/users/",
 				{
 					withCredentials: true,
 				}

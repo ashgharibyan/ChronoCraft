@@ -7,7 +7,7 @@ export const listProjectsAxios = async (setProjects, navigate) => {
 
 	try {
 		const response = await axios.get(
-			"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/",
+			"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/",
 			{
 				withCredentials: true,
 				headers: {
@@ -22,7 +22,7 @@ export const listProjectsAxios = async (setProjects, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -50,7 +50,7 @@ export const listProjectsPromiseAxios = async (navigate) => {
 
 	try {
 		const response = await axios.get(
-			"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/",
+			"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/",
 			{
 				withCredentials: true,
 				headers: {
@@ -65,7 +65,7 @@ export const listProjectsPromiseAxios = async (navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -94,7 +94,7 @@ export const getProjectByIdAxios = async (projectId, navigate) => {
 
 	try {
 		const response = await axios.get(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/${projectId}`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/${projectId}`,
 			{
 				withCredentials: true,
 				headers: {
@@ -108,7 +108,7 @@ export const getProjectByIdAxios = async (projectId, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -141,7 +141,7 @@ export const updateProjectByIdAxios = async (
 
 	try {
 		const response = await axios.put(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/${projectId}/`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/${projectId}/`,
 			updatedProject,
 			{
 				withCredentials: true,
@@ -155,7 +155,7 @@ export const updateProjectByIdAxios = async (
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -188,7 +188,7 @@ export const createProjectAxios = async (newProject, navigate) => {
 
 	try {
 		const response = await axios.post(
-			"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/",
+			"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/",
 			newProject,
 			{
 				withCredentials: true,
@@ -202,7 +202,7 @@ export const createProjectAxios = async (newProject, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -231,7 +231,7 @@ export const listFolderByProjectAxios = async (project_id, navigate) => {
 
 	try {
 		const response = await axios.get(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/folders/?project_id=${project_id}`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/folders/?project_id=${project_id}`,
 			{
 				withCredentials: true,
 				headers: {
@@ -246,7 +246,7 @@ export const listFolderByProjectAxios = async (project_id, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -275,7 +275,7 @@ export const getFolderByIdAxios = async (folderId, navigate) => {
 
 	try {
 		const response = await axios.get(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/folders/${folderId}`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/folders/${folderId}`,
 			{
 				withCredentials: true,
 				headers: {
@@ -289,7 +289,7 @@ export const getFolderByIdAxios = async (folderId, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -322,7 +322,7 @@ export const updateFolderByIdAxios = async (
 
 	try {
 		const response = await axios.put(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/folders/${folderId}/`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/folders/${folderId}/`,
 			updatedFolder,
 			{
 				withCredentials: true,
@@ -336,7 +336,7 @@ export const updateFolderByIdAxios = async (
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -365,7 +365,7 @@ export const createFolderAxios = async (newFolder, navigate) => {
 
 	try {
 		const response = await axios.post(
-			"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/folders/",
+			"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/folders/",
 			newFolder,
 			{
 				withCredentials: true,
@@ -379,7 +379,7 @@ export const createFolderAxios = async (newFolder, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -408,7 +408,7 @@ export const listListsByFolderAxios = async (folder_id, navigate) => {
 
 	try {
 		const response = await axios.get(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/lists/?folder_id=${folder_id}`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/lists/?folder_id=${folder_id}`,
 			{
 				withCredentials: true,
 				headers: {
@@ -423,7 +423,7 @@ export const listListsByFolderAxios = async (folder_id, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -452,7 +452,7 @@ export const createListAxios = async (newList, navigate) => {
 
 	try {
 		const response = await axios.post(
-			"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/lists/",
+			"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/lists/",
 			newList,
 			{
 				withCredentials: true,
@@ -466,7 +466,7 @@ export const createListAxios = async (newList, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -494,7 +494,7 @@ export const getListByIdAxios = async (list_id, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 	try {
 		const response = await axios.get(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/lists/${list_id}/`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/lists/${list_id}/`,
 			{
 				withCredentials: true,
 				headers: {
@@ -508,7 +508,7 @@ export const getListByIdAxios = async (list_id, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -536,7 +536,7 @@ export const updateListByIdAxios = async (list_id, newList, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 	try {
 		const response = await axios.put(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/lists/${list_id}/`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/lists/${list_id}/`,
 			newList,
 			{
 				withCredentials: true,
@@ -550,7 +550,7 @@ export const updateListByIdAxios = async (list_id, newList, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -579,7 +579,7 @@ export const listTasksByListAxios = async (listId, navigate) => {
 
 	try {
 		const response = await axios.get(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/tasks/?list_id=${listId}`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/tasks/?list_id=${listId}`,
 			{
 				withCredentials: true,
 				headers: {
@@ -595,7 +595,7 @@ export const listTasksByListAxios = async (listId, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -624,7 +624,7 @@ export const createTaskAxios = async (newTask, navigate) => {
 
 	try {
 		const response = await axios.post(
-			"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/tasks/",
+			"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/tasks/",
 			newTask,
 			{
 				withCredentials: true,
@@ -638,7 +638,7 @@ export const createTaskAxios = async (newTask, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -673,7 +673,7 @@ export const updateTaskByIdAxios = async (
 	// console.log("updating task", task_id, updatedData);
 	try {
 		const response = await axios.put(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/tasks/${task_id}/`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/tasks/${task_id}/`,
 			updatedData,
 			{
 				withCredentials: true,
@@ -693,7 +693,7 @@ export const updateTaskByIdAxios = async (
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -721,7 +721,7 @@ export const getTaskByIdAxios = async (task_id, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 	try {
 		const response = await axios.get(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/tasks/${task_id}/`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/tasks/${task_id}/`,
 			{
 				withCredentials: true,
 				headers: {
@@ -759,7 +759,7 @@ export const getTaskByIdAxios = async (task_id, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -788,7 +788,7 @@ export const fetchUserData = async (setUser, navigate) => {
 
 	try {
 		const response = await axios.get(
-			"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/user/",
+			"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/user/",
 			{
 				withCredentials: true,
 				headers: {
@@ -805,7 +805,7 @@ export const fetchUserData = async (setUser, navigate) => {
 				const csrfToken = getCookie("csrftoken");
 				console.log("Refreshing token");
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -835,7 +835,7 @@ export const deleteTaskByIdAxios = async (task_id, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 	try {
 		const response = await axios.delete(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/tasks/${task_id}/`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/tasks/${task_id}/`,
 			{
 				withCredentials: true,
 				headers: {
@@ -848,7 +848,7 @@ export const deleteTaskByIdAxios = async (task_id, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -876,7 +876,7 @@ export const deleteProjectByIdAxios = async (project_id, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 	try {
 		const response = await axios.delete(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/${project_id}/`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/${project_id}/`,
 			{
 				withCredentials: true,
 				headers: {
@@ -889,7 +889,7 @@ export const deleteProjectByIdAxios = async (project_id, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -917,7 +917,7 @@ export const deleteFolderByIdAxios = async (folder_id, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 	try {
 		const response = await axios.delete(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/folders/${folder_id}/`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/folders/${folder_id}/`,
 			{
 				withCredentials: true,
 				headers: {
@@ -930,7 +930,7 @@ export const deleteFolderByIdAxios = async (folder_id, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -958,7 +958,7 @@ export const deleteListByIdAxios = async (list_id, navigate) => {
 	const csrfToken = getCookie("csrftoken");
 	try {
 		const response = await axios.delete(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/lists/${list_id}/`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/lists/${list_id}/`,
 			{
 				withCredentials: true,
 				headers: {
@@ -971,7 +971,7 @@ export const deleteListByIdAxios = async (list_id, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -1001,7 +1001,7 @@ export const searchProject = async (searchTerm, navigate) => {
 
 	try {
 		const response = await axios.get(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/search/?project_title=${searchTerm}`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/search/?project_title=${searchTerm}`,
 			{
 				withCredentials: true,
 				headers: {
@@ -1015,7 +1015,7 @@ export const searchProject = async (searchTerm, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -1044,7 +1044,7 @@ export const searchFolder = async (searchTerm, navigate) => {
 
 	try {
 		const response = await axios.get(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/folders/search/?folder_name=${searchTerm}`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/folders/search/?folder_name=${searchTerm}`,
 			{
 				withCredentials: true,
 				headers: {
@@ -1058,7 +1058,7 @@ export const searchFolder = async (searchTerm, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -1087,7 +1087,7 @@ export const searchList = async (searchTerm, navigate) => {
 
 	try {
 		const response = await axios.get(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/lists/search/?list_name=${searchTerm}`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/lists/search/?list_name=${searchTerm}`,
 			{
 				withCredentials: true,
 				headers: {
@@ -1101,7 +1101,7 @@ export const searchList = async (searchTerm, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -1130,7 +1130,7 @@ export const searchTask = async (searchTerm, navigate) => {
 
 	try {
 		const response = await axios.get(
-			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/tasks/search/?task_name=${searchTerm}`,
+			`https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/tasks/search/?task_name=${searchTerm}`,
 			{
 				withCredentials: true,
 				headers: {
@@ -1144,7 +1144,7 @@ export const searchTask = async (searchTerm, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"https://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,

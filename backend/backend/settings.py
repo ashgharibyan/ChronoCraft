@@ -96,8 +96,8 @@ TEMPLATES = [
 ]
 
 
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://chronocraft-frontend-4dd2abad499f.herokuapp.com/account/confirmed'
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://chronocraft-frontend-4dd2abad499f.herokuapp.com/dashboard'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'https://chronocraft-frontend-4dd2abad499f.herokuapp.com/account/confirmed'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'https://chronocraft-frontend-4dd2abad499f.herokuapp.com/dashboard'
 # ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'http://localhost:5173/account/confirmed'
 # ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'http://localhost:5173/dashboard'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
@@ -224,14 +224,14 @@ REST_AUTH = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:8000",
-    "http://chronocraft-frontend-4dd2abad499f.herokuapp.com",
+    "https://chronocraft-frontend-4dd2abad499f.herokuapp.com",
     'https://chronocraft-backend-b55cb29d1834.herokuapp.com'
 ]
 
 
 
 # REMOVE THE COMMENT --------------------
-CSRF_TRUSTED_ORIGINS = ["http://chronocraft-frontend-4dd2abad499f.herokuapp.com"]
+CSRF_TRUSTED_ORIGINS = ["https://chronocraft-frontend-4dd2abad499f.herokuapp.com"]
 # CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
 
 
