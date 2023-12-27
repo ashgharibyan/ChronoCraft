@@ -88,23 +88,26 @@ const Dashboard = () => {
 				// console.log("--------------------");
 				// console.log(projectsData);
 				let tempProjectsData = projectsData;
-				if (tempProjectsData?.length > 3) {
-					tempProjectsData = tempProjectsData.slice(
-						tempProjectsData.length - 3,
-						tempProjectsData.length
-					);
+				if (tempProjectsData) {
+					if (tempProjectsData?.length > 3) {
+						tempProjectsData = tempProjectsData.slice(
+							tempProjectsData.length - 3,
+							tempProjectsData.length
+						);
+					} else {
+						tempProjectsData = tempProjectsData.slice(
+							0,
+							tempProjectsData.length
+						);
+					}
+					setLast3Projects(tempProjectsData);
 				} else {
-					tempProjectsData = tempProjectsData.slice(
-						0,
-						tempProjectsData.length
-					);
+					setLast3Projects([]);
 				}
-
-				setLast3Projects(tempProjectsData);
 			} catch (error) {
 				// Handle any errors
 				console.error(
-					"Error fetching folder data in Dashboard.jsx useeffect 222:",
+					"Error fetching projects data in Dashboard.jsx useeffect 222:",
 					error
 				);
 			}
