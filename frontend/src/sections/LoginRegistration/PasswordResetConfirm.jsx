@@ -49,7 +49,7 @@ const PasswordResetConfirm = () => {
 
 		axios
 			.post(
-				"http://localhost:8000/api/v1/accounts/dj-rest-auth/password/reset/confirm/",
+				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/password/reset/confirm/",
 				passwordData,
 				{ withCredentials: true }
 			)

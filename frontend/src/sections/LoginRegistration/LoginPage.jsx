@@ -41,7 +41,7 @@ const LoginPage = () => {
 
 		axios
 			.post(
-				"http://localhost:8000/api/v1/accounts/dj-rest-auth/login/",
+				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/login/",
 				loginInfo,
 				{
 					withCredentials: true,

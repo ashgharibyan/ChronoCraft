@@ -57,7 +57,7 @@ const PasswordChange = () => {
 		// const csrfToken = getCookie("csrftoken");
 		// axios
 		//   .post(
-		//     "http://localhost:8000/api/v1/accounts/dj-rest-auth/password/change/",
+		//     "http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/password/change/",
 		//     passwordData,
 		//     {
 		//       withCredentials: true,
@@ -83,7 +83,7 @@ const PasswordChange = () => {
 
 		try {
 			const response = await axios.post(
-				"http://localhost:8000/api/v1/accounts/dj-rest-auth/password/change/",
+				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/password/change/",
 				passwordData,
 				{
 					withCredentials: true,
@@ -101,7 +101,7 @@ const PasswordChange = () => {
 				// Try to refresh the token
 				try {
 					const refreshResponse = await axios.post(
-						"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/"
+						"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/"
 					);
 
 					// Assuming the new token is in the access property (adjust as needed)

@@ -6,9 +6,12 @@ const Users = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:8000/api/v1/accounts/users/", {
-				withCredentials: true,
-			})
+			.get(
+				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/users/",
+				{
+					withCredentials: true,
+				}
+			)
 			.then((res) => {
 				console.log(res);
 				setUsers(res.data.results);

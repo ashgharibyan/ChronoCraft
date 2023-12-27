@@ -30,7 +30,7 @@ const ContactForm = () => {
 		const csrfToken = getCookie("csrftoken");
 		axios
 			.post(
-				"http://localhost:8000/api/v1/core/home/contact-form/",
+				"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/core/home/contact-form/",
 				contactInfo,
 				{
 					withCredentials: true,

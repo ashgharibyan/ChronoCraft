@@ -19,7 +19,7 @@ const EmailConfirm = () => {
 	// 	// Call the API endpoint to confirm the email
 	// 	axios
 	// 		.post(
-	// 			`http://localhost:8000/api/v1/accounts/dj-rest-auth/registration/verify-email/`,
+	// 			`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/registration/verify-email/`,
 	// 			{ key: key },
 	// 			{
 	// 				withCredentials: true,
@@ -41,7 +41,7 @@ const EmailConfirm = () => {
 		const csrfToken = getCookie("csrftoken");
 		try {
 			const response = await axios.post(
-				`http://localhost:8000/api/v1/accounts/dj-rest-auth/registration/verify-email/`,
+				`http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/registration/verify-email/`,
 				{ key: key },
 				{
 					withCredentials: true,

@@ -53,7 +53,7 @@ export const fetchUserData = async (setUser, navigate) => {
 
 	try {
 		const response = await axios.get(
-			"http://localhost:8000/api/v1/accounts/dj-rest-auth/user/",
+			"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/user/",
 			{
 				withCredentials: true,
 				headers: {
@@ -67,7 +67,7 @@ export const fetchUserData = async (setUser, navigate) => {
 		if (err.response && err.response.status === 401) {
 			try {
 				const refreshResponse = await axios.post(
-					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
@@ -96,7 +96,7 @@ export const projectsAxios = async (setProjects, navigate) => {
 
 	try {
 		const response = await axios.get(
-			"http://localhost:8000/api/v1/projects/",
+			"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/projects/",
 			{
 				withCredentials: true,
 				headers: {
@@ -113,7 +113,7 @@ export const projectsAxios = async (setProjects, navigate) => {
 				const csrfToken = getCookie("csrftoken");
 
 				const refreshResponse = await axios.post(
-					"http://localhost:8000/api/v1/accounts/dj-rest-auth/token/refresh/",
+					"http://chronocraft-backend-b55cb29d1834.herokuapp.com/api/v1/accounts/dj-rest-auth/token/refresh/",
 					{},
 					{
 						withCredentials: true,
