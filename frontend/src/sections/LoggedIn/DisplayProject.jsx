@@ -236,14 +236,6 @@ const DisplayProject = () => {
 								>
 									<button className="p-2">Open Folder</button>
 								</Link>
-								<Link
-									to={`/dashboard/project/${project_id}/folder/${folder.id}/edit`}
-									className="w-full p-2 border border-1 border-gray-400 flex items-center justify-center gap-2 hover:bg-gray-50 hover:text-gray-800"
-								>
-									<button className="p-2 ">
-										Edit Folder
-									</button>
-								</Link>
 							</div>
 						</div>
 					))}

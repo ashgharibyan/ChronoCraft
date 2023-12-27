@@ -210,12 +210,6 @@ const DisplayFolder = () => {
 								>
 									<button className="p-2 ">Open List</button>
 								</Link>
-								<Link
-									to={`/dashboard/project/${project_id}/folder/${folder_id}/list/${list.id}/edit`}
-									className="w-full p-2 border border-1 border-gray-400 flex items-center justify-center gap-2 hover:bg-gray-50 hover:text-gray-800"
-								>
-									<button className="p-2 ">Edit List</button>
-								</Link>
 							</div>
 						</div>
 					))}
