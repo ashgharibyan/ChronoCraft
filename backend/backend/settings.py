@@ -213,12 +213,21 @@ REST_AUTH = {
     'JWT_AUTH_COOKIE': None,
     'JWT_AUTH_REFRESH_COOKIE': "refresh",
     'JWT_AUTH_REFRESH_COOKIE_PATH': '/',
-    'JWT_AUTH_SECURE': False,
+    'JWT_AUTH_SECURE': True,  # Set to True for HTTPS
     'JWT_AUTH_HTTPONLY': True,
-    'JWT_AUTH_SAMESITE': 'Lax',
+    'JWT_AUTH_SAMESITE': 'None',  # Set to 'None' for cross-domain cookies
     'JWT_AUTH_RETURN_EXPIRATION': False,
     'JWT_AUTH_COOKIE_USE_CSRF': False,
     'JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED': False,
+    # 'JWT_AUTH_COOKIE': None,
+    # 'JWT_AUTH_REFRESH_COOKIE': "refresh",
+    # 'JWT_AUTH_REFRESH_COOKIE_PATH': '/',
+    # 'JWT_AUTH_SECURE': False,
+    # 'JWT_AUTH_HTTPONLY': True,
+    # 'JWT_AUTH_SAMESITE': 'Lax',
+    # 'JWT_AUTH_RETURN_EXPIRATION': False,
+    # 'JWT_AUTH_COOKIE_USE_CSRF': False,
+    # 'JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED': False,
 }
 
 CORS_ALLOWED_ORIGINS = [
@@ -238,6 +247,8 @@ CSRF_TRUSTED_ORIGINS = ["https://chronocraft-frontend-4dd2abad499f.herokuapp.com
 CORS_ALLOW_CREDENTIALS = True
 # Change to false
 CORS_ORIGIN_ALLOW_ALL = False 
+
+
 
 
 SIMPLE_JWT = {
@@ -278,5 +289,9 @@ SIMPLE_JWT = {
     "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
+
+    'JWT_AUTH_COOKIE_SECURE': True,  # Use Secure cookie for HTTPS
+    'JWT_AUTH_REFRESH_COOKIE_SECURE': True,  # Use Secure cookie for HTTPS
+    'JWT_AUTH_REFRESH_COOKIE_SAMESITE': 'None',  # Required for cross-domain cookies
 }
 
