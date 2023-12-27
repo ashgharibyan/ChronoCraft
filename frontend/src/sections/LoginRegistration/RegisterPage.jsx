@@ -134,7 +134,7 @@ const RegisterPage = () => {
 					<h1 className="text-2xl font-semibold mb-4">Sign Up!</h1>
 
 					{/* Error Handling */}
-					{regErrors.length > 0 ? (
+					{regErrors?.length > 0 ? (
 						<div className=" mb-4 ">
 							<div className="bg-red-50 border-l-8 border-red-900">
 								<div className="flex items-center">

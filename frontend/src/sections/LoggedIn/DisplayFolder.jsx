@@ -184,7 +184,7 @@ const DisplayFolder = () => {
 					</button>
 				</div>
 			</div>
-			{lists.length > 0 ? (
+			{lists?.length > 0 ? (
 				<div className=" p-4 w-full flex justify-start items-center flex-col   ">
 					{lists.map((list) => (
 						<div

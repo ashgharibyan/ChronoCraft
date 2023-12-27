@@ -227,7 +227,7 @@ const ListDisplay = () => {
 					</button>
 				</div>
 			</div>
-			{tasks.length > 0 ? (
+			{tasks?.length > 0 ? (
 				<div className=" w-full flex justify-start flex-col gap-1  ">
 					<div className=" ">
 						<div

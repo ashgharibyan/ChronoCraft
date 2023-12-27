@@ -94,7 +94,7 @@ const PasswordReset = () => {
 				<h1 className="text-2xl font-semibold mb-4">Reset Password</h1>
 
 				{/* Error Handling */}
-				{emailErrors.length > 0 ? (
+				{emailErrors?.length > 0 ? (
 					<div className=" mb-4 ">
 						<div className="bg-red-50 border-l-8 border-red-900">
 							<div className="flex items-center">

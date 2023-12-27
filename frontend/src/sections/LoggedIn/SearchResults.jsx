@@ -145,7 +145,7 @@ const SearchResults = () => {
 								)}
 							</div>
 							{isProjectsOpen &&
-								(projectResults.length > 0 ? (
+								(projectResults?.length > 0 ? (
 									projectResults.map((project) => (
 										<Link
 											to={`/dashboard/project/${project.id}`}
@@ -177,7 +177,7 @@ const SearchResults = () => {
 								)}
 							</div>
 							{isFoldersOpen &&
-								(folderResults.length > 0 ? (
+								(folderResults?.length > 0 ? (
 									folderResults.map((folder) => (
 										<Link
 											to={`/dashboard/project/${folder.parent_project}/folder/${folder.id}`}
@@ -209,7 +209,7 @@ const SearchResults = () => {
 								)}
 							</div>
 							{isListsOpen &&
-								(listResults.length > 0 ? (
+								(listResults?.length > 0 ? (
 									listResults.map((list) => (
 										<Link
 											to={`/dashboard/${list.parent_project_id}/${list.parent_folder}/${list.id}`}
@@ -241,7 +241,7 @@ const SearchResults = () => {
 								)}
 							</div>
 							{isTasksOpen &&
-								(listResults.length > 0 ? (
+								(listResults?.length > 0 ? (
 									taskResults.map((task) => (
 										<Link
 											to={`/dashboard/${task.parent_project_id}/${task.parent_folder_id}/${task.parent_list}/${task.id}`}

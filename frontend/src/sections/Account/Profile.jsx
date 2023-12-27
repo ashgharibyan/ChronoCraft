@@ -464,7 +464,7 @@ const Profile = () => {
 										Edit your profile
 									</h1>
 									{/* Error Handling */}
-									{editErrors.length > 0 ? (
+									{editErrors?.length > 0 ? (
 										<div className="bg-red-500 text-white mb-4  ">
 											<div className="flex items-center">
 												<div className="p-2">

@@ -211,7 +211,7 @@ const DisplayProject = () => {
 				</div>
 			</div>
 
-			{folders.length > 0 ? (
+			{folders?.length > 0 ? (
 				<div className=" p-4 w-full flex justify-start items-center flex-col   ">
 					{folders.map((folder) => (
 						<div
