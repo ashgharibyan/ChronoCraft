@@ -30,7 +30,10 @@ const EditFolder = () => {
 				setFolder(folderData);
 			} catch (error) {
 				// Handle any errors
-				console.error("Error fetching folder data:", error);
+				console.error(
+					"Error fetching folder data in EditFolder.jsx useEffect 333:",
+					error
+				);
 			}
 		};
 

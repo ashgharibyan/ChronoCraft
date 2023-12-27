@@ -88,7 +88,7 @@ const Dashboard = () => {
 				// console.log("--------------------");
 				// console.log(projectsData);
 				let tempProjectsData = projectsData;
-				if (tempProjectsData.length > 3) {
+				if (tempProjectsData?.length > 3) {
 					tempProjectsData = tempProjectsData.slice(
 						tempProjectsData.length - 3,
 						tempProjectsData.length
@@ -103,7 +103,10 @@ const Dashboard = () => {
 				setLast3Projects(tempProjectsData);
 			} catch (error) {
 				// Handle any errors
-				console.error("Error fetching folder data:", error);
+				console.error(
+					"Error fetching folder data in Dashboard.jsx useeffect 222:",
+					error
+				);
 			}
 		};
 

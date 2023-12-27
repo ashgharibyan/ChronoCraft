@@ -308,7 +308,7 @@ export const getFolderByIdAxios = async (folderId, navigate) => {
 				navigate("/login");
 			}
 		} else {
-			console.error("Error fetching folder data", err);
+			console.error("Error fetching folder data in ModelAxios.jsx ", err);
 		}
 	}
 };

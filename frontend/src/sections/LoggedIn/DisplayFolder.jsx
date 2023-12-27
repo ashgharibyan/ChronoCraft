@@ -44,7 +44,10 @@ const DisplayFolder = () => {
 					console.log("inside of try folder by id", folderData);
 				} catch (error) {
 					// Handle any errors
-					console.error("Error fetching folder data:", error);
+					console.error(
+						"Error fetching folder data (in Displayfolder.jsx useeffect 111):",
+						error
+					);
 				}
 			};
 
