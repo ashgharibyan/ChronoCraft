@@ -18,40 +18,42 @@ function App() {
 	return (
 		<BrowserRouter>
 			<GeneralProvider>
-				<ModelProvider>
-					<HomePageProvider>
-						<Routes>
-							<Route
-								path="/*"
-								element={
-									<PublicLayout>
-										<PublicRoutes />
-									</PublicLayout>
-								}
-							/>
-							<Route
-								path="/dashboard/*"
-								element={
-									<LoggedInLayout>
-										<LoggedInRoutes />
-									</LoggedInLayout>
-								}
-							/>
-							<Route
-								path="/account/*"
-								element={
-									<AccountLayout>
-										<AccountRoutes />
-									</AccountLayout>
-								}
-							/>
-							<Route path="*" element={<NotFound />}>
-								"Not Found"
-							</Route>
-							<Route path="/users" element={<Users />} />
-						</Routes>
-					</HomePageProvider>
-				</ModelProvider>
+				<UserProvider>
+					<ModelProvider>
+						<HomePageProvider>
+							<Routes>
+								<Route
+									path="/*"
+									element={
+										<PublicLayout>
+											<PublicRoutes />
+										</PublicLayout>
+									}
+								/>
+								<Route
+									path="/dashboard/*"
+									element={
+										<LoggedInLayout>
+											<LoggedInRoutes />
+										</LoggedInLayout>
+									}
+								/>
+								<Route
+									path="/account/*"
+									element={
+										<AccountLayout>
+											<AccountRoutes />
+										</AccountLayout>
+									}
+								/>
+								<Route path="*" element={<NotFound />}>
+									"Not Found"
+								</Route>
+								<Route path="/users" element={<Users />} />
+							</Routes>
+						</HomePageProvider>
+					</ModelProvider>
+				</UserProvider>
 			</GeneralProvider>
 		</BrowserRouter>
 	);
