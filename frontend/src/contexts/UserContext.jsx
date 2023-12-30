@@ -1,5 +1,4 @@
 import React, { createContext, useState, useContext } from "react";
-import { useGeneral } from "./GeneralContext";
 
 // Create Context object.
 export const UserContext = createContext();
@@ -7,11 +6,9 @@ export const UserContext = createContext();
 // Create a provider component.
 export const UserProvider = ({ children }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [triggerSidebarRefresh, setTriggerSidebarRefresh] = useGeneral();
 
 	const logIn = () => setIsLoggedIn(true);
 	const logOut = () => {
-		setTriggerSidebarRefresh(true);
 		setIsLoggedIn(false);
 	};
 

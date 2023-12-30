@@ -6,9 +6,7 @@ import SidebarButton from "../../components/Sidebar/SidebarButton";
 import ProjectButton from "../../components/Sidebar/ProjectButton";
 import { MdSpaceDashboard } from "react-icons/md";
 import { SiCodereview } from "react-icons/si";
-import { BsCalendarRange } from "react-icons/bs";
-import { IoSettingsOutline } from "react-icons/io5";
-import { LuGoal } from "react-icons/lu";
+
 import { VscAccount } from "react-icons/vsc";
 import { BiLogOutCircle } from "react-icons/bi";
 import { useGeneral } from "../../contexts/GeneralContext";
