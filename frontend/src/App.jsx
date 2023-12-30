@@ -13,6 +13,7 @@ import PublicRoutes from "./routes/PublicRoutes";
 import AccountLayout from "./layouts/AccountLayout";
 import AccountRoutes from "./routes/AccountRoutes";
 import { ModelProvider } from "./contexts/ModelContext";
+import { UserProvider } from "./contexts/UserContext";
 
 function App() {
 	return (
