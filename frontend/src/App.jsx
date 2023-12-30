@@ -19,8 +19,8 @@ function App() {
 	return (
 		<BrowserRouter>
 			<GeneralProvider>
-				<UserProvider>
-					<ModelProvider>
+				<ModelProvider>
+					<UserProvider>
 						<HomePageProvider>
 							<Routes>
 								<Route
@@ -53,8 +53,8 @@ function App() {
 								<Route path="/users" element={<Users />} />
 							</Routes>
 						</HomePageProvider>
-					</ModelProvider>
-				</UserProvider>
+					</UserProvider>
+				</ModelProvider>
 			</GeneralProvider>
 		</BrowserRouter>
 	);

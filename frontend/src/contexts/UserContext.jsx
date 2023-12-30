@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext } from "react";
 import { useGeneral } from "./GeneralContext";
+import { useModel } from "./ModelContext";
 
 // Create Context object.
 export const UserContext = createContext();
@@ -8,16 +9,36 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const {
-		triggerSidebarRefresh,
 		setTriggerSidebarRefresh,
-		triggerSidebarFolderRefresh,
 		setTriggerSidebarFolderRefresh,
-		triggerSidebarListRefresh,
 		setTriggerSidebarListRefresh,
 	} = useGeneral();
+
+	const {
+		projects,
+		setProjects,
+		setSelectedProject,
+		setFolders,
+		setSelectedFolder,
+		setLists,
+		setSelectedList,
+		setTasks,
+		setSelectedTask,
+	} = useModel();
+
 	const logIn = () => setIsLoggedIn(true);
 	const logOut = () => {
 		setTriggerSidebarRefresh(true);
+		setTriggerSidebarFolderRefresh(true);
+		setTriggerSidebarListRefresh(true);
+		setProjects([]);
+		setSelectedProject("");
+		setFolders([]);
+		setSelectedFolder(null);
+		setLists([]);
+		setSelectedList("");
+		setTasks([]);
+		setSelectedTask("");
 		setIsLoggedIn(false);
 	};
 
