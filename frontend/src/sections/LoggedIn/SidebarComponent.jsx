@@ -216,6 +216,7 @@ const SidebarComponent = () => {
 
 	const handleLogout = () => {
 		logoutAxios();
+
 		logOut();
 	};
 
