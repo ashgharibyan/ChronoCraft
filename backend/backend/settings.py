@@ -30,7 +30,7 @@ SECRET_KEY = env.str("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1', 'chronocraft-2bed77306ebc.herokuapp.com', 'chronocraft-backend-b55cb29d1834.herokuapp.com', 'chronocraft-frontend-4dd2abad499f.herokuapp.com']
+ALLOWED_HOSTS = ['testserver', 'localhost', '127.0.0.1', 'chronocraft-2bed77306ebc.herokuapp.com', 'chronocraft-backend-b55cb29d1834.herokuapp.com', 'chronocraft-frontend-4dd2abad499f.herokuapp.com', 'chronocraftusa.com']
 
 
 # Application definition
@@ -234,13 +234,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:8000",
     "https://chronocraft-frontend-4dd2abad499f.herokuapp.com",
+    "http://www.chronocraftusa.com",
     'https://chronocraft-backend-b55cb29d1834.herokuapp.com'
 ]
 
 
 
 # REMOVE THE COMMENT --------------------
-CSRF_TRUSTED_ORIGINS = ["https://chronocraft-frontend-4dd2abad499f.herokuapp.com"]
+CSRF_TRUSTED_ORIGINS = ["https://chronocraft-frontend-4dd2abad499f.herokuapp.com", "http://www.chronocraftusa.com"]
 # CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
 
 
