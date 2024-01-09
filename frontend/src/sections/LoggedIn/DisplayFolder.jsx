@@ -113,7 +113,7 @@ const DisplayFolder = () => {
 		navigate("/dashboard");
 	};
 
-	return (
+	return currentFolder ? (
 		<div
 			id="display-folder"
 			className="bg-gray-50 overflow-y-scroll min-h-full overflow-x-scroll m-4  flex flex-col "
@@ -219,6 +219,10 @@ const DisplayFolder = () => {
 					No lists in this folder
 				</div>
 			)}
+		</div>
+	) : (
+		<div className="flex justify-center items-center w-screen h-full">
+			<ClockIcon className=" w-20 h-20 text-indigo-600 animate-spin" />
 		</div>
 	);
 };

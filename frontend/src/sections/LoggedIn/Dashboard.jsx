@@ -85,7 +85,9 @@ const Dashboard = () => {
 			try {
 				const projectsData = await listProjectsPromiseAxios(navigate);
 				// Handle the folder data
-				// console.log("--------------------");
+				console.log(
+					"-------------------- IN FETCH Projects Data - Dashboard.jsx"
+				);
 				// console.log(projectsData);
 				let tempProjectsData = projectsData;
 				if (tempProjectsData) {
@@ -168,8 +170,8 @@ const Dashboard = () => {
 	};
 
 	const handleLogout = () => {
-		logoutAxios();
 		logOut();
+		logoutAxios();
 	};
 
 	return (
