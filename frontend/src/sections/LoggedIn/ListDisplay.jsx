@@ -157,7 +157,7 @@ const ListDisplay = () => {
 		navigate("/dashboard");
 	};
 
-	return (
+	return currentList ? (
 		<div className="bg-gray-50 overflow-y-scroll min-h-full overflow-x-scroll   flex flex-col">
 			<div className="flex items-center justify-between gap-2 max-w-full p-4 m-4 ">
 				{currentList &&
@@ -312,6 +312,10 @@ const ListDisplay = () => {
 					No tasks in this list
 				</div>
 			)}
+		</div>
+	) : (
+		<div className="flex justify-center items-center w-screen h-full">
+			<ClockIcon className=" w-20 h-20 text-indigo-600 animate-spin" />
 		</div>
 	);
 };

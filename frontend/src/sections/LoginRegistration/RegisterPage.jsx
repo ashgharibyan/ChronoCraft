@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { signupPage } from "../../assets/index";
+import { useUser } from "../../contexts/UserContext";
 
 function getCookie(name) {
 	let value = "; " + document.cookie;
@@ -20,6 +21,8 @@ const RegisterPage = () => {
 	const [regInfo, setRegInfo] = useState(initialRegInfo);
 	const [regErrors, setRegErrors] = useState([]);
 	const navigate = useNavigate();
+
+	const { logIn } = useUser();
 
 	const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
@@ -64,6 +67,7 @@ const RegisterPage = () => {
 				localStorage.setItem("jwtToken", res.data.access);
 				axios.defaults.headers.common["Authorization"] =
 					"JWT " + res.data.access;
+				logIn();
 				navigate("/dashboard");
 			})
 			.catch((err) => {
