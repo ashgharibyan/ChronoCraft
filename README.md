@@ -19,8 +19,11 @@ Visit the live application: [Chronocraft](https://chronocraftusa.com/)
 
 Contact
 Ashot Gharibyan
+
 Email: ashghcode@gmail.com
+
 LinkedIn: https://www.linkedin.com/in/ashgharibyan/
+
 Project Link: https://github.com/ashgharibyan/ChronoCraft
 
  Screenshots:
