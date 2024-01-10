@@ -23,10 +23,10 @@ Email: ashghcode@gmail.com
 LinkedIn: https://www.linkedin.com/in/ashgharibyan/
 Project Link: https://github.com/ashgharibyan/ChronoCraft
 
+ Screenshots:
 
-You can customize the "Contact" section and other details as needed for your specific project and personal information.
+![www chronocraftusa com_](https://github.com/ashgharibyan/ChronoCraft/assets/119915091/dc9ee92d-42ab-4a16-9e00-67b271bd6942)
 
-
-
+![www chronocraftusa com_ (1)](https://github.com/ashgharibyan/ChronoCraft/assets/119915091/1c05a138-ac6d-4dc0-a3fc-3966954a6c59)
 
 
