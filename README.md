@@ -17,60 +17,12 @@ Chronocraft is a comprehensive Project Management Application developed to optim
 ## Live Application
 Visit the live application: [Chronocraft](https://chronocraftusa.com/)
 
-## Repository
-Access the source code on GitHub: [ChronoCraft GitHub Repository](https://github.com/ashgharibyan/ChronoCraft)
-
-## Getting Started
-To get a local copy up and running, follow these simple steps.
-
-### Prerequisites
-- npm
-  ```sh
-  npm install npm@latest -g
-Python 3.x
-Installation
-Clone the repo
-
-sh
-git clone https://github.com/ashgharibyan/ChronoCraft.git
-Install NPM packages
-
-sh
-npm install
-Set up your local environment variables in .env
-
-Run the Django server
-
-sh
-python manage.py runserver
-Start the React application
-
-sh
-npm start
-Contributing
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
-
-Fork the Project
-Create your Feature Branch (git checkout -b feature/AmazingFeature)
-Commit your Changes (git commit -m 'Add some AmazingFeature')
-Push to the Branch (git push origin feature/AmazingFeature)
-Open a Pull Request
-License
-Distributed under the MIT License. See LICENSE for more information.
-
 Contact
-Your Name
-Email: your-email@example.com
-Twitter: @your_twitter
-LinkedIn: Your LinkedIn
+Ashot Gharibyan
+Email: ashghcode@gmail.com
+LinkedIn: https://www.linkedin.com/in/ashgharibyan/
 Project Link: https://github.com/ashgharibyan/ChronoCraft
-Acknowledgments
-React
-Django
-Tailwind CSS
-JWT
-Heroku
-rust
+
 
 You can customize the "Contact" section and other details as needed for your specific project and personal information.
 
