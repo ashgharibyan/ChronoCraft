@@ -295,7 +295,7 @@ const SidebarComponent = () => {
 						</div>
 						{/* <div className="space-y-1 overflow-y-scroll max-h-[425px] "> */}
 						<div className="space-y-1 no-scrollbar overflow-y-scroll min-h-[200px] max-h-[calc(100vh-450px)] ">
-							{projects &&
+							{projects?.length > 0 &&
 								projects.map((project, idx) => (
 									<ProjectButton
 										label={project.title}
