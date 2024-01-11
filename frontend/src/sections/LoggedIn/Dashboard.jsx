@@ -88,7 +88,7 @@ const Dashboard = () => {
 				console.log(
 					"-------------------- IN FETCH Projects Data - Dashboard.jsx"
 				);
-				// console.log(projectsData);
+				console.log(projectsData);
 				let tempProjectsData = projectsData;
 				if (tempProjectsData) {
 					if (tempProjectsData?.length > 3) {
