@@ -31,7 +31,8 @@ const RegisterPage = () => {
 		const jwtToken = localStorage.getItem("jwtToken");
 
 		if (jwtToken) {
-			axios.defaults.headers.common["Authorization"] = "JWT " + jwtToken;
+			axios.defaults.headers.common["Authorization"] =
+				"Bearer " + jwtToken;
 			navigate("/dashboard");
 		} else {
 			axios.defaults.headers.common["Authorization"] = null;
@@ -66,7 +67,7 @@ const RegisterPage = () => {
 				// console.log(res.data);
 				localStorage.setItem("jwtToken", res.data.access);
 				axios.defaults.headers.common["Authorization"] =
-					"JWT " + res.data.access;
+					"Bearer " + res.data.access;
 				logIn();
 				navigate("/dashboard");
 			})

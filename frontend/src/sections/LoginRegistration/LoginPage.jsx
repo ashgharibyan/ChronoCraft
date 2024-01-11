@@ -23,7 +23,8 @@ const LoginPage = () => {
 		const jwtToken = localStorage.getItem("jwtToken");
 
 		if (jwtToken) {
-			axios.defaults.headers.common["Authorization"] = "JWT " + jwtToken;
+			axios.defaults.headers.common["Authorization"] =
+				"Bearer " + jwtToken;
 			navigate("/dashboard");
 		} else {
 			axios.defaults.headers.common["Authorization"] = null;
