@@ -55,7 +55,7 @@ const LoginPage = () => {
 				// console.log(res.data);
 				localStorage.setItem("jwtToken", res.data.access);
 				axios.defaults.headers.common["Authorization"] =
-					"JWT " + res.data.access;
+					"Bearer " + res.data.access;
 
 				logIn();
 				navigate("/dashboard");
