@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useHomePage } from "../../contexts/HomePageContext";
 
 const Hero = () => {
+	const { aboutRef } = useHomePage();
+	const scrollToRef = (ref) => {
+		ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+	};
+
 	return (
 		<div className="relative isolate px-6  lg:px-8">
 			<div
@@ -33,7 +39,8 @@ const Hero = () => {
 							JOIN NOW
 						</Link>
 						<Link
-							to="/#"
+							to="/"
+							onClick={() => scrollToRef(aboutRef)}
 							className="text-sm font-semibold leading-6 text-gray-900"
 						>
 							Learn More <span aria-hidden="true">→</span>
